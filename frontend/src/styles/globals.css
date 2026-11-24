@@ -1,0 +1,85 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+:root {
+  color-scheme: light;
+  --mellow-lavender: #e9e0f4;
+  --mellow-cream: #f8f4ec;
+  --mellow-sage: #dce8d9;
+  --mellow-terracotta: #d9a69c;
+  --mellow-plum: #51465d;
+  --background: var(--mellow-cream);
+  --foreground: var(--mellow-plum);
+  --card: var(--background);
+  --card-foreground: var(--foreground);
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+  --primary: var(--mellow-plum);
+  --primary-foreground: var(--mellow-cream);
+  --secondary: var(--mellow-sage);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--mellow-lavender);
+  --muted-foreground: var(--foreground);
+  --accent: var(--mellow-terracotta);
+  --accent-foreground: #41354b;
+  --destructive: #852f3e;
+  --destructive-foreground: var(--mellow-cream);
+  --border: #82748f;
+  --input: var(--border);
+  --ring: var(--mellow-plum);
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --color-lavender: var(--mellow-lavender);
+  --color-cream: var(--mellow-cream);
+  --color-sage: var(--mellow-sage);
+  --color-terracotta: var(--mellow-terracotta);
+  --color-plum: var(--mellow-plum);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: 'Nunito Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-heading: 'Lora Variable', ui-serif, Georgia, serif;
+  --font-handwritten: 'Caveat Variable', cursive;
+}
+
+@layer base {
+  body {
+    @apply bg-background font-sans text-foreground;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
