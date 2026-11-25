@@ -12,6 +12,14 @@ export function RootLayout() {
   const previousPath = useRef(pathname)
 
   useEffect(() => {
+    const previousRestoration = window.history.scrollRestoration
+    window.history.scrollRestoration = 'manual'
+    return () => {
+      window.history.scrollRestoration = previousRestoration
+    }
+  }, [])
+
+  useEffect(() => {
     if (previousPath.current === pathname) return
     previousPath.current = pathname
     main.current?.focus({ preventScroll: true })

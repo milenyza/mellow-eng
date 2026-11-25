@@ -55,7 +55,11 @@ Consulte a [documentação técnica do currículo](docs/curriculum.md) e o [guia
 
 ## Biblioteca de histórias
 
-Em `/historias`, busque por título ou combine os filtros de nível CEFR e gênero. Abra **Prévia da história** para ver os objetivos de leitura e os roteiros dos capítulos. Selecione **Ler história** em **A Rainy Morning** para abrir seus três capítulos. O texto em inglês pode ser ampliado, traduzido sob demanda e ouvido em duas velocidades. As palavras destacadas abrem explicações com exemplos, pronúncia e favoritos. As outras cinco histórias seguem marcadas como **Em breve**. Consulte a [documentação de histórias](docs/stories.md) para conhecer o modelo editorial e o funcionamento do leitor.
+Em `/historias`, busque por título ou filtre por nível CEFR, gênero e estado da leitura. **A Rainy Morning** e **The First Trip** têm três capítulos em inglês A1, traduções sob demanda, narração, vocabulário e exercícios opcionais. As outras quatro histórias estão marcadas como **Em breve**.
+
+Use **Continuar lendo** para voltar ao último capítulo e parágrafo registrados. O navegador guarda suas preferências, rascunhos e respostas. Marque cada capítulo como lido para concluir a história. O Dashboard mostra histórias concluídas, capítulos lidos e tempo ativo de leitura. O tempo de leitura também compõe a atividade semanal e o total de estudo.
+
+Consulte a [documentação de histórias](docs/stories.md) e a [documentação de progresso](docs/progress.md).
 
 ## Retomada e conclusão
 

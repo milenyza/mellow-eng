@@ -14,7 +14,7 @@ it('renders metadata and exposes a focusable native story preview', async () => 
   const user = userEvent.setup()
   render(<StoryLibrary stories={stories} />, { wrapper: MemoryRouter })
   expect(screen.getByRole('status').textContent).toBe('6 histórias')
-  expect(screen.getAllByText('Em breve')).toHaveLength(5)
+  expect(screen.getAllByText('Em breve')).toHaveLength(4)
   const card = screen
     .getByRole('heading', { name: 'A Rainy Morning' })
     .closest('article')
@@ -25,7 +25,7 @@ it('renders metadata and exposes a focusable native story preview', async () => 
   const preview = within(card).getByText('Prévia da história')
   const details = preview.closest('details')
   expect(details?.open).toBe(false)
-  for (let index = 0; index < 5; index++) await user.tab()
+  for (let index = 0; index < 6; index++) await user.tab()
   expect(document.activeElement).toBe(preview)
   await user.click(preview)
   expect(details?.open).toBe(true)
@@ -75,7 +75,7 @@ it('distinguishes a readable story fixture from a planned outline', () => {
     ],
   }
 
-  render(<StoryLibrary stories={[available, stories[1]]} />, {
+  render(<StoryLibrary stories={[available, stories[2]]} />, {
     wrapper: MemoryRouter,
   })
   expect(screen.getByText('Disponível')).toBeTruthy()

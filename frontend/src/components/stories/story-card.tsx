@@ -4,10 +4,29 @@ import { Button } from '@/components/ui/button'
 import { getStoryPath } from '@/data/navigation'
 import { cn } from '@/components/utils'
 import { storyGenreLabels } from '@/data/stories'
+import {
+  getReadingStatus,
+  resolveReadingChapter,
+} from '@/services/reading-progress'
+import type { StoryProgress } from '@/types/progress'
 import type { Story } from '@/types/story'
 
-export function StoryCard({ story }: { story: Story }) {
+export function StoryCard({
+  story,
+  progress,
+}: {
+  story: Story
+  progress?: StoryProgress
+}) {
   const available = story.publication === 'available'
+  const status = getReadingStatus(progress)
+  const chapter =
+    story.publication === 'available'
+      ? resolveReadingChapter(story, progress)
+      : undefined
+  const chaptersRead = story.chapters.filter(
+    ({ id }) => progress?.run.chapters[id]?.readAt !== undefined,
+  ).length
   const chapterCount = story.chapters.length
 
   return (
@@ -55,14 +74,59 @@ export function StoryCard({ story }: { story: Story }) {
         </ul>
       </div>
       {available && (
-        <Button asChild className="mt-3">
-          <Link to={getStoryPath(story.id)}>
-            Ler história
-            <span lang="en" className="sr-only">
-              : {story.title}
-            </span>
-          </Link>
-        </Button>
+        <div className="mt-3 space-y-2">
+          {progress && (
+            <>
+              <p className="text-sm font-bold">
+                {status === 'completed' ? 'Leitura concluída' : 'Em andamento'}
+              </p>
+              <label className="block text-sm">
+                {chaptersRead} de {chapterCount} capítulos lidos
+                {status === 'completed' && chaptersRead < chapterCount
+                  ? ' nesta releitura'
+                  : ''}
+                <progress
+                  className="mt-1 block h-2 w-full accent-plum"
+                  value={chaptersRead}
+                  max={chapterCount}
+                />
+              </label>
+            </>
+          )}
+          <div className="flex flex-wrap gap-2">
+            <Button asChild>
+              <Link
+                to={getStoryPath(
+                  story.id,
+                  status === 'completed'
+                    ? story.chapters[0].id
+                    : progress
+                      ? chapter?.id
+                      : undefined,
+                )}
+              >
+                {status === 'completed'
+                  ? 'Reler história'
+                  : progress
+                    ? 'Continuar leitura'
+                    : 'Ler história'}
+                <span lang="en" className="sr-only">
+                  : {story.title}
+                </span>
+              </Link>
+            </Button>
+            {status === 'completed' && (
+              <Button variant="secondary" asChild>
+                <Link to={`${getStoryPath(story.id, chapter?.id)}?conclusao=1`}>
+                  Ver conclusão
+                  <span lang="en" className="sr-only">
+                    : {story.title}
+                  </span>
+                </Link>
+              </Button>
+            )}
+          </div>
+        </div>
       )}
       <details className="group mt-3">
         <summary className="flex min-h-11 w-fit cursor-pointer list-none items-center gap-1.5 rounded-sm py-2 text-sm font-extrabold underline underline-offset-4 [&::-webkit-details-marker]:hidden">

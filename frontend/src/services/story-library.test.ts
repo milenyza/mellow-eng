@@ -5,7 +5,7 @@ import { filterStories, type StoryFilters } from './story-library'
 const filters: StoryFilters = { title: '', level: '', genre: '' }
 
 describe('story collection', () => {
-  it('contains a single published story and five planned outlines and keeps identifiers and covers unique', () => {
+  it('contains two published stories and four planned outlines and keeps identifiers and covers unique', () => {
     expect(
       stories.map(({ title, level, genres }) => ({ title, level, genres })),
     ).toEqual([
@@ -31,7 +31,7 @@ describe('story collection', () => {
       stories
         .filter(({ publication }) => publication === 'available')
         .map(({ id }) => id),
-    ).toEqual(['a-rainy-morning'])
+    ).toEqual(['a-rainy-morning', 'the-first-trip'])
     for (const story of stories) {
       expect(story.id).toMatch(/^[a-z]+(?:-[a-z]+)*$/)
       expect(story.cover).toMatch(

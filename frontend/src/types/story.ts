@@ -28,11 +28,19 @@ export interface StoryChapterOutline {
   description: string
 }
 
+export type ReadingExercise = Exercise & { paragraphIds?: readonly string[] }
+
+export interface ChapterComprehension {
+  id: string
+  instructions: string
+  exercises: readonly [ReadingExercise, ...ReadingExercise[]]
+}
+
 export interface ReadableStoryChapter extends StoryChapterOutline {
   paragraphs: readonly [StoryParagraph, ...StoryParagraph[]]
   vocabulary?: readonly StoryVocabularyEntry[]
   narration?: AudioSource
-  comprehension?: readonly Exercise[]
+  comprehension?: ChapterComprehension
 }
 
 interface StoryMetadata {

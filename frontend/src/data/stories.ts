@@ -1,9 +1,9 @@
 import cornerBookshop from '@/assets/stories/corner-bookshop.svg'
-import firstTrip from '@/assets/stories/first-trip.svg'
 import letterFromLondon from '@/assets/stories/letter-from-london.svg'
 import newNeighbor from '@/assets/stories/new-neighbor.svg'
 import weekendAway from '@/assets/stories/weekend-away.svg'
 import type { Story, StoryGenre } from '@/types/story'
+import { firstTripStory } from './stories/first-trip'
 import { rainyMorningStory } from './stories/rainy-morning'
 
 export const storyGenreLabels = {
@@ -16,40 +16,7 @@ export const storyGenreLabels = {
 
 export const stories: readonly Story[] = [
   rainyMorningStory,
-  {
-    id: 'the-first-trip',
-    title: 'The First Trip',
-    description:
-      'Caio pega um trem sozinho pela primeira vez. Entre o bilhete e a plataforma, ele aprende a fazer as perguntas de que precisa.',
-    level: 'A1',
-    genres: ['travel'],
-    cover: firstTrip,
-    readingMinutes: 7,
-    objectives: [
-      'Localizar informações simples sobre horários e plataformas.',
-      'Reconhecer perguntas breves sobre destinos e direções.',
-    ],
-    publication: 'planned',
-    chapters: [
-      {
-        id: 'a-ticket-to-the-coast',
-        title: 'A Ticket to the Coast',
-        description: 'Caio confere o horário de partida impresso no bilhete.',
-      },
-      {
-        id: 'the-right-platform',
-        title: 'The Right Platform',
-        description:
-          'Uma funcionária indica a plataforma quando Caio pede ajuda.',
-      },
-      {
-        id: 'by-the-window',
-        title: 'By the Window',
-        description:
-          'Já no trem, ele encontra seu assento e vê a cidade ficar para trás.',
-      },
-    ],
-  },
+  firstTripStory,
   {
     id: 'the-new-neighbor',
     title: 'The New Neighbor',

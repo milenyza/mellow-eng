@@ -23,4 +23,5 @@ export interface DailyWordData {
 export interface LearningTotals {
   completedLessons: number
   studyMs: number
+  reading: { stories: number; chapters: number; activeMs: number }
 }

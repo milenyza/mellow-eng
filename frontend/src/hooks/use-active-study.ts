@@ -1,11 +1,16 @@
 import { useEffect, useRef } from 'react'
-import { createStudyClock, recordStudyInterval } from '@/services/study-time'
+import {
+  createStudyClock,
+  recordReadingInterval,
+  recordStudyInterval,
+} from '@/services/study-time'
 import type { ProgressRepository } from '@/services/progress-repository'
 
 export function useActiveStudy(
   repository: ProgressRepository,
-  lessonId: string,
+  itemId: string,
   runId?: string,
+  mode: 'lesson' | 'reading' = 'lesson',
 ) {
   const flush = useRef<(() => void) | undefined>(undefined)
 
@@ -13,7 +18,13 @@ export function useActiveStudy(
     if (!runId) return
     const clock = createStudyClock((start, end) =>
       repository.update((data) =>
-        recordStudyInterval(data, lessonId, runId, start, end),
+        (mode === 'reading' ? recordReadingInterval : recordStudyInterval)(
+          data,
+          itemId,
+          runId,
+          start,
+          end,
+        ),
       ),
     )
     const isForeground = () =>
@@ -52,7 +63,7 @@ export function useActiveStudy(
       flush.current = undefined
       pause()
     }
-  }, [repository, lessonId, runId])
+  }, [repository, itemId, runId, mode])
 
   return flush
 }

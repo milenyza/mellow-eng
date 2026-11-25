@@ -3,7 +3,11 @@ import { StoryAudioButton } from '@/components/stories/story-audio-button'
 import { StoryVocabularyPopover } from '@/components/stories/story-vocabulary-popover'
 import { PronunciationStatus } from '@/components/ui/pronunciation'
 import { useSpeechPlayback } from '@/hooks/use-speech-playback'
-import { getStorySegments, storySpeechSource } from '@/services/story-reader'
+import {
+  getStorySegments,
+  storyParagraphAnchor,
+  storySpeechSource,
+} from '@/services/story-reader'
 import type { ReadableStoryChapter, StoryVocabularyEntry } from '@/types/story'
 
 const speedOptions = [
@@ -80,7 +84,12 @@ export function StoryChapter({
       </section>
       <div className="divide-y divide-plum/15">
         {chapter.paragraphs.map((paragraph, index) => (
-          <div key={paragraph.id} className="space-y-3 py-6">
+          <div
+            key={paragraph.id}
+            id={storyParagraphAnchor(paragraph.id)}
+            tabIndex={-1}
+            className="scroll-mt-6 space-y-3 rounded-sm py-6"
+          >
             <p lang="en" className={readingClass}>
               {getStorySegments(paragraph).map(
                 ({ text, vocabularyId, offset }) => {

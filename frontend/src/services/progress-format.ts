@@ -5,6 +5,9 @@ import type {
 } from '@/types/exercise'
 import type {
   LearnerProgress,
+  ReadingProgress,
+  ReadingRun,
+  StoryProgress,
   LessonProgress,
   SavedActivitySession,
   StudyRun,
@@ -40,6 +43,8 @@ function isAnswer(value: unknown): value is ExerciseAnswer {
       return isRecord(value.values, isText)
     case 'sentence-builder':
       return isIds(value.tileIds)
+    case 'sequence-ordering':
+      return isIds(value.itemIds)
     case 'matching-pairs':
       return isRecord(value.pairs, (id) => id === '' || isId(id))
     case 'true-or-false':
@@ -136,12 +141,67 @@ function isLesson(value: unknown): value is LessonProgress {
   )
 }
 
+function isReadingRun(value: unknown): value is ReadingRun {
+  return (
+    isEntry(value) &&
+    isId(value.id) &&
+    isId(value.chapterId) &&
+    isTime(value.startedAt) &&
+    isTime(value.activeMs) &&
+    isRecord(
+      value.chapters,
+      (chapter) =>
+        isEntry(chapter) &&
+        (chapter.paragraphId === undefined || isId(chapter.paragraphId)) &&
+        (chapter.readAt === undefined || isTime(chapter.readAt)) &&
+        (chapter.practice === undefined ||
+          (isEntry(chapter.practice) &&
+            isTime(chapter.practice.index) &&
+            isBoolean(chapter.practice.finished) &&
+            isRecord(chapter.practice.attempts, isAttempt))),
+    )
+  )
+}
+
+function isStoryProgress(value: unknown): value is StoryProgress {
+  return (
+    isEntry(value) &&
+    isReadingRun(value.run) &&
+    isTime(value.activeMs) &&
+    isIds(value.readChapterIds) &&
+    (value.completion === undefined ||
+      (isEntry(value.completion) &&
+        isTime(value.completion.completedAt) &&
+        isReadingRun(value.completion.run)))
+  )
+}
+
+function restoreReading(value: unknown): ReadingProgress | undefined {
+  if (!isEntry(value)) return undefined
+  const prefs = isEntry(value.preferences) ? value.preferences : {}
+  const size = prefs.fontSize
+  const stories = isEntry(value.stories)
+    ? (Object.fromEntries(
+        Object.entries(value.stories).filter(
+          ([key, record]) => isId(key) && isStoryProgress(record),
+        ),
+      ) as ReadingProgress['stories'])
+    : {}
+  return {
+    preferences: {
+      fontSize: size === 'large' || size === 'extra-large' ? size : 'normal',
+      translations: prefs.translations === true,
+    },
+    stories,
+  }
+}
+
 export function emptyProgress(): LearnerProgress {
   return { lessons: {}, dailyStudyMs: {} }
 }
 
 export function serializeProgress(data: LearnerProgress) {
-  return JSON.stringify({ version: 1, data })
+  return JSON.stringify({ version: 2, data })
 }
 
 export function parseProgress(
@@ -152,15 +212,22 @@ export function parseProgress(
     const envelope: unknown = JSON.parse(serialized)
     if (
       isEntry(envelope) &&
-      envelope.version === 1 &&
+      (envelope.version === 1 || envelope.version === 2) &&
       isEntry(envelope.data) &&
       isRecord(envelope.data.lessons, isLesson) &&
       isEntry(envelope.data.dailyStudyMs) &&
       Object.entries(envelope.data.dailyStudyMs).every(
         ([key, value]) => /^\d{4}-\d{2}-\d{2}$/.test(key) && isTime(value),
       )
-    )
-      return envelope.data as unknown as LearnerProgress
+    ) {
+      const { lessons, dailyStudyMs } =
+        envelope.data as unknown as LearnerProgress
+      const reading =
+        envelope.version === 2
+          ? restoreReading(envelope.data.reading)
+          : undefined
+      return { lessons, dailyStudyMs, ...(reading ? { reading } : {}) }
+    }
   } catch {
     return null
   }

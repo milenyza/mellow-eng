@@ -1,5 +1,6 @@
 import cover from '@/assets/stories/rainy-morning.svg'
 import type { PublishedStory } from '@/types/story'
+import { rainyMorningComprehension } from './rainy-morning-comprehension'
 
 export const rainyMorningStory = {
   id: 'a-rainy-morning',
@@ -18,6 +19,7 @@ export const rainyMorningStory = {
   chapters: [
     {
       id: 'rain-at-the-window',
+      comprehension: rainyMorningComprehension.window,
       title: 'Rain at the Window',
       description:
         'Lia percebe que vai precisar mudar o caminho para o trabalho.',
@@ -105,6 +107,7 @@ export const rainyMorningStory = {
     },
     {
       id: 'inside-the-bakery',
+      comprehension: rainyMorningComprehension.bakery,
       title: 'Inside the Bakery',
       description: 'Ela espera a chuva passar e pede um café na padaria.',
       paragraphs: [
@@ -202,6 +205,7 @@ export const rainyMorningStory = {
     },
     {
       id: 'back-on-the-street',
+      comprehension: rainyMorningComprehension.street,
       title: 'Back on the Street',
       description:
         'Quando a chuva dá uma trégua, Lia segue viagem com um pão na mochila.',

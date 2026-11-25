@@ -8,6 +8,21 @@ function result(correct: boolean): ExerciseResult {
   return correct ? 'correct' : 'incorrect'
 }
 
+function evaluateOrder(
+  choices: readonly { id: string }[],
+  expected: readonly string[],
+  selected: readonly string[],
+): ExerciseResult {
+  if (
+    selected.length === 0 ||
+    selected.length !== expected.length ||
+    new Set(selected).size !== selected.length ||
+    !selected.every((id) => choices.some((choice) => choice.id === id))
+  )
+    return 'incomplete'
+  return result(expected.every((id, index) => id === selected[index]))
+}
+
 export function evaluateExercise(
   exercise: Exercise,
   answer: ExerciseAnswer | null,
@@ -37,20 +52,15 @@ export function evaluateExercise(
         ),
       )
     }
-    case 'sentence-builder': {
-      if (answer?.kind !== exercise.kind) return 'incomplete'
-      const { tileIds } = answer
-      if (
-        tileIds.length === 0 ||
-        tileIds.length !== exercise.correctOrder.length ||
-        new Set(tileIds).size !== tileIds.length ||
-        !tileIds.every((id) => exercise.tiles.some((tile) => tile.id === id))
-      )
-        return 'incomplete'
-      return result(
-        exercise.correctOrder.every((id, index) => id === tileIds[index]),
-      )
-    }
+    case 'sentence-builder':
+      return answer?.kind === exercise.kind
+        ? evaluateOrder(exercise.tiles, exercise.correctOrder, answer.tileIds)
+        : 'incomplete'
+    case 'sequence-ordering':
+      return answer?.kind === exercise.kind &&
+        exercise.correctOrder.length === exercise.items.length
+        ? evaluateOrder(exercise.items, exercise.correctOrder, answer.itemIds)
+        : 'incomplete'
     case 'matching-pairs': {
       if (answer?.kind !== exercise.kind) return 'incomplete'
       const selected = exercise.left.map(({ id }) => answer.pairs[id])

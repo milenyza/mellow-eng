@@ -1,5 +1,9 @@
 import { BookOpen, ChevronDown, Search } from 'lucide-react'
 import { useId, useRef, useState, type ReactNode } from 'react'
+import { Link } from 'react-router'
+import { getStoryPath } from '@/data/navigation'
+import { resolveReadingChapter } from '@/services/reading-progress'
+import type { ReadingProgress, ReadingStatus } from '@/types/progress'
 import { StoryCard } from '@/components/stories/story-card'
 import { Button } from '@/components/ui/button'
 import { storyGenreLabels } from '@/data/stories'
@@ -7,6 +11,11 @@ import { filterStories, type StoryFilters } from '@/services/story-library'
 import type { Story } from '@/types/story'
 
 const emptyFilters: StoryFilters = { title: '', level: '', genre: '' }
+const statusOptions: readonly { id: ReadingStatus; label: string }[] = [
+  { id: 'not-started', label: 'Não iniciadas' },
+  { id: 'in-progress', label: 'Em andamento' },
+  { id: 'completed', label: 'Concluídas' },
+]
 const controlClass =
   'min-h-11 w-full min-w-0 rounded-md border border-border bg-background text-base text-foreground'
 
@@ -45,7 +54,13 @@ function FilterSelect({
   )
 }
 
-export function StoryLibrary({ stories }: { stories: readonly Story[] }) {
+export function StoryLibrary({
+  stories,
+  progress = {},
+}: {
+  stories: readonly Story[]
+  progress?: ReadingProgress['stories']
+}) {
   const [filters, setFilters] = useState(emptyFilters)
   const input = useRef<HTMLInputElement>(null)
   const titleId = useId()
@@ -54,8 +69,23 @@ export function StoryLibrary({ stories }: { stories: readonly Story[] }) {
     (left, right) =>
       storyGenreLabels[left].localeCompare(storyGenreLabels[right], 'pt-BR'),
   )
-  const matches = filterStories(stories, filters)
-  const hasFilters = Boolean(filters.title || filters.level || filters.genre)
+  const matches = filterStories(stories, filters, progress)
+  const hasFilters = Boolean(
+    filters.title || filters.level || filters.genre || filters.status,
+  )
+
+  const ongoing = stories.flatMap((story) => {
+    const record = progress[story.id]
+    if (
+      story.publication !== 'available' ||
+      !record ||
+      story.chapters.every(
+        ({ id }) => record.run.chapters[id]?.readAt !== undefined,
+      )
+    )
+      return []
+    return [{ story, chapter: resolveReadingChapter(story, record) }]
+  })
 
   if (stories.length === 0) {
     return (
@@ -72,12 +102,42 @@ export function StoryLibrary({ stories }: { stories: readonly Story[] }) {
 
   return (
     <div className="space-y-5 max-md:[&_button]:scroll-mb-28 max-md:[&_input]:scroll-mb-28 max-md:[&_select]:scroll-mb-28 max-md:[&_summary]:scroll-mb-28">
+      {ongoing.length > 0 && (
+        <section
+          aria-labelledby="continue-reading"
+          className="space-y-3 rounded-lg border border-plum/20 p-4"
+        >
+          <h2
+            id="continue-reading"
+            className="font-heading text-xl font-semibold"
+          >
+            Continuar lendo
+          </h2>
+          <ul className="space-y-2">
+            {ongoing.map(({ story, chapter }) => (
+              <li key={story.id}>
+                <Link
+                  className="inline-flex min-h-11 flex-wrap items-baseline gap-x-2 rounded-sm py-2 underline underline-offset-4"
+                  to={getStoryPath(story.id, chapter.id)}
+                >
+                  <span lang="en" className="font-bold">
+                    {story.title}
+                  </span>
+                  <span lang="en" className="text-sm">
+                    {chapter.title}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       <div
         role="search"
         aria-label="Filtrar histórias"
-        className="grid gap-3 rounded-lg bg-sage/65 p-4 sm:grid-cols-2 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)_minmax(0,1fr)] lg:gap-4"
+        className="grid gap-3 rounded-lg bg-sage/65 p-4 sm:grid-cols-2 xl:grid-cols-[minmax(0,1.45fr)_repeat(3,minmax(0,1fr))] lg:gap-4"
       >
-        <div className="min-w-0 space-y-1.5 sm:col-span-2 lg:col-span-1">
+        <div className="min-w-0 space-y-1.5 sm:col-span-2 xl:col-span-1">
           <label htmlFor={titleId} className="block text-sm font-bold">
             Buscar por título
           </label>
@@ -132,6 +192,23 @@ export function StoryLibrary({ stories }: { stories: readonly Story[] }) {
             </option>
           ))}
         </FilterSelect>
+        <FilterSelect
+          label="Estado da leitura"
+          value={filters.status ?? ''}
+          onChange={(value) =>
+            setFilters({
+              ...filters,
+              status: statusOptions.find(({ id }) => id === value)?.id ?? '',
+            })
+          }
+        >
+          <option value="">Todos os estados</option>
+          {statusOptions.map(({ id, label }) => (
+            <option key={id} value={id}>
+              {label}
+            </option>
+          ))}
+        </FilterSelect>
       </div>
       <div className="flex min-h-11 flex-wrap items-center justify-between gap-x-3 gap-y-1 border-b border-plum/20 pb-2">
         <p role="status" aria-atomic="true" className="text-sm font-bold">
@@ -153,7 +230,7 @@ export function StoryLibrary({ stories }: { stories: readonly Story[] }) {
         <ul className="grid items-start gap-x-6 gap-y-8 sm:grid-cols-2 xl:grid-cols-3">
           {matches.map((story) => (
             <li key={story.id}>
-              <StoryCard story={story} />
+              <StoryCard story={story} progress={progress[story.id]} />
             </li>
           ))}
         </ul>

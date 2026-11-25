@@ -55,6 +55,8 @@ function expectedAnswer(exercise: Exercise): ExerciseAnswer {
       }
     case 'sentence-builder':
       return { kind: exercise.kind, tileIds: exercise.correctOrder }
+    case 'sequence-ordering':
+      return { kind: exercise.kind, itemIds: exercise.correctOrder }
     case 'matching-pairs':
       return { kind: exercise.kind, pairs: exercise.correctPairs }
     case 'true-or-false':

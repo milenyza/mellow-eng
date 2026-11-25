@@ -171,3 +171,46 @@ describe('evaluateExercise', () => {
     ).toBe('incomplete')
   })
 })
+
+it('grades chronological sequences and rejects partial, duplicate or unknown choices', () => {
+  const sequence = {
+    id: 'sequence',
+    kind: 'sequence-ordering',
+    prompt: 'Order the events.',
+    instructions: 'Selecione os acontecimentos em ordem.',
+    items: [
+      { id: 'last', text: 'Lia goes in.' },
+      { id: 'first', text: 'Lia looks out the window.' },
+      { id: 'middle', text: 'Lia takes her umbrella.' },
+    ],
+    correctOrder: ['first', 'middle', 'last'],
+    feedback: 'Primeiro ela olha pela janela.',
+  } as const
+  expect(
+    evaluateExercise(sequence, {
+      kind: 'sequence-ordering',
+      itemIds: ['first', 'middle', 'last'],
+    }),
+  ).toBe('correct')
+  expect(
+    evaluateExercise(sequence, {
+      kind: 'sequence-ordering',
+      itemIds: ['middle', 'first', 'last'],
+    }),
+  ).toBe('incorrect')
+  for (const itemIds of [
+    ['first'],
+    ['first', 'first', 'last'],
+    ['first', 'unknown', 'last'],
+  ]) {
+    expect(
+      evaluateExercise(sequence, { kind: 'sequence-ordering', itemIds }),
+    ).toBe('incomplete')
+  }
+  expect(
+    evaluateExercise(sequence, {
+      kind: 'sentence-builder',
+      tileIds: ['first', 'middle', 'last'],
+    }),
+  ).toBe('incomplete')
+})

@@ -4,14 +4,27 @@ import { StoryCard } from '@/components/stories/story-card'
 import { StoryReader } from '@/components/stories/story-reader'
 import { Button } from '@/components/ui/button'
 import { getStoryPath, storiesPath } from '@/data/navigation'
+import { useProgress } from '@/hooks/use-progress'
+import {
+  getReadingProgress,
+  resolveReadingChapter,
+} from '@/services/reading-progress'
 import { stories } from '@/data/stories'
 
 export function StoryPage() {
   const { storyId, chapterId } = useParams()
+  const { data } = useProgress()
   const story = stories.find(({ id }) => id === storyId)
   const chapterIndex = chapterId
     ? (story?.chapters.findIndex(({ id }) => id === chapterId) ?? -1)
-    : 0
+    : story?.publication === 'available'
+      ? story.chapters.indexOf(
+          resolveReadingChapter(
+            story,
+            getReadingProgress(data).stories[story.id],
+          ),
+        )
+      : 0
 
   if (story?.publication === 'available' && chapterIndex >= 0) {
     return (
@@ -43,7 +56,9 @@ export function StoryPage() {
           </Button>
           {story?.publication === 'available' && (
             <Button variant="secondary" asChild>
-              <Link to={getStoryPath(story.id)}>Abrir primeiro capítulo</Link>
+              <Link to={getStoryPath(story.id, story.chapters[0].id)}>
+                Abrir primeiro capítulo
+              </Link>
             </Button>
           )}
         </div>

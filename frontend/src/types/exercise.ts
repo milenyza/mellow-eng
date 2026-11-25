@@ -2,6 +2,7 @@ interface ExerciseBase {
   id: string
   instructions: string
   prompt: string
+  promptLanguage?: string
   feedback: string
   hint?: string
   requiredForCompletion?: boolean
@@ -35,6 +36,12 @@ export type SentenceBuilderExercise = ExerciseBase & {
   correctOrder: readonly string[]
 }
 
+export type SequenceOrderingExercise = ExerciseBase & {
+  kind: 'sequence-ordering'
+  items: readonly ExerciseOption[]
+  correctOrder: readonly string[]
+}
+
 export type MatchingPairsExercise = ExerciseBase & {
   kind: 'matching-pairs'
   left: readonly ExerciseOption[]
@@ -51,6 +58,7 @@ export type Exercise =
   | MultipleChoiceExercise
   | FillInTheBlanksExercise
   | SentenceBuilderExercise
+  | SequenceOrderingExercise
   | MatchingPairsExercise
   | TrueOrFalseExercise
 
@@ -58,6 +66,7 @@ export type ExerciseAnswer =
   | { kind: 'multiple-choice'; optionId: string }
   | { kind: 'fill-in-the-blanks'; values: Readonly<Record<string, string>> }
   | { kind: 'sentence-builder'; tileIds: readonly string[] }
+  | { kind: 'sequence-ordering'; itemIds: readonly string[] }
   | { kind: 'matching-pairs'; pairs: Readonly<Record<string, string>> }
   | { kind: 'true-or-false'; value: boolean }
 

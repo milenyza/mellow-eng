@@ -33,6 +33,19 @@ export function ExerciseCorrection({
             .join(' ')}
         </p>
       )
+    case 'sequence-ordering':
+      return (
+        <ol className="list-decimal space-y-1 pl-5">
+          {exercise.correctOrder.map((id) => {
+            const item = exercise.items.find((item) => item.id === id)
+            return (
+              <li key={id} lang={item?.language ?? language}>
+                {item?.text}
+              </li>
+            )
+          })}
+        </ol>
+      )
     case 'matching-pairs':
       return (
         <ul className="space-y-1">

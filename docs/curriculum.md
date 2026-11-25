@@ -25,7 +25,7 @@ The Dashboard and the lesson player share the Web Speech API hook and pronunciat
 
 ## Interactive practice
 
-A Practice block contains an ordered, nonempty list of exercises. The discriminated union in `frontend/src/types/exercise.ts` supports multiple choice, fill in the blanks, sentence builder, matching pairs, and true or false. Each exercise defines a stable ID, prompt, instructions, expected answer, feedback in Brazilian Portuguese, and an optional hint.
+A Practice block contains an ordered, nonempty list of exercises. The discriminated union in `frontend/src/types/exercise.ts` supports multiple choice, fill in the blanks, sentence builder, sequence ordering, matching pairs, and true or false. Each exercise defines a stable ID, prompt, instructions, expected answer, feedback in Brazilian Portuguese, and an optional hint.
 
 `frontend/src/services/exercise-evaluation.ts` evaluates responses independently of React. Fill-in-the-blanks answers normalize case and whitespace, and only explicitly listed alternatives are accepted. Sentence builders compare ordered tile IDs and matching exercises require a unique choice for each row. Hints are disclosed on request. An incorrect submission explains the expected answer and lets the learner retry or explicitly review the correction before advancing within the practice block.
 

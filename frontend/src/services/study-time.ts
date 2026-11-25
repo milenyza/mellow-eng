@@ -1,3 +1,4 @@
+import { updateStoryProgress } from '@/services/reading-progress'
 import type { Weekday } from '@/types/dashboard'
 import type { LearnerProgress } from '@/types/progress'
 
@@ -40,6 +41,51 @@ function dayKey(date: Date) {
     .join('-')
 }
 
+function addDailyTime(
+  previous: LearnerProgress['dailyStudyMs'],
+  start: number,
+  end: number,
+) {
+  const dailyStudyMs = { ...previous }
+  let cursor = start
+  while (cursor < end) {
+    const date = new Date(cursor)
+    const key = dayKey(date)
+    const midnight = new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate() + 1,
+    ).getTime()
+    const boundary = Math.min(end, midnight)
+    dailyStudyMs[key] = (dailyStudyMs[key] ?? 0) + boundary - cursor
+    cursor = boundary
+  }
+
+  return dailyStudyMs
+}
+
+export function recordReadingInterval(
+  data: LearnerProgress,
+  storyId: string,
+  runId: string,
+  start: number,
+  end: number,
+) {
+  if (end <= start) return data
+  const updated = updateStoryProgress(data, storyId, (record) => {
+    if (!record || record.run.id !== runId) return record
+    const elapsed = end - start
+    return {
+      ...record,
+      activeMs: record.activeMs + elapsed,
+      run: { ...record.run, activeMs: record.run.activeMs + elapsed },
+    }
+  })
+  return updated === data
+    ? data
+    : { ...updated, dailyStudyMs: addDailyTime(data.dailyStudyMs, start, end) }
+}
+
 export function recordStudyInterval(
   data: LearnerProgress,
   lessonId: string,
@@ -56,24 +102,9 @@ export function recordStudyInterval(
   )
     return data
 
-  const dailyStudyMs = { ...data.dailyStudyMs }
-  let cursor = start
-  while (cursor < end) {
-    const date = new Date(cursor)
-    const key = dayKey(date)
-    const midnight = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate() + 1,
-    ).getTime()
-    const boundary = Math.min(end, midnight)
-    dailyStudyMs[key] = (dailyStudyMs[key] ?? 0) + boundary - cursor
-    cursor = boundary
-  }
-
   return {
     ...data,
-    dailyStudyMs,
+    dailyStudyMs: addDailyTime(data.dailyStudyMs, start, end),
     lessons: {
       ...data.lessons,
       [lessonId]: {

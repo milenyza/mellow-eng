@@ -24,11 +24,15 @@ export function PracticePlayer({
   session,
   onChange,
   listening,
+  renderContext,
+  finishedDescription = 'Você pode seguir para a próxima etapa da aula.',
 }: {
   block: Pick<PracticeBlock, 'instructions' | 'exercises'>
   language: string
   session?: PracticeSession
   onChange: (session: PracticeSession) => void
+  renderContext?: (exercise: Exercise) => ReactNode
+  finishedDescription?: string
   listening?: {
     renderAudio: (exercise: Exercise) => ReactNode
     renderTranscript: (exercise: Exercise) => ReactNode
@@ -117,7 +121,7 @@ export function PracticePlayer({
           <h3 ref={heading} tabIndex={-1} className="text-xl font-semibold">
             {listening ? 'Atividades de escuta revisadas' : 'Prática revisada'}
           </h3>
-          <p>Você pode seguir para a próxima etapa da aula.</p>
+          <p>{finishedDescription}</p>
         </div>
       ) : (
         <form
@@ -128,6 +132,7 @@ export function PracticePlayer({
             <h3
               ref={heading}
               id={questionId}
+              lang={exercise.promptLanguage}
               tabIndex={-1}
               className="text-xl leading-snug font-semibold"
             >
@@ -135,6 +140,7 @@ export function PracticePlayer({
             </h3>
             <p className="text-sm leading-relaxed">{exercise.instructions}</p>
           </div>
+          {renderContext?.(exercise)}
           {listening?.renderAudio(exercise)}
           <fieldset
             disabled={!editing}

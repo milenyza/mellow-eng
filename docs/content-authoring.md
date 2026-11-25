@@ -31,6 +31,7 @@ Every exercise has an ID, instructions, a prompt, and explanatory feedback in Br
 | `multiple-choice`    | An options array and one `correctOptionId`. Use the option's `language` field when its text is in a different language from the lesson target.                                             |
 | `fill-in-the-blanks` | One or more blanks with stable IDs, `before`, `after` and `acceptedAnswers`. The evaluator ignores case and repeated whitespace. List valid punctuation or apostrophe variants explicitly. |
 | `sentence-builder`   | Identified `tiles` and a `correctOrder` array containing the intended tile IDs.                                                                                                            |
+| `sequence-ordering`  | Identified `items` and a `correctOrder` containing every item ID exactly once in chronological order.                                                                                      |
 | `matching-pairs`     | `left`, `right` and one-to-one `correctPairs` keyed by left option ID.                                                                                                                     |
 | `true-or-false`      | A boolean `correctValue`.                                                                                                                                                                  |
 
@@ -95,3 +96,9 @@ const originsDictation = {
 - Verify listening review, the reading alternative, and the learner's path from a correct answer or reviewed correction to explicit completion.
 - Test narrow mobile and desktop screens, keyboard interaction, refresh and resume, and the next published lesson link.
 - Run `npm run lint`, `npm run typecheck`, `npm run build`, `npm run format:check` and `npm test` from the repository root.
+
+## Publishing a story
+
+Replace a planned outline in `frontend/src/data/stories.ts` with a `PublishedStory` module under `frontend/src/data/stories/`. Preserve the story and chapter IDs, outline descriptions and learning objectives. Give each English paragraph a stable ID, supply the Portuguese translation, and reference contextual vocabulary in text order. Narration uses the authored English text by default. Comprehension exercises use the shared evaluator and can reference paragraph IDs from the same chapter. They remain optional for reading completion.
+
+Verify references, translations, pronunciation transcriptions and all accepted answers. Test direct chapter links, reading resume, explicit marking and optional exercise navigation before publishing.

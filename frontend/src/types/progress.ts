@@ -1,4 +1,4 @@
-import type { ExerciseAttempt } from '@/types/exercise'
+import type { ExerciseAttempt, PracticeSession } from '@/types/exercise'
 
 export type LearnerLessonStatus = 'not-started' | 'in-progress' | 'completed'
 
@@ -26,6 +26,40 @@ export interface LessonProgress {
 }
 
 export interface LearnerProgress {
+  reading?: ReadingProgress
   lessons: Readonly<Record<string, LessonProgress | undefined>>
   dailyStudyMs: Readonly<Record<string, number | undefined>>
+}
+
+export type ReadingStatus = 'not-started' | 'in-progress' | 'completed'
+
+export interface ReadingPreferences {
+  fontSize: 'normal' | 'large' | 'extra-large'
+  translations: boolean
+}
+
+export interface ReadingChapterProgress {
+  paragraphId?: string
+  readAt?: number
+  practice?: PracticeSession
+}
+
+export interface ReadingRun {
+  id: string
+  startedAt: number
+  chapterId: string
+  chapters: Readonly<Record<string, ReadingChapterProgress | undefined>>
+  activeMs: number
+}
+
+export interface StoryProgress {
+  run: ReadingRun
+  readChapterIds: readonly string[]
+  activeMs: number
+  completion?: { completedAt: number; run: ReadingRun }
+}
+
+export interface ReadingProgress {
+  preferences: ReadingPreferences
+  stories: Readonly<Record<string, StoryProgress | undefined>>
 }

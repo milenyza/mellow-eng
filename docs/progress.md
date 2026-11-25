@@ -1,8 +1,8 @@
 # Learner progress architecture
 
-The React progress provider exposes one repository snapshot to the Lesson Player, curriculum and Dashboard. The repository contract in `frontend/src/services/progress-repository.ts` offers a cached snapshot, subscriptions and synchronous state transitions. A backend adapter could preserve the cached contract and replace the persistence layer independently of curriculum data and UI.
+The React progress provider exposes one repository snapshot to the Lesson Player, story reader, library, curriculum and Dashboard. The repository contract in `frontend/src/services/progress-repository.ts` offers a cached snapshot, subscriptions and synchronous state transitions. A backend adapter could preserve the cached contract and replace the persistence layer independently of curriculum data and UI.
 
-The browser implementation stores a version 1 JSON envelope under `mellow:learner-progress`. The format validates nested records, timestamps, answer shapes, attempt statuses and schema versions on read. Malformed or unsupported schemas start a new record. Storage access or write failures keep the current session in memory and are reported in the Lesson Player. Browser storage events and a read before each update refresh other tabs' saved changes where available. Simultaneous edits of the same activity can still resolve to the last write. There is no synchronization across devices.
+The browser implementation writes a version 2 JSON envelope under `mellow:learner-progress`. The format validates nested records, timestamps, answer shapes, attempt statuses and schema versions on read. Version 1 lesson records and daily activity are accepted unchanged. Version 2 adds reading preferences and story records. Malformed reading records are discarded individually while compatible lesson data is retained. Malformed or unsupported envelopes start a new record. Storage access or write failures keep the current session in memory and are reported in the lesson and story readers. Browser storage events and a read before each update refresh other tabs' saved changes where available. Simultaneous edits of the same activity can still resolve to the last write. There is no synchronization across devices.
 
 ## Runs and completion
 
@@ -14,6 +14,12 @@ The result screen displays the original completion. Accuracy groups use the mode
 
 ## Active time
 
-One tracker is owned by the active Lesson Player route. Time accrues while the browser document is visible and focused. Entering or refocusing the lesson starts a fresh 60-second window. Pointer presses, key presses and wheel activity extend the inactivity deadline. Hidden, blurred or idle time is excluded. The tracker saves every five seconds and flushes on blur, visibility changes, navigation, restart and completion. Local-midnight boundaries split time between calendar days. Dashboard weeks start on Monday.
+The active Lesson Player or Story Reader owns the same study tracker. The library and result screen do not run it. Time accrues while the browser document is visible and focused. Reading contributes once to daily study activity and total study time. A separate reading subtotal describes the reading portion of that total. Entering or refocusing the lesson starts a fresh 60-second window. Pointer presses, key presses and wheel activity extend the inactivity deadline. Hidden, blurred or idle time is excluded. The tracker saves every five seconds and flushes on blur, visibility changes, navigation, restart and completion. Local-midnight boundaries split time between calendar days. Dashboard weeks start on Monday.
 
 This is an engagement estimate. Reading or listening without interaction can exceed the idle window, and time up to the idle cutoff may include a short break. The browser may interrupt a final save on abrupt process termination, and changes to the device clock or time zone can affect day boundaries. Focus gating and a single route tracker avoid counting time separately for individual exercises and UI components.
+
+## Reading records
+
+Each story stores a current run, its last chapter and meaningful paragraph IDs, chapter practice sessions and explicit read timestamps. It also stores distinct lifetime chapter IDs and the first complete run. A restart replaces only the current run. Further readings can add active time, and repeated marks never add duplicate chapter or story counts. The Dashboard and library derive progress from these records.
+
+The reader samples the last narrative paragraph visible above a line near the middle of the viewport. Scrolling outside the narrative retains the previous saved paragraph. If its ID no longer exists, the chapter opens without restoring an offset. The estimate does not indicate language mastery or verify that the reader read every line.

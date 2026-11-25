@@ -28,3 +28,7 @@ export function storySpeechSource(
     parts: paragraphs.map(({ text }) => ({ text })),
   }
 }
+
+export function storyParagraphAnchor(id: string) {
+  return `story-paragraph-${id}`
+}

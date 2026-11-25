@@ -6,7 +6,6 @@ import type {
   ExerciseOption,
   FillInTheBlanksExercise,
   MatchingPairsExercise,
-  SentenceBuilderExercise,
 } from '@/types/exercise'
 
 const inputClass =
@@ -95,29 +94,48 @@ function FillInTheBlanks({
   )
 }
 
-function SentenceBuilder({
-  exercise,
+function OrderedOptions({
+  options,
+  count,
+  sequence = false,
   tileIds,
   language,
   onChange,
 }: {
-  exercise: SentenceBuilderExercise
+  options: readonly ExerciseOption[]
+  count: number
+  sequence?: boolean
   tileIds: readonly string[]
   language: string
   onChange: (tileIds: readonly string[]) => void
 }) {
   const wordButtons = useRef(new Map<string, HTMLButtonElement>())
-  const tiles = new Map(exercise.tiles.map((tile) => [tile.id, tile.text]))
-  const isFull = tileIds.length >= exercise.correctOrder.length
+  const tiles = new Map(options.map((option) => [option.id, option]))
+  const isFull = tileIds.length >= count
 
   return (
     <div className="space-y-3">
       <div className="rounded-lg bg-lavender/50 p-3">
-        <p className="mb-2 text-sm font-bold">Sua frase</p>
+        <p className="mb-2 text-sm font-bold">
+          {sequence ? 'Sua sequência' : 'Sua frase'}
+        </p>
         {tileIds.length === 0 ? (
-          <p className="text-sm">Selecione as palavras na ordem da frase.</p>
+          <p className="text-sm">
+            {sequence
+              ? 'Selecione os acontecimentos do primeiro ao último.'
+              : 'Selecione as palavras na ordem da frase.'}
+          </p>
         ) : (
-          <ol aria-label="Ordem das palavras" className="flex flex-wrap gap-2">
+          <ol
+            aria-label={
+              sequence ? 'Ordem dos acontecimentos' : 'Ordem das palavras'
+            }
+            className={
+              sequence
+                ? 'flex list-decimal flex-col gap-2 pl-6'
+                : 'flex flex-wrap gap-2'
+            }
+          >
             {tileIds.map((id, index) => (
               <li key={id}>
                 <button
@@ -128,8 +146,13 @@ function SentenceBuilder({
                     onChange(tileIds.filter((tileId) => tileId !== id))
                   }}
                 >
-                  <span className="sr-only">Remover palavra {index + 1}: </span>
-                  <span lang={language}>{tiles.get(id)}</span>
+                  <span className="sr-only">
+                    Remover {sequence ? 'acontecimento' : 'palavra'} {index + 1}
+                    :{' '}
+                  </span>
+                  <span lang={tiles.get(id)?.language ?? language}>
+                    {tiles.get(id)?.text}
+                  </span>
                 </button>
               </li>
             ))}
@@ -137,11 +160,15 @@ function SentenceBuilder({
         )}
       </div>
       <div
-        aria-label="Palavras disponíveis"
+        aria-label={
+          sequence ? 'Acontecimentos disponíveis' : 'Palavras disponíveis'
+        }
         role="group"
-        className="flex flex-wrap gap-2"
+        className={
+          sequence ? 'flex flex-col items-start gap-2' : 'flex flex-wrap gap-2'
+        }
       >
-        {exercise.tiles.map(({ id, text }) => {
+        {options.map(({ id, text, language: optionLanguage }) => {
           const selected = tileIds.includes(id)
           return (
             <button
@@ -162,7 +189,7 @@ function SentenceBuilder({
               }
               className={cn(tileClass, selected && 'border-plum bg-lavender')}
             >
-              <span lang={language}>{text}</span>
+              <span lang={optionLanguage ?? language}>{text}</span>
             </button>
           )
         })}
@@ -270,11 +297,23 @@ export function ExerciseFields({
       )
     case 'sentence-builder':
       return (
-        <SentenceBuilder
-          exercise={exercise}
+        <OrderedOptions
+          options={exercise.tiles}
+          count={exercise.correctOrder.length}
           language={language}
           tileIds={answer?.kind === exercise.kind ? answer.tileIds : []}
           onChange={(tileIds) => onChange({ kind: exercise.kind, tileIds })}
+        />
+      )
+    case 'sequence-ordering':
+      return (
+        <OrderedOptions
+          sequence
+          options={exercise.items}
+          count={exercise.items.length}
+          language={language}
+          tileIds={answer?.kind === exercise.kind ? answer.itemIds : []}
+          onChange={(itemIds) => onChange({ kind: exercise.kind, itemIds })}
         />
       )
     case 'matching-pairs':

@@ -9,6 +9,7 @@ import { englishA1 } from '@/data/curriculum/english-a1'
 import { dailyWord } from '@/data/dashboard'
 import { useProgress } from '@/hooks/use-progress'
 import { getCurriculumOverview } from '@/services/curriculum'
+import { readingTotals } from '@/services/reading-progress'
 import { getWeeklyStudyDays, totalStudyMs } from '@/services/study-time'
 
 export function HomePage() {
@@ -53,6 +54,7 @@ export function HomePage() {
           totals={{
             completedLessons: completedCount,
             studyMs: totalStudyMs(data),
+            reading: readingTotals(data),
           }}
         />
       </div>
