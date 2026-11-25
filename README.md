@@ -34,8 +34,14 @@ Em `frontend/src/`, `layouts` e `pages` contêm as telas e sua estrutura compart
 
 ## Rotas e tema
 
-A rota `/` exibe a página inicial. Endereços desconhecidos exibem uma página com um link de retorno. Em hospedagem estática, configure o servidor para servir `index.html` nas rotas do aplicativo e entregar os arquivos estáticos normalmente.
+A rota `/` exibe a página inicial. As rotas `/aulas`, `/historias`, `/jogos`, `/ingles-na-pratica`, `/meu-caderno`, `/meu-progresso`, `/perfil` e `/configuracoes` exibem páginas provisórias. Em telas estreitas, abra **Mais** na barra inferior para acessar todos os módulos. Use Tab para percorrer os controles, Enter para ativá-los e Esc para fechar o menu. Endereços desconhecidos exibem uma página com um link de retorno. Em hospedagem estática, configure o servidor para servir `index.html` nas rotas do aplicativo e entregar os arquivos estáticos normalmente.
 
 O tema em `frontend/src/styles/globals.css` expõe a paleta da marca e tokens semânticos como `bg-background` e `text-foreground`. As famílias Lora, Nunito Sans e Caveat são distribuídas localmente pelo build. Use `font-handwritten` para detalhes manuscritos pontuais.
 
 O arquivo `frontend/components.json` configura o shadcn/ui com o alias `@/` e com o tema do Mellow. Os componentes ficam no código do frontend.
+
+## Dashboard
+
+Os dados em `frontend/src/data/dashboard.ts` são fictícios e provisórios, incluindo o nome Ana, a próxima aula, os dias de estudo, a palavra do dia e os totais. Os formatos TypeScript ficam em `frontend/src/types/dashboard.ts`. A saudação e o dia da semana usam o horário local do navegador. A semana começa na segunda-feira e o calendário exibe os registros simulados até o dia atual. A palavra é fixa nesta etapa.
+
+Salvar ou remover a palavra atualiza o `localStorage` do navegador na chave `mellow:favorite-words`. Os favoritos são locais a esse navegador e endereço do aplicativo.
