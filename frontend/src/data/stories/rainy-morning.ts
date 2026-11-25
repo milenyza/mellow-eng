@@ -65,6 +65,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-raining',
           word: 'raining',
           pronunciation: '/ˈreɪ.nɪŋ/',
+          matchingTranslation: 'Chovendo',
           meaning:
             'Chovendo. Em “It is raining”, descreve o tempo naquele momento.',
           example: {
@@ -76,6 +77,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-walk-to-work',
           word: 'walk to work',
           pronunciation: '/wɔk tə wɝk/',
+          matchingTranslation: 'Ir a pé para o trabalho',
           meaning:
             'Ir a pé para o trabalho. “Walks to work” é a forma usada com “she”.',
           example: {
@@ -87,6 +89,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-umbrella',
           word: 'umbrella',
           pronunciation: '/ʌmˈbrel.ə/',
+          matchingTranslation: 'Guarda-chuva',
           meaning: 'Guarda-chuva, usado para se proteger da chuva.',
           example: {
             text: 'I have an umbrella in my bag.',
@@ -97,6 +100,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-on-the-corner',
           word: 'on the corner',
           pronunciation: '/ɑn ðə ˈkɔr.nɚ/',
+          matchingTranslation: 'Na esquina',
           meaning: 'Na esquina. Indica onde fica a padaria.',
           example: {
             text: 'The café is on the corner.',
@@ -155,6 +159,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-at-the-counter',
           word: 'at the counter',
           pronunciation: '/æt ðə ˈkaʊn.tɚ/',
+          matchingTranslation: 'No balcão',
           meaning: 'No balcão. É onde Lia pede e recebe seu café.',
           example: {
             text: 'I pay at the counter.',
@@ -165,6 +170,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-a-cup-of-coffee',
           word: 'a cup of coffee',
           pronunciation: '/ə kʌp əv ˈkɑ.fi/',
+          matchingTranslation: 'Uma xícara de café',
           meaning: 'Uma xícara de café.',
           example: {
             text: 'I have a cup of coffee with breakfast.',
@@ -175,6 +181,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-wet',
           word: 'wet',
           pronunciation: '/wet/',
+          matchingTranslation: 'Molhado',
           meaning: 'Molhado. O guarda-chuva está molhado por causa da chuva.',
           example: {
             text: 'My shoes are wet.',
@@ -185,6 +192,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-seat-free',
           word: 'Is this seat free?',
           pronunciation: '/ɪz ðɪs sit fri/',
+          matchingTranslation: 'Este lugar está livre?',
           meaning: 'Este lugar está livre? Aqui, “free” quer dizer desocupado.',
           example: {
             text: 'Excuse me, is this seat free?',
@@ -195,6 +203,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-loaf',
           word: 'loaf',
           pronunciation: '/loʊf/',
+          matchingTranslation: 'Um pão inteiro',
           meaning: 'Um pão inteiro. “A small loaf” é um pão pequeno.',
           example: {
             text: 'I buy a loaf of bread on Monday.',
@@ -254,6 +263,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-rain-stops',
           word: 'the rain stops',
           pronunciation: '/ðə reɪn stɑps/',
+          matchingTranslation: 'A chuva para',
           meaning: 'A chuva para. É o momento em que Lia pode sair da padaria.',
           example: {
             text: 'We can go out when the rain stops.',
@@ -264,6 +274,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-nice-day',
           word: 'Have a nice day',
           pronunciation: '/hæv ə naɪs deɪ/',
+          matchingTranslation: 'Tenha um bom dia',
           meaning: 'Tenha um bom dia. É um desejo comum ao se despedir.',
           example: {
             text: 'Thanks for the coffee. Have a nice day!',
@@ -274,6 +285,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-coworker',
           word: 'coworker',
           pronunciation: '/ˈkoʊˌwɝ.kɚ/',
+          matchingTranslation: 'Colega de trabalho',
           meaning: 'Colega de trabalho.',
           example: {
             text: 'My coworker brings lunch from home.',
@@ -284,6 +296,7 @@ export const rainyMorningStory = {
           id: 'story-rainy-morning-backpack',
           word: 'backpack',
           pronunciation: '/ˈbæk.pæk/',
+          matchingTranslation: 'Mochila',
           meaning: 'Mochila. Lia usa a dela para levar o pão.',
           example: {
             text: 'My lunch is in my backpack.',

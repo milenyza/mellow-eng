@@ -25,6 +25,7 @@ export function PracticePlayer({
   onChange,
   listening,
   renderContext,
+  presentation,
   finishedDescription = 'Você pode seguir para a próxima etapa da aula.',
 }: {
   block: Pick<PracticeBlock, 'instructions' | 'exercises'>
@@ -33,6 +34,17 @@ export function PracticePlayer({
   onChange: (session: PracticeSession) => void
   renderContext?: (exercise: Exercise) => ReactNode
   finishedDescription?: string
+  presentation?: {
+    activityLabel: string
+    nextLabel: string
+    finishLabel: string
+    orderingTools?: boolean
+    renderCorrection?: (
+      exercise: Exercise,
+      attempt: ExerciseAttempt,
+    ) => ReactNode
+    renderReview?: (exercise: Exercise, attempt: ExerciseAttempt) => ReactNode
+  }
   listening?: {
     renderAudio: (exercise: Exercise) => ReactNode
     renderTranscript: (exercise: Exercise) => ReactNode
@@ -50,7 +62,7 @@ export function PracticePlayer({
     ? listening
       ? `${total} de ${total} atividades revisadas`
       : `${total} de ${total} exercícios revisados`
-    : `${listening ? 'Atividade' : 'Exercício'} ${index + 1} de ${total}`
+    : `${presentation?.activityLabel ?? (listening ? 'Atividade' : 'Exercício')} ${index + 1} de ${total}`
   const attempt = attempts[exercise.id] ?? emptyAttempt
   const { answer, status } = attempt
   const editing = status === 'editing'
@@ -59,7 +71,11 @@ export function PracticePlayer({
   const feedback = useRef<HTMLDivElement>(null)
   const questionId = useId()
   const progressId = useId()
-  const previous = useRef({ index, status, finished })
+  const previous = useRef({
+    index: presentation ? -1 : index,
+    status,
+    finished,
+  })
 
   useEffect(() => {
     const last = previous.current
@@ -148,6 +164,8 @@ export function PracticePlayer({
             className="min-w-0"
           >
             <ExerciseFields
+              key={exercise.id}
+              orderingTools={presentation?.orderingTools}
               exercise={exercise}
               answer={answer}
               language={language}
@@ -184,12 +202,16 @@ export function PracticePlayer({
                       : 'Vamos revisar a resposta'}
                 </p>
                 <p className="font-bold">Resposta esperada</p>
-                <ExerciseCorrection exercise={exercise} language={language} />
+                {presentation?.renderCorrection?.(exercise, attempt) ?? (
+                  <ExerciseCorrection exercise={exercise} language={language} />
+                )}
                 <p>{exercise.feedback}</p>
               </>
             )}
           </div>
           {!editing && listening?.renderTranscript(exercise)}
+          {(status === 'correct' || status === 'reviewed') &&
+            presentation?.renderReview?.(exercise, attempt)}
           <div className="flex flex-wrap gap-2">
             {editing ? (
               <Button
@@ -234,13 +256,17 @@ export function PracticePlayer({
                   })
                 }
               >
-                {listening
+                {presentation
                   ? index === total - 1
-                    ? 'Encerrar atividades'
-                    : 'Próxima atividade'
-                  : index === total - 1
-                    ? 'Encerrar prática'
-                    : 'Próximo exercício'}
+                    ? presentation.finishLabel
+                    : presentation.nextLabel
+                  : listening
+                    ? index === total - 1
+                      ? 'Encerrar atividades'
+                      : 'Próxima atividade'
+                    : index === total - 1
+                      ? 'Encerrar prática'
+                      : 'Próximo exercício'}
               </Button>
             )}
           </div>

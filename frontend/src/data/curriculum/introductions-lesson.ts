@@ -31,6 +31,8 @@ export const introductionsLesson = {
       title: 'Cumprimentar e se despedir',
       entries: [
         {
+          id: 'hello',
+          matchGroup: 'greeting-hello',
           expression: { text: 'Hello', translation: 'Olá' },
           example: {
             text: 'Hello, I’m Ana.',
@@ -40,11 +42,14 @@ export const introductionsLesson = {
             'Um cumprimento que funciona em praticamente qualquer situação.',
         },
         {
+          id: 'hi',
+          matchGroup: 'greeting-hello',
           expression: { text: 'Hi', translation: 'Oi' },
           example: { text: 'Hi, Bruno!', translation: 'Oi, Bruno!' },
           usage: 'Uma opção informal, comum entre colegas.',
         },
         {
+          id: 'good-morning',
           expression: { text: 'Good morning', translation: 'Bom dia' },
           example: {
             text: 'Good morning, Clara.',
@@ -52,6 +57,7 @@ export const introductionsLesson = {
           },
         },
         {
+          id: 'good-afternoon',
           expression: { text: 'Good afternoon', translation: 'Boa tarde' },
           example: {
             text: 'Good afternoon, I’m Leo.',
@@ -59,6 +65,7 @@ export const introductionsLesson = {
           },
         },
         {
+          id: 'good-evening',
           expression: { text: 'Good evening', translation: 'Boa noite' },
           example: {
             text: 'Good evening, everyone.',
@@ -68,6 +75,7 @@ export const introductionsLesson = {
             'Use ao cumprimentar alguém à noite. Ao se despedir à noite, você também pode dizer “good night”.',
         },
         {
+          id: 'goodbye',
           expression: { text: 'Goodbye', translation: 'Adeus / Tchau' },
           example: {
             text: 'Goodbye, everyone.',
@@ -75,6 +83,7 @@ export const introductionsLesson = {
           },
         },
         {
+          id: 'see-you',
           expression: { text: 'See you', translation: 'Até mais' },
           example: { text: 'See you tomorrow!', translation: 'Até amanhã!' },
           usage:
@@ -88,10 +97,12 @@ export const introductionsLesson = {
       title: 'Trocar nomes',
       entries: [
         {
+          id: 'my-name-is',
           expression: { text: 'My name is…', translation: 'Meu nome é…' },
           example: { text: 'My name is Ana.', translation: 'Meu nome é Ana.' },
         },
         {
+          id: 'whats-your-name',
           expression: {
             text: 'What’s your name?',
             translation: 'Qual é o seu nome?',
@@ -102,6 +113,7 @@ export const introductionsLesson = {
           },
         },
         {
+          id: 'nice-to-meet-you',
           expression: {
             text: 'Nice to meet you!',
             translation: 'Prazer em conhecer você!',

@@ -25,6 +25,7 @@ export const originsLesson = {
       title: 'Uma cidade ou um país',
       entries: [
         {
+          id: 'where-are-you-from',
           expression: {
             text: 'Where are you from?',
             translation: 'De onde você é?',
@@ -35,6 +36,7 @@ export const originsLesson = {
           },
         },
         {
+          id: 'im-from',
           expression: {
             text: 'I’m from…',
             translation: 'Eu sou de…',
@@ -45,6 +47,7 @@ export const originsLesson = {
           },
         },
         {
+          id: 'brazil',
           expression: {
             text: 'Brazil',
             translation: 'Brasil',
@@ -55,6 +58,7 @@ export const originsLesson = {
           },
         },
         {
+          id: 'canada',
           expression: {
             text: 'Canada',
             translation: 'Canadá',
@@ -65,6 +69,7 @@ export const originsLesson = {
           },
         },
         {
+          id: 'mexico',
           expression: {
             text: 'Mexico',
             translation: 'México',
@@ -75,6 +80,7 @@ export const originsLesson = {
           },
         },
         {
+          id: 'recife',
           expression: {
             text: 'Recife',
             translation: 'Recife',
@@ -92,6 +98,7 @@ export const originsLesson = {
       title: 'Nacionalidades',
       entries: [
         {
+          id: 'brazilian',
           expression: {
             text: 'Brazilian',
             translation: 'Brasileiro(a)',
@@ -102,6 +109,7 @@ export const originsLesson = {
           },
         },
         {
+          id: 'canadian',
           expression: {
             text: 'Canadian',
             translation: 'Canadense',
@@ -112,6 +120,7 @@ export const originsLesson = {
           },
         },
         {
+          id: 'mexican',
           expression: {
             text: 'Mexican',
             translation: 'Mexicano(a)',

@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { GameActivity } from '@/components/games/game-activity'
+import { selectGameHistory } from '@/services/game-history'
 import { DailyWord } from '@/components/dashboard/daily-word'
 import { ExploreModules } from '@/components/dashboard/explore-modules'
 import { Greeting } from '@/components/dashboard/greeting'
@@ -10,13 +12,20 @@ import { dailyWord } from '@/data/dashboard'
 import { useProgress } from '@/hooks/use-progress'
 import { getCurriculumOverview } from '@/services/curriculum'
 import { readingTotals } from '@/services/reading-progress'
-import { getWeeklyStudyDays, totalStudyMs } from '@/services/study-time'
+import {
+  combinedDailyStudyMs,
+  getWeeklyStudyDays,
+  totalStudyMs,
+} from '@/services/study-time'
 
 export function HomePage() {
   const [localTime, setLocalTime] = useState(() => new Date())
   const { data } = useProgress()
   const { recommended, completedCount } = getCurriculumOverview(englishA1, data)
-  const studiedWeekdays = getWeeklyStudyDays(data.dailyStudyMs, localTime)
+  const studiedWeekdays = getWeeklyStudyDays(
+    combinedDailyStudyMs(data),
+    localTime,
+  )
 
   useEffect(() => {
     const timer = window.setInterval(() => setLocalTime(new Date()), 60_000)
@@ -57,6 +66,7 @@ export function HomePage() {
             reading: readingTotals(data),
           }}
         />
+        <GameActivity compact history={selectGameHistory(data)} />
       </div>
     </>
   )

@@ -41,7 +41,7 @@ function dayKey(date: Date) {
     .join('-')
 }
 
-function addDailyTime(
+export function addDailyTime(
   previous: LearnerProgress['dailyStudyMs'],
   start: number,
   end: number,
@@ -131,8 +131,19 @@ export function getWeeklyStudyDays(
   })
 }
 
+export function combinedDailyStudyMs(data: LearnerProgress) {
+  const days = { ...data.dailyStudyMs }
+  for (const session of Object.values(data.gameSessions ?? {})) {
+    if (!session) continue
+    for (const [day, duration] of Object.entries(session.dailyPracticeMs)) {
+      days[day] = (days[day] ?? 0) + (duration ?? 0)
+    }
+  }
+  return days
+}
+
 export function totalStudyMs(data: LearnerProgress) {
-  return Object.values(data.dailyStudyMs).reduce<number>(
+  return Object.values(combinedDailyStudyMs(data)).reduce<number>(
     (sum, value) => sum + (value ?? 0),
     0,
   )

@@ -77,8 +77,8 @@ function Vocabulary({
 }) {
   return (
     <ul className="divide-y divide-plum/20">
-      {block.entries.map(({ expression, example, usage }) => (
-        <li key={expression.text} className="space-y-3 py-4 first:pt-0">
+      {block.entries.map(({ id, expression, example, usage }) => (
+        <li key={id} className="space-y-3 py-4 first:pt-0">
           <SpokenExample
             example={expression}
             audio={audio}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240">
+  <path fill="#F8F4EC" d="M0 0h480v240H0z"/>
+  <path fill="#D9A69C" fill-opacity=".42" d="M0 0h480v240H0z"/>
+  <g stroke="#51465D" stroke-width="2">
+    <rect x="83" y="39" width="90" height="124" rx="10" transform="rotate(-12 128 101)" fill="#E9E0F4"/>
+    <rect x="100" y="57" width="56" height="88" rx="6" transform="rotate(-12 128 101)" fill="none" stroke-dasharray="3 5"/>
+    <rect x="168" y="77" width="90" height="124" rx="10" transform="rotate(9 213 139)" fill="#F8F4EC"/>
+    <rect x="266" y="40" width="90" height="124" rx="10" transform="rotate(-7 311 102)" fill="#DCE8D9"/>
+  </g>
+  <g fill="#51465D" font-family="Georgia, serif" font-size="22" text-anchor="middle">
+    <text x="213" y="147" transform="rotate(9 213 139)">train</text>
+    <text x="311" y="110" transform="rotate(-7 311 102)">trem</text>
+  </g>
+  <path d="M116 104c5-19 12-24 23-25-1 12-8 21-23 25m0 0c6 6 10 11 12 20m-12-20c-13 1-20-6-23-16 9-1 18 4 23 16m272 50v27m-13-13h26" fill="none" stroke="#51465D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

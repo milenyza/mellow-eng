@@ -20,6 +20,8 @@ export type IntroductionBlock = BlockBase & {
 export type VocabularyBlock = BlockBase & {
   kind: 'vocabulary'
   entries: readonly {
+    id: string
+    matchGroup?: string
     expression: TranslatedExample
     example: TranslatedExample
     usage?: string

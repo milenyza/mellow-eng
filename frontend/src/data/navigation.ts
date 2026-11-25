@@ -25,6 +25,15 @@ export function getStoryPath(storyId: string, chapterId?: string) {
 }
 
 export const lessonsPath = '/aulas'
+export const gamesPath = '/jogos'
+export const gameHistoryPath = `${gamesPath}/historico`
+export const gameHistoryRoute = `${gameHistoryPath}/:sessionId?`
+export function getGameSessionPath(sessionId: string) {
+  return `${gameHistoryPath}/${encodeURIComponent(sessionId)}`
+}
+export const sentenceBuilderPath = `${gamesPath}/sentence-builder`
+export const memoryGamePath = `${gamesPath}/memory-game`
+export const wordMatchPath = `${gamesPath}/word-match`
 export const lessonRoute = `${lessonsPath}/:lessonId`
 
 export function getLessonPath(id: string) {
@@ -47,7 +56,7 @@ export const modules = [
       'O espaço para descobrir palavras e expressões em histórias curtas em inglês.',
   },
   {
-    path: '/jogos',
+    path: gamesPath,
     title: 'Jogos',
     icon: Gamepad2,
     description:

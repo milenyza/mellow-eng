@@ -1,4 +1,9 @@
-import type { Exercise, ExerciseAnswer, ExerciseResult } from '@/types/exercise'
+import type {
+  Exercise,
+  ExerciseAnswer,
+  ExerciseResult,
+  SentenceBuilderExercise,
+} from '@/types/exercise'
 
 export function normalizeTextAnswer(value: string) {
   return value.trim().replace(/\s+/g, ' ').toLowerCase()
@@ -21,6 +26,32 @@ function evaluateOrder(
   )
     return 'incomplete'
   return result(expected.every((id, index) => id === selected[index]))
+}
+
+export function evaluateSentenceOrder(
+  exercise: SentenceBuilderExercise,
+  selected: readonly string[],
+): ExerciseResult {
+  const { tiles, correctOrder, alternativeOrders = [] } = exercise
+  const text = new Map(tiles.map(({ id, text }) => [id, text]))
+  if (
+    selected.length === 0 ||
+    selected.length !== correctOrder.length ||
+    new Set(selected).size !== selected.length ||
+    !selected.every((id) => text.has(id))
+  )
+    return 'incomplete'
+
+  return result(
+    [correctOrder, ...alternativeOrders].some(
+      (order) =>
+        order.length === selected.length &&
+        order.every(
+          (id, index) =>
+            text.has(id) && text.get(id) === text.get(selected[index]),
+        ),
+    ),
+  )
 }
 
 export function evaluateExercise(
@@ -54,7 +85,7 @@ export function evaluateExercise(
     }
     case 'sentence-builder':
       return answer?.kind === exercise.kind
-        ? evaluateOrder(exercise.tiles, exercise.correctOrder, answer.tileIds)
+        ? evaluateSentenceOrder(exercise, answer.tileIds)
         : 'incomplete'
     case 'sequence-ordering':
       return answer?.kind === exercise.kind &&

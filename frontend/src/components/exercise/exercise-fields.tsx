@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useId, useRef, useState } from 'react'
 import { cn } from '@/components/utils'
 import type {
   Exercise,
@@ -11,7 +11,7 @@ import type {
 const inputClass =
   'min-h-11 min-w-0 w-full rounded-md border border-border bg-background px-3 py-2 text-base text-foreground'
 const tileClass =
-  'min-h-11 max-w-full cursor-pointer rounded-md border border-border bg-background px-3 py-1.5 text-left font-bold enabled:hover:bg-lavender disabled:cursor-default'
+  'min-h-11 max-w-full cursor-pointer rounded-md border border-border bg-background px-3 py-1.5 text-left font-bold [overflow-wrap:anywhere] enabled:hover:bg-lavender disabled:cursor-default disabled:opacity-60'
 
 function ChoiceFields({
   name,
@@ -101,6 +101,7 @@ function OrderedOptions({
   tileIds,
   language,
   onChange,
+  editingTools = false,
 }: {
   options: readonly ExerciseOption[]
   count: number
@@ -108,10 +109,31 @@ function OrderedOptions({
   tileIds: readonly string[]
   language: string
   onChange: (tileIds: readonly string[]) => void
+  editingTools?: boolean
 }) {
   const wordButtons = useRef(new Map<string, HTMLButtonElement>())
   const tiles = new Map(options.map((option) => [option.id, option]))
   const isFull = tileIds.length >= count
+  const [history, setHistory] = useState<readonly (readonly string[])[]>([])
+  const [moveId, setMoveId] = useState('')
+  const moveIndex = tileIds.indexOf(moveId)
+  const moveFrom = moveIndex >= 0 ? moveIndex : 0
+  const moveLabel = useId()
+
+  function edit(next: readonly string[]) {
+    if (editingTools) setHistory([...history, tileIds])
+    onChange(next)
+  }
+
+  function move(offset: number) {
+    const next = [...tileIds]
+    const to = moveFrom + offset
+    if (to < 0 || to >= next.length) return
+    const [word] = next.splice(moveFrom, 1)
+    next.splice(to, 0, word)
+    setMoveId(word)
+    edit(next)
+  }
 
   return (
     <div className="space-y-3">
@@ -143,7 +165,7 @@ function OrderedOptions({
                   className={tileClass}
                   onClick={() => {
                     wordButtons.current.get(id)?.focus()
-                    onChange(tileIds.filter((tileId) => tileId !== id))
+                    edit(tileIds.filter((tileId) => tileId !== id))
                   }}
                 >
                   <span className="sr-only">
@@ -159,6 +181,83 @@ function OrderedOptions({
           </ol>
         )}
       </div>
+      {editingTools && (
+        <div className="space-y-2">
+          <p role="status" aria-atomic="true" className="text-sm font-semibold">
+            {tileIds.length} de {count} palavras na frase
+            <span className="sr-only" lang={language}>
+              {tileIds.map((id) => tiles.get(id)?.text).join(' ')}
+            </span>
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              className={tileClass}
+              disabled={!history.length}
+              onClick={() => {
+                const previous = history.at(-1)
+                if (!previous) return
+                setHistory(history.slice(0, -1))
+                onChange(previous)
+              }}
+            >
+              Desfazer
+            </button>
+            <button
+              type="button"
+              className={tileClass}
+              disabled={!tileIds.length}
+              onClick={() => edit([])}
+            >
+              Limpar frase
+            </button>
+          </div>
+          {tileIds.length > 1 && (
+            <div className="flex flex-wrap items-end gap-2">
+              <div className="space-y-1">
+                <label htmlFor={moveLabel} className="block text-sm font-bold">
+                  Palavra para mover
+                </label>
+                <select
+                  id={moveLabel}
+                  className={inputClass}
+                  value={tileIds[moveFrom]}
+                  onChange={(event) => setMoveId(event.target.value)}
+                >
+                  {tileIds.map((id, index) => (
+                    <option key={id} value={id}>
+                      {index + 1}. {tiles.get(id)?.text}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button
+                type="button"
+                className={cn(
+                  tileClass,
+                  'aria-disabled:opacity-60 aria-disabled:cursor-default',
+                )}
+                aria-disabled={moveFrom === 0}
+                onClick={() => move(-1)}
+              >
+                Mover antes
+              </button>
+              <button
+                type="button"
+                className={cn(
+                  tileClass,
+                  'aria-disabled:opacity-60 aria-disabled:cursor-default',
+                )}
+                aria-disabled={moveFrom === tileIds.length - 1}
+                onClick={() => move(1)}
+              >
+                Mover depois
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+      {editingTools && <p className="text-sm font-bold">Banco de palavras</p>}
       <div
         aria-label={
           sequence ? 'Acontecimentos disponíveis' : 'Palavras disponíveis'
@@ -181,7 +280,7 @@ function OrderedOptions({
               aria-pressed={selected}
               disabled={isFull && !selected}
               onClick={() =>
-                onChange(
+                edit(
                   selected
                     ? tileIds.filter((tileId) => tileId !== id)
                     : [...tileIds, id],
@@ -253,11 +352,13 @@ export function ExerciseFields({
   answer,
   language,
   onChange,
+  orderingTools,
 }: {
   exercise: Exercise
   answer: ExerciseAnswer | null
   language: string
   onChange: (answer: ExerciseAnswer) => void
+  orderingTools?: boolean
 }) {
   switch (exercise.kind) {
     case 'multiple-choice':
@@ -299,6 +400,7 @@ export function ExerciseFields({
       return (
         <OrderedOptions
           options={exercise.tiles}
+          editingTools={orderingTools}
           count={exercise.correctOrder.length}
           language={language}
           tileIds={answer?.kind === exercise.kind ? answer.tileIds : []}

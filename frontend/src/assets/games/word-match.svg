@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 240">
+  <path fill="#E9E0F4" d="M0 0h480v240H0z"/>
+  <path d="M45 56h35m320 126h35M62 39v34m356 92v34" stroke="#51465D" stroke-width="2" stroke-linecap="round" opacity=".4"/>
+  <path d="M167 96c38-37 111-47 151-13m-158 56c47 35 107 56 164 24" fill="none" stroke="#51465D" stroke-width="2.5" stroke-dasharray="4 7" stroke-linecap="round"/>
+  <g stroke="#51465D" stroke-width="2">
+    <rect x="80" y="48" width="126" height="61" rx="10" fill="#F8F4EC" transform="rotate(-9 143 78)"/>
+    <rect x="79" y="132" width="126" height="61" rx="10" fill="#D9A69C" transform="rotate(6 142 163)"/>
+    <rect x="274" y="48" width="126" height="61" rx="10" fill="#DCE8D9" transform="rotate(7 337 78)"/>
+    <rect x="276" y="132" width="126" height="61" rx="10" fill="#F8F4EC" transform="rotate(-6 339 163)"/>
+  </g>
+  <g fill="#51465D" font-family="Georgia, serif" font-size="23" text-anchor="middle">
+    <text x="143" y="86" transform="rotate(-9 143 78)">tea</text>
+    <text x="142" y="171" transform="rotate(6 142 163)">book</text>
+    <text x="337" y="86" transform="rotate(7 337 78)">chá</text>
+    <text x="339" y="171" transform="rotate(-6 339 163)">livro</text>
+  </g>
+</svg>

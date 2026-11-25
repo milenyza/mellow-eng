@@ -52,6 +52,7 @@ export const firstTripStory = {
           id: 'story-first-trip-train-station',
           word: 'train station',
           pronunciation: '/treɪn ˈsteɪ.ʃən/',
+          matchingTranslation: 'Estação de trem',
           meaning: 'Estação de trem, onde Caio vai embarcar.',
           example: {
             text: 'I am at the train station.',
@@ -62,6 +63,7 @@ export const firstTripStory = {
           id: 'story-first-trip-ticket',
           word: 'ticket',
           pronunciation: '/ˈtɪk.ɪt/',
+          matchingTranslation: 'Passagem / Bilhete',
           meaning:
             'Passagem ou bilhete. A passagem de Caio mostra o horário do trem.',
           example: {
@@ -73,6 +75,7 @@ export const firstTripStory = {
           id: 'story-first-trip-leaves-at',
           word: 'leaves at',
           pronunciation: '/liːvz æt/',
+          matchingTranslation: 'Sai às',
           meaning: 'Sai às. A expressão indica o horário de partida.',
           example: {
             text: 'The train leaves at ten.',
@@ -188,6 +191,7 @@ export const firstTripStory = {
           id: 'story-first-trip-information-desk',
           word: 'information desk',
           pronunciation: '/ˌɪn.fɚˈmeɪ.ʃən desk/',
+          matchingTranslation: 'Balcão de informações',
           meaning: 'Balcão de informações, onde Caio pede ajuda.',
           example: {
             text: 'The information desk is over there.',
@@ -198,6 +202,7 @@ export const firstTripStory = {
           id: 'story-first-trip-excuse-me',
           word: 'Excuse me',
           pronunciation: '/ɪkˈskjuːz miː/',
+          matchingTranslation: 'Com licença',
           meaning:
             'Com licença. Caio usa a expressão para iniciar uma pergunta com educação.',
           example: {
@@ -209,6 +214,7 @@ export const firstTripStory = {
           id: 'story-first-trip-platform',
           word: 'platform',
           pronunciation: '/ˈplæt.fɔːrm/',
+          matchingTranslation: 'Plataforma',
           meaning: 'Plataforma, área onde os passageiros embarcam no trem.',
           example: {
             text: 'My train is at platform two.',
@@ -219,6 +225,7 @@ export const firstTripStory = {
           id: 'story-first-trip-turn-left',
           word: 'turn left',
           pronunciation: '/tɝːn left/',
+          matchingTranslation: 'Vire à esquerda',
           meaning: 'Vire à esquerda. É uma instrução de direção.',
           example: {
             text: 'Turn left at the door.',
@@ -338,6 +345,7 @@ export const firstTripStory = {
           id: 'story-first-trip-seat',
           word: 'seat',
           pronunciation: '/siːt/',
+          matchingTranslation: 'Assento / Lugar para sentar',
           meaning: 'Assento ou lugar para sentar. Caio procura o número doze.',
           example: {
             text: 'This is my seat.',
@@ -348,6 +356,7 @@ export const firstTripStory = {
           id: 'story-first-trip-by-window',
           word: 'by the window',
           pronunciation: '/baɪ ðə ˈwɪn.doʊ/',
+          matchingTranslation: 'Junto à janela',
           meaning: 'Junto à janela. Indica onde está o assento.',
           example: {
             text: 'I sit by the window.',
@@ -358,6 +367,7 @@ export const firstTripStory = {
           id: 'story-first-trip-sits-down',
           word: 'sit down',
           pronunciation: '/sɪt daʊn/',
+          matchingTranslation: 'Sentar-se',
           meaning:
             'Sentar-se. No texto aparece “sits down” porque o sujeito é Caio.',
           example: {

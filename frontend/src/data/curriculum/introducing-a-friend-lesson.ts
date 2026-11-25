@@ -28,6 +28,7 @@ export const introducingAFriendLesson = {
       title: 'Apresentar uma pessoa',
       entries: [
         {
+          id: 'this-is',
           expression: {
             text: 'This is…',
             translation: 'Este é… / Esta é…',
@@ -38,6 +39,7 @@ export const introducingAFriendLesson = {
           },
         },
         {
+          id: 'my-friend',
           expression: {
             text: 'My friend',
             translation: 'Meu amigo / Minha amiga',
@@ -48,6 +50,7 @@ export const introducingAFriendLesson = {
           },
         },
         {
+          id: 'he',
           expression: {
             text: 'He',
             translation: 'Ele',
@@ -58,6 +61,7 @@ export const introducingAFriendLesson = {
           },
         },
         {
+          id: 'she',
           expression: {
             text: 'She',
             translation: 'Ela',
@@ -68,6 +72,7 @@ export const introducingAFriendLesson = {
           },
         },
         {
+          id: 'nice-to-meet-you',
           expression: {
             text: 'Nice to meet you!',
             translation: 'Prazer em conhecer você!',
@@ -85,6 +90,7 @@ export const introducingAFriendLesson = {
       title: 'Falar sobre quem você apresentou',
       entries: [
         {
+          id: 'they',
           expression: {
             text: 'They',
             translation: 'Eles / Elas',
@@ -96,6 +102,7 @@ export const introducingAFriendLesson = {
           usage: 'Nesta aula, usamos they para falar de duas ou mais pessoas.',
         },
         {
+          id: 'hes',
           expression: {
             text: 'He’s',
             translation: 'Ele é / Ele está',
@@ -106,6 +113,7 @@ export const introducingAFriendLesson = {
           },
         },
         {
+          id: 'shes',
           expression: {
             text: 'She’s',
             translation: 'Ela é / Ela está',
@@ -116,6 +124,7 @@ export const introducingAFriendLesson = {
           },
         },
         {
+          id: 'theyre',
           expression: {
             text: 'They’re',
             translation: 'Eles são / Elas são',

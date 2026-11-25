@@ -57,7 +57,7 @@ describe('versioned learner progress storage', () => {
       dailyStudyMs: { '2026-11-24': 2000 },
     }))
     const payload = storage.getItem(progressStorageKey)
-    expect(JSON.parse(payload ?? '').version).toBe(2)
+    expect(JSON.parse(payload ?? '').version).toBe(3)
     expect(parseProgress(payload)).toEqual(repository.getSnapshot().data)
     expect(
       createLocalProgressRepository(() => storage).getSnapshot().data.lessons

@@ -19,6 +19,7 @@ export interface StoryVocabularyEntry {
   word: string
   pronunciation: string
   meaning: string
+  matchingTranslation?: string
   example: TranslatedExample
 }
 

@@ -34,6 +34,7 @@ export type SentenceBuilderExercise = ExerciseBase & {
   kind: 'sentence-builder'
   tiles: readonly ExerciseOption[]
   correctOrder: readonly string[]
+  alternativeOrders?: readonly (readonly string[])[]
 }
 
 export type SequenceOrderingExercise = ExerciseBase & {

@@ -28,6 +28,7 @@ export const personalIntroductionLesson = {
       title: 'Conte um pouco sobre você',
       entries: [
         {
+          id: 'good-morning',
           expression: {
             text: 'Good morning',
             translation: 'Bom dia',
@@ -38,6 +39,7 @@ export const personalIntroductionLesson = {
           },
         },
         {
+          id: 'my-name-is',
           expression: {
             text: 'My name is…',
             translation: 'Meu nome é…',
@@ -48,6 +50,7 @@ export const personalIntroductionLesson = {
           },
         },
         {
+          id: 'im-from',
           expression: {
             text: 'I’m from…',
             translation: 'Eu sou de…',
@@ -58,6 +61,7 @@ export const personalIntroductionLesson = {
           },
         },
         {
+          id: 'where-are-you-from',
           expression: {
             text: 'Where are you from?',
             translation: 'De onde você é?',
@@ -75,6 +79,7 @@ export const personalIntroductionLesson = {
       title: 'Confirme ou corrija uma informação',
       entries: [
         {
+          id: 'are-you-from',
           expression: {
             text: 'Are you from…?',
             translation: 'Você é de…?',
@@ -85,6 +90,7 @@ export const personalIntroductionLesson = {
           },
         },
         {
+          id: 'yes-i-am',
           expression: {
             text: 'Yes, I am.',
             translation: 'Sim, sou.',
@@ -95,6 +101,7 @@ export const personalIntroductionLesson = {
           },
         },
         {
+          id: 'no-im-not',
           expression: {
             text: 'No, I’m not.',
             translation: 'Não, não sou.',
@@ -105,6 +112,7 @@ export const personalIntroductionLesson = {
           },
         },
         {
+          id: 'im-not-from',
           expression: {
             text: 'I’m not from…',
             translation: 'Eu não sou de…',
