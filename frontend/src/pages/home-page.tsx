@@ -5,12 +5,17 @@ import { Greeting } from '@/components/dashboard/greeting'
 import { LearningSummary } from '@/components/dashboard/learning-summary'
 import { NextLesson } from '@/components/dashboard/next-lesson'
 import { WeeklyProgress } from '@/components/dashboard/weekly-progress'
-import { dashboardData } from '@/data/dashboard'
+import { englishA1 } from '@/data/curriculum/english-a1'
+import { dailyWord } from '@/data/dashboard'
+import { useProgress } from '@/hooks/use-progress'
+import { getCurriculumOverview } from '@/services/curriculum'
+import { getWeeklyStudyDays, totalStudyMs } from '@/services/study-time'
 
 export function HomePage() {
   const [localTime, setLocalTime] = useState(() => new Date())
-  const { learner, nextLesson, studiedWeekdays, dailyWord, summary } =
-    dashboardData
+  const { data } = useProgress()
+  const { recommended, completedCount } = getCurriculumOverview(englishA1, data)
+  const studiedWeekdays = getWeeklyStudyDays(data.dailyStudyMs, localTime)
 
   useEffect(() => {
     const timer = window.setInterval(() => setLocalTime(new Date()), 60_000)
@@ -21,9 +26,20 @@ export function HomePage() {
     <>
       <title>Início | Mellow</title>
       <div className="space-y-8 sm:space-y-9 max-md:[&_a]:scroll-mb-24 max-md:[&_button]:scroll-mb-24">
-        <Greeting firstName={learner.firstName} hour={localTime.getHours()} />
+        <Greeting hour={localTime.getHours()} />
         <div className="grid gap-5 lg:grid-cols-[minmax(0,1.65fr)_minmax(17rem,1fr)] xl:gap-7">
-          <NextLesson lesson={nextLesson} />
+          <NextLesson
+            lesson={
+              recommended && {
+                id: recommended.lesson.id,
+                title: recommended.lesson.title,
+                description: recommended.lesson.description,
+                unit: `Unidade ${recommended.unitNumber}`,
+                durationMinutes: recommended.lesson.durationMinutes,
+                status: recommended.status,
+              }
+            }
+          />
           <WeeklyProgress
             studiedDays={studiedWeekdays}
             today={localTime.getDay()}
@@ -33,7 +49,12 @@ export function HomePage() {
           <ExploreModules />
           <DailyWord key={dailyWord.id} entry={dailyWord} />
         </div>
-        <LearningSummary totals={summary} />
+        <LearningSummary
+          totals={{
+            completedLessons: completedCount,
+            studyMs: totalStudyMs(data),
+          }}
+        />
       </div>
     </>
   )

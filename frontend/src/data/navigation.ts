@@ -16,16 +16,31 @@ export const home = {
   icon: House,
 }
 
+export const storiesPath = '/historias'
+export const storyRoute = `${storiesPath}/:storyId/:chapterId?`
+
+export function getStoryPath(storyId: string, chapterId?: string) {
+  const path = `${storiesPath}/${encodeURIComponent(storyId)}`
+  return chapterId ? `${path}/${encodeURIComponent(chapterId)}` : path
+}
+
+export const lessonsPath = '/aulas'
+export const lessonRoute = `${lessonsPath}/:lessonId`
+
+export function getLessonPath(id: string) {
+  return `${lessonsPath}/${encodeURIComponent(id)}`
+}
+
 export const modules = [
   {
-    path: '/aulas',
+    path: lessonsPath,
     title: 'Aulas',
     icon: GraduationCap,
     description:
       'O espaço para dar os primeiros passos no inglês e praticar no seu ritmo.',
   },
   {
-    path: '/historias',
+    path: storiesPath,
     title: 'Histórias',
     icon: BookOpen,
     description:

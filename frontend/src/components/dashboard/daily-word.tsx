@@ -1,6 +1,11 @@
-import { Bookmark, Square, Volume2 } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { Bookmark } from 'lucide-react'
+import { useId, useState } from 'react'
 import { Button } from '@/components/ui/button'
+import {
+  PronunciationButton,
+  PronunciationStatus,
+} from '@/components/ui/pronunciation'
+import { useSpeechPlayback } from '@/hooks/use-speech-playback'
 import { readFavoriteWordIds, setWordFavorite } from '@/services/word-favorites'
 import type { DailyWordData } from '@/types/dashboard'
 
@@ -13,60 +18,8 @@ export function DailyWord({ entry }: { entry: DailyWordData }) {
     }
   })
   const [feedback, setFeedback] = useState('')
-  const [speaking, setSpeaking] = useState(false)
-  const [speechMessage, setSpeechMessage] = useState('')
-  const utterance = useRef<SpeechSynthesisUtterance | null>(null)
-  const synthesis = window.speechSynthesis
-  const canSpeak =
-    typeof synthesis?.speak === 'function' &&
-    typeof window.SpeechSynthesisUtterance === 'function'
-
-  useEffect(() => {
-    return () => {
-      if (utterance.current) {
-        utterance.current = null
-        synthesis.cancel()
-      }
-    }
-  }, [synthesis])
-
-  function togglePronunciation() {
-    if (!canSpeak) return
-    if (utterance.current) {
-      utterance.current = null
-      synthesis.cancel()
-      setSpeaking(false)
-      setSpeechMessage('Reprodução interrompida.')
-      return
-    }
-
-    try {
-      const speech = new SpeechSynthesisUtterance(entry.word)
-      speech.lang = 'en-US'
-      speech.rate = 0.85
-      utterance.current = speech
-
-      function finish(message: string) {
-        if (utterance.current !== speech) return
-        utterance.current = null
-        setSpeaking(false)
-        setSpeechMessage(message)
-      }
-
-      speech.onend = () => finish('Pronúncia concluída.')
-      speech.onerror = () =>
-        finish('Não foi possível reproduzir a pronúncia neste navegador.')
-      setSpeaking(true)
-      setSpeechMessage('Reproduzindo a pronúncia em inglês.')
-      synthesis.speak(speech)
-    } catch {
-      utterance.current = null
-      setSpeaking(false)
-      setSpeechMessage(
-        'Não foi possível reproduzir a pronúncia neste navegador.',
-      )
-    }
-  }
+  const playback = useSpeechPlayback()
+  const audioStatusId = useId()
 
   function toggleFavorite() {
     try {
@@ -106,20 +59,11 @@ export function DailyWord({ entry }: { entry: DailyWordData }) {
         <p className="mt-1 text-sm">{entry.exampleTranslation}</p>
       </div>
       <div className="flex flex-wrap items-center gap-2">
-        <button
-          type="button"
-          onClick={togglePronunciation}
-          disabled={!canSpeak}
-          aria-describedby={canSpeak ? undefined : 'pronuncia-indisponivel'}
-          className="inline-flex min-h-11 items-center gap-2 rounded-md border border-border px-3 text-sm font-bold enabled:cursor-pointer enabled:hover:bg-lavender"
-        >
-          {speaking ? (
-            <Square aria-hidden="true" className="size-4" />
-          ) : (
-            <Volume2 aria-hidden="true" className="size-4" />
-          )}
-          {speaking ? 'Parar pronúncia' : 'Ouvir pronúncia'}
-        </button>
+        <PronunciationButton
+          playback={playback}
+          text={entry.word}
+          descriptionId={audioStatusId}
+        />
         <Button
           variant="secondary"
           onClick={toggleFavorite}
@@ -132,14 +76,9 @@ export function DailyWord({ entry }: { entry: DailyWordData }) {
           {saved ? 'Remover dos favoritos' : 'Salvar nos favoritos'}
         </Button>
       </div>
-      {!canSpeak && (
-        <p id="pronuncia-indisponivel" className="mt-2 text-sm">
-          A reprodução de áudio está indisponível neste navegador.
-        </p>
-      )}
-      <p role="status" className={speechMessage ? 'mt-2 text-sm' : 'sr-only'}>
-        {speechMessage}
-      </p>
+      <div className="mt-2">
+        <PronunciationStatus playback={playback} id={audioStatusId} />
+      </div>
       <p role="status" className={feedback ? 'mt-2 text-sm' : 'sr-only'}>
         {feedback}
       </p>

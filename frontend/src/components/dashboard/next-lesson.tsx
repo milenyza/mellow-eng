@@ -1,10 +1,32 @@
-import { Clock, Play } from 'lucide-react'
+import { BookOpen, Clock } from 'lucide-react'
 import { Link } from 'react-router'
-import coffeeNotebook from '@/assets/coffee-notebook.svg'
+import notebook from '@/assets/curriculum-notebook.svg'
+import { LessonStatusBadge } from '@/components/curriculum/lesson-status-badge'
 import { Button } from '@/components/ui/button'
+import { getLessonPath, lessonsPath } from '@/data/navigation'
 import type { NextLessonData } from '@/types/dashboard'
 
-export function NextLesson({ lesson }: { lesson: NextLessonData }) {
+export function NextLesson({ lesson }: { lesson?: NextLessonData }) {
+  if (!lesson) {
+    return (
+      <section
+        aria-labelledby="proxima-aula"
+        className="rounded-xl bg-lavender p-5 sm:p-7"
+      >
+        <h2 id="proxima-aula" className="text-lg font-semibold">
+          Próxima aula
+        </h2>
+        <p className="mt-3 leading-relaxed">
+          Você já concluiu as aulas publicadas. O roteiro do curso mostra o que
+          vem a seguir.
+        </p>
+        <Button asChild className="mt-4">
+          <Link to={lessonsPath}>Ver roteiro de aulas</Link>
+        </Button>
+      </section>
+    )
+  }
+
   return (
     <section
       aria-labelledby="proxima-aula"
@@ -31,7 +53,7 @@ export function NextLesson({ lesson }: { lesson: NextLessonData }) {
         </div>
         <img
           alt=""
-          src={coffeeNotebook}
+          src={notebook}
           width={222}
           height={164}
           className="mx-auto h-auto w-full max-w-52"
@@ -40,26 +62,13 @@ export function NextLesson({ lesson }: { lesson: NextLessonData }) {
           {lesson.description}
         </p>
       </div>
-      {lesson.progressPercent !== undefined && (
-        <div className="mt-5">
-          <label
-            htmlFor="progresso-aula"
-            className="flex flex-wrap justify-between gap-x-2 text-sm font-bold"
-          >
-            Progresso da aula <span>{lesson.progressPercent}%</span>
-          </label>
-          <progress
-            id="progresso-aula"
-            max={100}
-            value={lesson.progressPercent}
-            className="mt-2 block h-2 w-full appearance-none overflow-hidden rounded-full bg-cream [&::-moz-progress-bar]:bg-plum [&::-webkit-progress-bar]:bg-cream [&::-webkit-progress-value]:bg-plum forced-colors:appearance-auto"
-          />
-        </div>
-      )}
+      <div className="mt-3">
+        <LessonStatusBadge status={lesson.status} />
+      </div>
       <Button asChild className="mt-5 min-h-12 w-full gap-2 px-5 sm:w-fit">
-        <Link to="/aulas">
-          <Play aria-hidden="true" className="size-4 shrink-0" />
-          Continuar aprendendo
+        <Link to={getLessonPath(lesson.id)}>
+          <BookOpen aria-hidden="true" className="size-4 shrink-0" />
+          {lesson.status === 'in-progress' ? 'Continuar aula' : 'Iniciar aula'}
         </Link>
       </Button>
     </section>

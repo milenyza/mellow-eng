@@ -1,10 +1,4 @@
-export function Greeting({
-  firstName,
-  hour,
-}: {
-  firstName: string
-  hour: number
-}) {
+export function Greeting({ hour }: { hour: number }) {
   const greeting =
     hour < 5 || hour >= 18
       ? 'Good evening'
@@ -19,7 +13,7 @@ export function Greeting({
         lang="en"
         className="text-4xl leading-tight font-semibold tracking-tight sm:text-5xl"
       >
-        {greeting}, {firstName}!
+        {greeting}!
       </h1>
       <p className="mt-3 max-w-prose text-lg leading-relaxed">
         Uma palavra de cada vez, você vai ganhando confiança no inglês.

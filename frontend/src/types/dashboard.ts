@@ -1,19 +1,14 @@
+import type { LessonStatus } from '@/types/curriculum'
+
 export type Weekday = 0 | 1 | 2 | 3 | 4 | 5 | 6
 
-export interface DashboardData {
-  learner: { firstName: string }
-  nextLesson: NextLessonData
-  studiedWeekdays: readonly Weekday[]
-  dailyWord: DailyWordData
-  summary: LearningTotals
-}
-
 export interface NextLessonData {
+  id: string
   title: string
   description: string
   unit: string
   durationMinutes: number
-  progressPercent?: number
+  status: LessonStatus
 }
 
 export interface DailyWordData {
@@ -27,6 +22,5 @@ export interface DailyWordData {
 
 export interface LearningTotals {
   completedLessons: number
-  learnedWords: number
-  studyMinutes: number
+  studyMs: number
 }

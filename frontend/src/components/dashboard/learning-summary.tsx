@@ -1,4 +1,5 @@
-import { BookOpenCheck, Clock, Languages } from 'lucide-react'
+import { BookOpenCheck, Clock } from 'lucide-react'
+import { formatStudyTime } from '@/services/study-time'
 import type { LearningTotals } from '@/types/dashboard'
 
 export function LearningSummary({ totals }: { totals: LearningTotals }) {
@@ -9,14 +10,8 @@ export function LearningSummary({ totals }: { totals: LearningTotals }) {
       icon: BookOpenCheck,
     },
     {
-      label: 'Palavras aprendidas',
-      value: totals.learnedWords,
-      icon: Languages,
-    },
-    {
-      label: 'Tempo de estudo',
-      value: totals.studyMinutes,
-      unit: 'min',
+      label: 'Tempo de estudo ativo',
+      value: formatStudyTime(totals.studyMs),
       icon: Clock,
     },
   ]
@@ -32,8 +27,8 @@ export function LearningSummary({ totals }: { totals: LearningTotals }) {
       >
         Resumo do aprendizado
       </h2>
-      <dl className="mt-4 grid divide-y divide-plum/20 rounded-xl bg-lavender/45 px-4 sm:grid-cols-3 sm:divide-x sm:divide-y-0 sm:px-0">
-        {metrics.map(({ label, value, unit, icon: Icon }) => (
+      <dl className="mt-4 grid divide-y divide-plum/20 rounded-xl bg-lavender/45 px-4 sm:grid-cols-2 sm:divide-x sm:divide-y-0 sm:px-0">
+        {metrics.map(({ label, value, icon: Icon }) => (
           <div
             key={label}
             className="flex min-w-0 flex-col gap-2 py-4 sm:px-4 lg:px-6"
@@ -44,9 +39,6 @@ export function LearningSummary({ totals }: { totals: LearningTotals }) {
             </dt>
             <dd className="order-first flex flex-wrap items-baseline gap-x-1.5 font-heading text-4xl leading-none font-semibold tabular-nums">
               {value}
-              {unit && (
-                <span className="font-sans text-base font-bold">{unit}</span>
-              )}
             </dd>
           </div>
         ))}
