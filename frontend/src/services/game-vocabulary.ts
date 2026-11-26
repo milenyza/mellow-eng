@@ -1,3 +1,4 @@
+import { getLessonVocabularyId } from '@/services/lesson-vocabulary-reference'
 import { normalizeTextAnswer } from '@/services/exercise-evaluation'
 import { selectGameContent } from '@/services/game-content'
 import type {
@@ -39,12 +40,12 @@ export function collectGameVocabulary(
         if (candidate.block.kind !== 'vocabulary') break
         for (const entry of candidate.block.entries) {
           pairs.push({
-            id: [
+            id: getLessonVocabularyId(
               candidate.courseId,
               candidate.lessonId,
               candidate.block.id,
               entry.id,
-            ].join('/'),
+            ),
             english: entry.expression.text,
             portuguese: entry.expression.translation,
             context: entry.usage,

@@ -114,3 +114,28 @@ it('resolves known favorites, skips unknown or off-level content, and includes a
     ),
   ).toHaveLength(1)
 })
+
+it('selects only explicitly saved lesson entries for a saved-vocabulary game', () => {
+  const game: GameConfiguration = {
+    ...games[0],
+    content: [{ kind: 'saved-vocabulary' }],
+  }
+  const favorites = {
+    ...sources,
+    savedWordIds: [
+      'english-for-pt-br/en-a1-introductions-hello/greetings/hello',
+    ],
+  }
+  const selected = selectGameContent(game, 'A1', favorites)
+  expect(selected).toHaveLength(1)
+  const candidate = selected[0]
+  expect(candidate).toMatchObject({
+    kind: 'lesson-block',
+    block: { id: 'greetings', entries: [{ id: 'hello' }] },
+  })
+  if (
+    candidate.kind === 'lesson-block' &&
+    candidate.block.kind === 'vocabulary'
+  )
+    expect(candidate.block.entries).toHaveLength(1)
+})

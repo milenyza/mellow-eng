@@ -7,7 +7,7 @@ export function ExpressionFavoriteButton({
   saved,
   onToggle,
 }: {
-  expression: PracticalExpression
+  expression: Pick<PracticalExpression, 'id' | 'text'>
   saved: boolean
   onToggle: (id: string) => void
 }) {

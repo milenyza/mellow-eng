@@ -42,10 +42,12 @@ const stageLabels = {
 
 function LessonStage({
   block,
+  lessonId,
   language,
   objectives,
 }: {
   block: Exclude<LessonBlock, ListeningBlock | PracticeBlock>
+  lessonId: string
   language: string
   objectives: readonly string[]
 }) {
@@ -57,6 +59,7 @@ function LessonStage({
         <PronunciationStatus playback={playback} id={descriptionId} />
       )}
       <LessonBlockContent
+        lessonId={lessonId}
         block={block}
         objectives={objectives}
         audio={{ playback, descriptionId, language }}
@@ -319,6 +322,7 @@ export function LessonPlayer({
           />
         ) : (
           <LessonStage
+            lessonId={lesson.id}
             key={`${run.id}:${block.id}`}
             block={block}
             language={language}

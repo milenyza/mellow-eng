@@ -56,7 +56,7 @@ export function VocabularyGameSetup({
       </div>
       <p role="status">
         {options.length === 0
-          ? `Há ${available}. Você precisa de pelo menos ${minimum} para jogar. Escolha outra fonte${source === 'saved' ? ' ou salve mais expressões nas Histórias' : ''}.`
+          ? `Há ${available}. Você precisa de pelo menos ${minimum} para jogar. Escolha outra fonte${source === 'saved' ? ' ou salve mais palavras compatíveis nas aulas, nas histórias ou na Palavra do dia' : ''}.`
           : `${available} nesta fonte.`}
       </p>
       {options.length > 0 && (

@@ -26,6 +26,13 @@ export function getStoryPath(storyId: string, chapterId?: string) {
 
 export const lessonsPath = '/aulas'
 export const gamesPath = '/jogos'
+export const notebookPath = '/meu-caderno'
+export const flashcardsPath = `${notebookPath}/cartoes`
+export const flashcardHistoryPath = `${notebookPath}/revisoes`
+export const flashcardHistoryRoute = `${flashcardHistoryPath}/:sessionId?`
+export function getFlashcardHistoryPath(sessionId: string) {
+  return `${flashcardHistoryPath}/${encodeURIComponent(sessionId)}`
+}
 export const practicalEnglishPath = '/ingles-na-pratica'
 export const practicalSituationRoute = `${practicalEnglishPath}/:situationId`
 export const practicalGuidanceRoute = `${practicalSituationRoute}/orientacoes`
@@ -98,7 +105,7 @@ export const modules = [
       'O espaço para ensaiar conversas em inglês em situações do dia a dia.',
   },
   {
-    path: '/meu-caderno',
+    path: notebookPath,
     title: 'Meu caderno',
     icon: NotebookPen,
     description:

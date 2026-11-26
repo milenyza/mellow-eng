@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import { GameSessionConfirmation } from '@/components/games/game-session-confirmation'
 import {
   WordMatchPlayer,
@@ -21,7 +21,10 @@ import type { VocabularySource } from '@/types/game'
 import type { WordMatchResult } from '@/types/word-match'
 
 export function WordMatchPage() {
-  const [source, setSource] = useState<VocabularySource>('mixed')
+  const { search } = useLocation()
+  const [source, setSource] = useState<VocabularySource>(() =>
+    new URLSearchParams(search).get('fonte') === 'saved' ? 'saved' : 'mixed',
+  )
   const [session, setSession] = useState<WordMatchSession | null>(null)
   const [result, setResult] = useState<WordMatchResult | null>(null)
   const [restart, setRestart] = useState(false)

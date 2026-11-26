@@ -1,3 +1,4 @@
+import { getLessonVocabularyId } from '@/services/lesson-vocabulary-reference'
 import type { CefrCode, Course } from '@/types/curriculum'
 import type {
   GameConfiguration,
@@ -48,19 +49,29 @@ export function selectGameContent(
         continue
       const source =
         block.kind === 'vocabulary' ? 'lesson-vocabulary' : 'lesson-grammar'
-      if (
-        game.content.some(
-          (reference) =>
-            reference.kind === source &&
-            (reference.lessonId === undefined ||
-              reference.lessonId === lesson.id),
-        )
-      ) {
+      const includeBlock = game.content.some(
+        (reference) =>
+          reference.kind === source &&
+          (reference.lessonId === undefined ||
+            reference.lessonId === lesson.id),
+      )
+      const favoriteEntries =
+        !includeBlock && block.kind === 'vocabulary'
+          ? block.entries.filter(({ id }) =>
+              saved.has(
+                getLessonVocabularyId(course.id, lesson.id, block.id, id),
+              ),
+            )
+          : []
+      if (includeBlock || favoriteEntries.length > 0) {
         selected.push({
           kind: 'lesson-block',
           courseId: course.id,
           lessonId: lesson.id,
-          block,
+          block:
+            !includeBlock && block.kind === 'vocabulary'
+              ? { ...block, entries: favoriteEntries }
+              : block,
         })
       }
     }

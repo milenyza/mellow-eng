@@ -136,6 +136,7 @@ export function combinedDailyStudyMs(data: LearnerProgress) {
   const sessions = [
     ...Object.values(data.gameSessions ?? {}),
     ...Object.values(data.simulationSessions ?? {}),
+    ...Object.values(data.flashcardSessions ?? {}),
   ]
   for (const session of sessions) {
     if (!session) continue

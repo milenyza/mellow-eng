@@ -1,30 +1,36 @@
+import { useLocation } from 'react-router'
+import { useFavoriteWords } from '@/hooks/use-favorite-words'
 import { Bookmark } from 'lucide-react'
-import { useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
   PronunciationButton,
   PronunciationStatus,
 } from '@/components/ui/pronunciation'
 import { useSpeechPlayback } from '@/hooks/use-speech-playback'
-import { readFavoriteWordIds, setWordFavorite } from '@/services/word-favorites'
+import { setWordFavorite } from '@/services/word-favorites'
 import type { DailyWordData } from '@/types/dashboard'
 
 export function DailyWord({ entry }: { entry: DailyWordData }) {
-  const [saved, setSaved] = useState(() => {
-    try {
-      return readFavoriteWordIds().includes(entry.id)
-    } catch {
-      return false
-    }
-  })
+  const saved = useFavoriteWords().ids.includes(entry.id)
   const [feedback, setFeedback] = useState('')
   const playback = useSpeechPlayback()
   const audioStatusId = useId()
+  const section = useRef<HTMLElement>(null)
+  const { hash } = useLocation()
+
+  useEffect(() => {
+    if (hash !== '#palavra-do-dia') return
+    const frame = window.requestAnimationFrame(() => {
+      section.current?.scrollIntoView?.({ block: 'start' })
+      section.current?.focus({ preventScroll: true })
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [hash])
 
   function toggleFavorite() {
     try {
-      setWordFavorite(entry.id, !saved)
-      setSaved(!saved)
+      if (!setWordFavorite(entry.id, !saved)) return
       setFeedback(
         saved
           ? 'Palavra removida dos favoritos.'
@@ -37,6 +43,8 @@ export function DailyWord({ entry }: { entry: DailyWordData }) {
 
   return (
     <section
+      ref={section}
+      tabIndex={-1}
       aria-labelledby="palavra-do-dia"
       className="rounded-xl border border-plum/25 p-5 sm:p-6"
     >

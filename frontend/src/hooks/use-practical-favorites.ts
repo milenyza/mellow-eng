@@ -1,22 +1,16 @@
 import { useState } from 'react'
-import { readFavoriteWordIds, setWordFavorite } from '@/services/word-favorites'
+import { setWordFavorite } from '@/services/word-favorites'
 
-function readSavedExpressions() {
-  try {
-    return new Set(readFavoriteWordIds())
-  } catch {
-    return new Set<string>()
-  }
-}
+import { useFavoriteWords } from './use-favorite-words'
 
 export function usePracticalFavorites() {
-  const [saved, setSaved] = useState(readSavedExpressions)
+  const { ids } = useFavoriteWords()
+  const saved = new Set(ids)
   const [feedback, setFeedback] = useState('')
   function toggleFavorite(id: string) {
     const next = !saved.has(id)
     try {
-      setWordFavorite(id, next)
-      setSaved(readSavedExpressions())
+      if (!setWordFavorite(id, next)) return
       setFeedback(
         next
           ? 'Expressão salva nos favoritos.'

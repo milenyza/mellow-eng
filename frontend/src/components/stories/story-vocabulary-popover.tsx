@@ -1,10 +1,11 @@
+import { useFavoriteWords } from '@/hooks/use-favorite-words'
 import { Bookmark } from 'lucide-react'
 import { useEffect, useId, useRef, useState } from 'react'
 import { StoryAudioButton } from '@/components/stories/story-audio-button'
 import { Button } from '@/components/ui/button'
 import { PronunciationStatus } from '@/components/ui/pronunciation'
 import type { SpeechPlayback } from '@/hooks/use-speech-playback'
-import { readFavoriteWordIds, setWordFavorite } from '@/services/word-favorites'
+import { setWordFavorite } from '@/services/word-favorites'
 import type { StoryVocabularyEntry } from '@/types/story'
 
 export function StoryVocabularyPopover({
@@ -21,13 +22,7 @@ export function StoryVocabularyPopover({
   const dialog = useRef<HTMLDialogElement>(null)
   const id = useId()
   const [feedback, setFeedback] = useState('')
-  const [saved, setSaved] = useState(() => {
-    try {
-      return readFavoriteWordIds().includes(entry.id)
-    } catch {
-      return false
-    }
-  })
+  const saved = useFavoriteWords().ids.includes(entry.id)
 
   useEffect(() => {
     const panel = dialog.current
@@ -36,8 +31,7 @@ export function StoryVocabularyPopover({
 
   function toggleFavorite() {
     try {
-      setWordFavorite(entry.id, !saved)
-      setSaved(!saved)
+      if (!setWordFavorite(entry.id, !saved)) return
       setFeedback(
         saved
           ? 'Expressão removida dos favoritos.'

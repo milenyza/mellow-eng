@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import { GameSessionConfirmation } from '@/components/games/game-session-confirmation'
 import {
   MemoryGamePlayer,
@@ -18,7 +18,10 @@ import type { VocabularySource } from '@/types/game'
 import type { MemoryGameResult } from '@/types/memory-game'
 
 export function MemoryGamePage() {
-  const [source, setSource] = useState<VocabularySource>('mixed')
+  const { search } = useLocation()
+  const [source, setSource] = useState<VocabularySource>(() =>
+    new URLSearchParams(search).get('fonte') === 'saved' ? 'saved' : 'mixed',
+  )
   const [session, setSession] = useState<MemoryGameSession | null>(null)
   const [result, setResult] = useState<MemoryGameResult | null>(null)
   const [restart, setRestart] = useState(false)

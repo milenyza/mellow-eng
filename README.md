@@ -35,7 +35,7 @@ Em `frontend/src/`, `layouts` e `pages` contêm as telas e sua estrutura compart
 
 ## Rotas e tema
 
-A rota `/` exibe a página inicial, `/aulas` exibe o catálogo do nível A1, `/historias` abre a biblioteca, `/jogos` abre a coleção de jogos e `/ingles-na-pratica` abre o catálogo de situações. As rotas `/meu-caderno`, `/meu-progresso`, `/perfil` e `/configuracoes` exibem páginas provisórias. Em telas estreitas, abra **Mais** na barra inferior para acessar todos os módulos. Use Tab para percorrer os controles, Enter para ativá-los e Esc para fechar o menu. Endereços desconhecidos exibem uma página com um link de retorno. Em hospedagem estática, configure o servidor para servir `index.html` nas rotas do aplicativo e entregar os arquivos estáticos normalmente.
+A rota `/` exibe a página inicial, `/aulas` exibe o catálogo do nível A1, `/historias` abre a biblioteca, `/jogos` abre a coleção de jogos e `/ingles-na-pratica` abre o catálogo de situações. `/meu-caderno` reúne o vocabulário salvo. As rotas `/meu-progresso`, `/perfil` e `/configuracoes` exibem páginas provisórias. Em telas estreitas, abra **Mais** na barra inferior para acessar todos os módulos. Use Tab para percorrer os controles, Enter para ativá-los e Esc para fechar o menu. Endereços desconhecidos exibem uma página com um link de retorno. Em hospedagem estática, configure o servidor para servir `index.html` nas rotas do aplicativo e entregar os arquivos estáticos normalmente.
 
 O tema em `frontend/src/styles/globals.css` expõe a paleta da marca e tokens semânticos como `bg-background` e `text-foreground`. As famílias Lora, Nunito Sans e Caveat são distribuídas localmente pelo build. Use `font-handwritten` para detalhes manuscritos pontuais.
 
@@ -72,6 +72,18 @@ Em **Memory Game**, encontre os pares de inglês e português em um único tabul
 Em **Ver histórico de jogos**, filtre as sessões concluídas por jogo e dificuldade e abra os detalhes para rever pares, frases ou correções. Jogos concluídos contribuem para o tempo ativo total e a atividade semanal. O histórico fica no armazenamento deste navegador. Partidas interrompidas não são retomadas.
 
 Consulte a [documentação técnica de jogos](docs/games.md) e a [documentação de progresso](docs/progress.md).
+
+## Meu caderno
+
+Em `/meu-caderno`, reveja palavras e expressões salvas nas aulas, histórias, na Palavra do dia e em Inglês na prática. Busque em português ou inglês, filtre por origem, tipo e nível e use **Ver contexto** para encontrar exemplos e voltar ao conteúdo de origem. A opção **Salvos recentemente** usa apenas datas registradas quando o favorito foi incluído. Os favoritos antigos aparecem em ordem alfabética depois dos itens datados. A pronúncia usa vozes do navegador.
+
+Em **Estudo pessoal**, registre uma nota, escreva seu próprio exemplo em inglês e, se quiser, indique sua familiaridade. Esses níveis são autoavaliações. Os textos ficam salvos neste navegador somente depois de selecionar **Salvar alterações**. Remover um favorito com anotações pede confirmação e guarda o estudo pessoal para quando o mesmo item for salvo novamente.
+
+Em **Revisar com cartões**, escolha a direção da revisão e quantos itens praticar. Você também pode começar com os filtros atuais do caderno. Tente lembrar antes de revelar a resposta e indique como foi. Ao final, veja o resumo ou inicie uma nova sessão com os itens que custaram a lembrar. As sessões concluídas ficam salvas no navegador e aparecem no **Histórico de cartões**. Ao reabrir uma sessão, você pode repetir os itens que continuam elegíveis nos favoritos. As avaliações registram sua lembrança e não alteram a familiaridade do caderno.
+
+Em **Revisão sugerida**, veja por que cada item apareceu e escolha entre revisar os favoritos sugeridos, abrir o conteúdo de origem ou salvar uma expressão. Os atalhos de Word Match e Memory Game abrem os jogos com **Vocabulário salvo** selecionado. O Início mostra sessões, itens distintos revisados e tempo ativo. As sessões abandonadas não entram no histórico.
+
+Consulte a [arquitetura do caderno](docs/vocabulary-notebook.md) para conhecer o formato de armazenamento e os pontos de extensão.
 
 ## Inglês na prática
 

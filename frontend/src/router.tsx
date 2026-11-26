@@ -2,11 +2,14 @@ import { createBrowserRouter } from 'react-router'
 import {
   accountPages,
   gamesPath,
+  flashcardsPath,
+  flashcardHistoryRoute,
   gameHistoryRoute,
   memoryGamePath,
   lessonRoute,
   lessonsPath,
   modules,
+  notebookPath,
   practicalEnglishPath,
   practicalSituationRoute,
   practicalDialogueRoute,
@@ -153,13 +156,38 @@ export const router = createBrowserRouter([
             .PracticalGuidancePage,
         }),
       },
+      {
+        path: notebookPath,
+        hydrateFallbackElement: <p role="status">Carregando o caderno…</p>,
+        lazy: async () => ({
+          Component: (await import('@/pages/notebook-page')).NotebookPage,
+        }),
+      },
+      {
+        path: flashcardsPath,
+        hydrateFallbackElement: <p role="status">Carregando cartões…</p>,
+        lazy: async () => ({
+          Component: (await import('@/pages/flashcards-page')).FlashcardsPage,
+        }),
+      },
+      {
+        path: flashcardHistoryRoute,
+        hydrateFallbackElement: (
+          <p role="status">Carregando histórico de cartões…</p>
+        ),
+        lazy: async () => ({
+          Component: (await import('@/pages/flashcard-history-page'))
+            .FlashcardHistoryPage,
+        }),
+      },
       ...[...modules, ...accountPages]
         .filter(
           ({ path }) =>
             path !== lessonsPath &&
             path !== storiesPath &&
             path !== gamesPath &&
-            path !== practicalEnglishPath,
+            path !== practicalEnglishPath &&
+            path !== notebookPath,
         )
         .map(({ path, title, description }) => ({
           path,

@@ -73,7 +73,7 @@ it('shows an empty favorite source and offers only suitable difficulties', async
   const source = screen.getByLabelText('Fonte de vocabulário')
   await user.selectOptions(source, 'saved')
   expect(screen.getByRole('status').textContent).toContain(
-    'salve mais expressões',
+    'salve mais palavras compatíveis',
   )
   expect(screen.queryByRole('button', { name: /pares/ })).toBeNull()
   await user.selectOptions(source, 'stories')

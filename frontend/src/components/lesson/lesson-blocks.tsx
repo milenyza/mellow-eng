@@ -1,3 +1,9 @@
+import { ExpressionFavoriteButton } from '@/components/practical-english/expression-favorite-button'
+import { usePracticalFavorites } from '@/hooks/use-practical-favorites'
+import {
+  englishCourseId,
+  getLessonVocabularyId,
+} from '@/services/lesson-vocabulary-reference'
 import { PronunciationButton } from '@/components/ui/pronunciation'
 import type { SpeechPlayback } from '@/hooks/use-speech-playback'
 import type {
@@ -71,26 +77,47 @@ function Introduction({
 function Vocabulary({
   block,
   audio,
+  lessonId,
 }: {
   block: VocabularyBlock
   audio: AudioProps
+  lessonId: string
 }) {
+  const { saved, feedback, toggleFavorite } = usePracticalFavorites()
   return (
-    <ul className="divide-y divide-plum/20">
-      {block.entries.map(({ id, expression, example, usage }) => (
-        <li key={id} className="space-y-3 py-4 first:pt-0">
-          <SpokenExample
-            example={expression}
-            audio={audio}
-            label="Ouvir expressão"
-          />
-          {usage && <p>{usage}</p>}
-          <div className="border-l-2 border-terracotta pl-3">
-            <SpokenExample example={example} audio={audio} />
-          </div>
-        </li>
-      ))}
-    </ul>
+    <>
+      <p role="status" className={feedback ? 'text-sm' : 'sr-only'}>
+        {feedback}
+      </p>
+      <ul className="divide-y divide-plum/20">
+        {block.entries.map(({ id, expression, example, usage }) => {
+          const favoriteId = getLessonVocabularyId(
+            englishCourseId,
+            lessonId,
+            block.id,
+            id,
+          )
+          return (
+            <li key={id} className="space-y-3 py-4 first:pt-0">
+              <SpokenExample
+                example={expression}
+                audio={audio}
+                label="Ouvir expressão"
+              />
+              <ExpressionFavoriteButton
+                expression={{ id: favoriteId, text: expression.text }}
+                saved={saved.has(favoriteId)}
+                onToggle={toggleFavorite}
+              />
+              {usage && <p>{usage}</p>}
+              <div className="border-l-2 border-terracotta pl-3">
+                <SpokenExample example={example} audio={audio} />
+              </div>
+            </li>
+          )
+        })}
+      </ul>
+    </>
   )
 }
 
@@ -180,8 +207,10 @@ export function LessonBlockContent({
   block,
   objectives,
   audio,
+  lessonId,
 }: {
   block: Exclude<LessonBlock, PracticeBlock | ListeningBlock>
+  lessonId: string
   objectives: readonly string[]
   audio: AudioProps
 }) {
@@ -189,7 +218,7 @@ export function LessonBlockContent({
     case 'introduction':
       return <Introduction block={block} objectives={objectives} />
     case 'vocabulary':
-      return <Vocabulary block={block} audio={audio} />
+      return <Vocabulary block={block} audio={audio} lessonId={lessonId} />
     case 'grammar':
       return <Grammar block={block} audio={audio} />
     case 'dialogue':

@@ -1,3 +1,5 @@
+import { ReviewActivity } from '@/components/flashcards/review-activity'
+import { selectFlashcardHistory } from '@/services/flashcard-history'
 import { useEffect, useState } from 'react'
 import { GameActivity } from '@/components/games/game-activity'
 import { selectGameHistory } from '@/services/game-history'
@@ -69,6 +71,7 @@ export function HomePage() {
             reading: readingTotals(data),
           }}
         />
+        <ReviewActivity compact history={selectFlashcardHistory(data)} />
         <GameActivity compact history={selectGameHistory(data)} />
       </div>
     </>
