@@ -4,6 +4,11 @@ import { Button } from '@/components/ui/button'
 import { PronunciationStatus } from '@/components/ui/pronunciation'
 import { useGameClock } from '@/hooks/use-game-clock'
 import { useGameSessionGuard } from '@/hooks/use-game-session-guard'
+import { useProgress } from '@/hooks/use-progress'
+import {
+  recordSimulationSession,
+  startSimulationRun,
+} from '@/services/simulation-progress'
 import { useSpeechPlayback } from '@/hooks/use-speech-playback'
 import {
   conversationTranscript,
@@ -35,6 +40,8 @@ export function SimulationPlayer({
   onRestart: () => void
 }) {
   const [session, setSession] = useState(() => startConversation(scenario))
+  const [run] = useState(startSimulationRun)
+  const { repository, persistence } = useProgress()
   const [result, setResult] = useState<SimulationResult>()
   const [translated, setTranslated] = useState(false)
   const [rate, setRate] = useState(1)
@@ -59,7 +66,27 @@ export function SimulationPlayer({
     const next = updateConversation(scenario, session, action)
     if (next.nodeId !== session.nodeId) {
       stopAudio()
-      setResult(finishConversation(scenario, next, readTime().activeMs))
+      if (currentConversationNode(scenario, next).kind === 'success') {
+        const { activeMs, dailyPracticeMs } = readTime()
+        const finished = finishConversation(scenario, next, activeMs)
+        if (finished) {
+          const completedAt = Math.max(run.startedAt, Date.now())
+          repository.update((data) =>
+            recordSimulationSession(data, {
+              ...run,
+              completedAt,
+              situationId: finished.situationId,
+              scenarioId: finished.scenarioId,
+              decisionsCompleted: finished.decisions.length,
+              reviewedCorrections: finished.reviewedCorrections,
+              attempts: finished.attempts,
+              activeMs,
+              dailyPracticeMs,
+            }),
+          )
+          setResult(finished)
+        }
+      }
     } else if (
       next.selectedId !== session.selectedId &&
       playback.activeId === `selected-${session.selectedId}`
@@ -159,6 +186,7 @@ export function SimulationPlayer({
       {result && (
         <SimulationResults
           result={result}
+          storageUnavailable={persistence === 'unavailable'}
           audio={audio}
           translated={translated}
           phrasebook={phrasebook}

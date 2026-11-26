@@ -1,3 +1,4 @@
+import { restoreSimulationSessions } from '@/services/simulation-progress'
 import { restoreGameSessions } from '@/services/game-history-format'
 import type {
   ExerciseAnswer,
@@ -202,7 +203,7 @@ export function emptyProgress(): LearnerProgress {
 }
 
 export function serializeProgress(data: LearnerProgress) {
-  return JSON.stringify({ version: 3, data })
+  return JSON.stringify({ version: 4, data })
 }
 
 export function parseProgress(
@@ -215,7 +216,8 @@ export function parseProgress(
       isEntry(envelope) &&
       (envelope.version === 1 ||
         envelope.version === 2 ||
-        envelope.version === 3) &&
+        envelope.version === 3 ||
+        envelope.version === 4) &&
       isEntry(envelope.data) &&
       isRecord(envelope.data.lessons, isLesson) &&
       isEntry(envelope.data.dailyStudyMs) &&
@@ -230,14 +232,19 @@ export function parseProgress(
           ? restoreReading(envelope.data.reading)
           : undefined
       const gameSessions =
-        envelope.version === 3
+        envelope.version >= 3
           ? restoreGameSessions(envelope.data.gameSessions)
+          : undefined
+      const simulationSessions =
+        envelope.version >= 4
+          ? restoreSimulationSessions(envelope.data.simulationSessions)
           : undefined
       return {
         lessons,
         dailyStudyMs,
         ...(reading ? { reading } : {}),
         ...(gameSessions ? { gameSessions } : {}),
+        ...(simulationSessions ? { simulationSessions } : {}),
       }
     }
   } catch {

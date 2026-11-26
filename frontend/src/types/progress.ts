@@ -1,3 +1,4 @@
+import type { CompletedSimulationSession } from '@/types/simulation-progress'
 import type { CompletedGameSession } from '@/types/game-history'
 import type { DailyStudyTime } from '@/types/game'
 import type { ExerciseAttempt, PracticeSession } from '@/types/exercise'
@@ -30,6 +31,9 @@ export interface LessonProgress {
 export interface LearnerProgress {
   reading?: ReadingProgress
   gameSessions?: Readonly<Record<string, CompletedGameSession | undefined>>
+  simulationSessions?: Readonly<
+    Record<string, CompletedSimulationSession | undefined>
+  >
   lessons: Readonly<Record<string, LessonProgress | undefined>>
   dailyStudyMs: DailyStudyTime
 }

@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 
 import { cleanup, render, screen, within } from '@testing-library/react'
+import { ProgressProvider } from '@/components/progress/progress-provider'
 import userEvent from '@testing-library/user-event'
 import { createMemoryRouter, RouterProvider } from 'react-router'
 import { afterEach, expect, it, vi } from 'vitest'
@@ -9,6 +10,11 @@ import {
   practicalSimulationRoute,
   practicalSituationRoute,
 } from '@/data/navigation'
+import { loadPracticalSituation } from '@/data/phrasebooks/load-phrasebook'
+import { parseProgress } from '@/services/progress-format'
+import { progressStorageKey } from '@/services/progress-repository'
+import { selectSimulationHistory } from '@/services/simulation-progress'
+import { PracticalSituationPage } from './practical-situation-page'
 import { loadSimulation } from '@/data/simulations/load-simulation'
 import { PracticalSimulationPage } from './practical-simulation-page'
 
@@ -22,11 +28,20 @@ function mount(situation = 'at-the-airport', scenario = 'flight-check-in') {
           loadSimulation(params.situationId, params.scenarioId),
         Component: PracticalSimulationPage,
       },
-      { path: practicalSituationRoute, element: <h1>Catálogo da situação</h1> },
+      {
+        path: practicalSituationRoute,
+        HydrateFallback: () => <p>Carregando situação…</p>,
+        loader: ({ params }) => loadPracticalSituation(params.situationId),
+        Component: PracticalSituationPage,
+      },
     ],
     { initialEntries: [getPracticalSimulationPath(situation, scenario)] },
   )
-  const view = render(<RouterProvider router={router} />)
+  const view = render(
+    <ProgressProvider>
+      <RouterProvider router={router} />
+    </ProgressProvider>,
+  )
   return { ...view, user: userEvent.setup() }
 }
 
@@ -133,7 +148,8 @@ it('completes an alternate path through explicit review, displays counts, and sa
   const previousProgress =
     '{"version":3,"data":{"lessons":{},"dailyStudyMs":{}}}'
   localStorage.setItem('mellow:learner-progress', previousProgress)
-  const { user } = mount()
+  const first = mount()
+  const { user } = first
   const tap = (name: string | RegExp) =>
     user.click(screen.getByRole('button', { name }))
   const submit = async (name: string) => {
@@ -170,6 +186,8 @@ it('completes an alternate path through explicit review, displays counts, and sa
   for (const [label, value] of [
     ['Decisões concluídas', '4'],
     ['Tentativas', '5'],
+    ['Acertos', '3'],
+    ['Erros', '2'],
     ['Respostas adequadas na primeira tentativa', '3'],
     ['Dicas usadas', '1'],
     ['Correções revisadas', '1'],
@@ -204,13 +222,71 @@ it('completes an alternate path through explicit review, displays counts, and sa
   expect(JSON.parse(localStorage.getItem('mellow:favorite-words')!)).toEqual([
     'en-a-little',
   ])
-  expect(localStorage.getItem('mellow:learner-progress')).toBe(previousProgress)
+  const stored = parseProgress(localStorage.getItem(progressStorageKey))!
+  const history = selectSimulationHistory(
+    stored,
+    'at-the-airport',
+    'flight-check-in',
+  )
+  expect(history).toHaveLength(1)
+  expect(history[0].attempts.map(({ fit }) => fit)).toEqual([
+    'context',
+    'context',
+    'appropriate',
+    'appropriate',
+    'appropriate',
+  ])
+  expect(history[0].completedAt).toBeGreaterThanOrEqual(history[0].startedAt)
+  expect(stored.lessons).toEqual({})
+  expect(stored.dailyStudyMs).toEqual({})
   expect(localStorage.length).toBe(2)
   await tap('Praticar novamente')
   expect(screen.getByText('Decisões concluídas: 0')).toBeTruthy()
   expect(
     screen.queryByRole('heading', { name: 'Conversa concluída' }),
   ).toBeNull()
+  await answer('My flight number is 205.')
+  await answer('Here is my passport.')
+  await answer('Yes. I’d like to check this bag.')
+  await answer('Thank you. What’s my gate?')
+  const repeated = selectSimulationHistory(
+    parseProgress(localStorage.getItem(progressStorageKey))!,
+    'at-the-airport',
+  )
+  expect(repeated).toHaveLength(2)
+  expect(repeated[0].attempts).toHaveLength(4)
+  expect(repeated[1]).toEqual(history[0])
+  first.unmount()
+
+  const restored = mount()
+  const historySection = await screen.findByRole('region', {
+    name: 'Histórico de sessões',
+  })
+  const completedTime = within(historySection)
+    .getByText(/Última realização/)
+    .querySelector('time')
+  expect(completedTime?.dateTime).toBe(
+    new Date(repeated[0].completedAt).toISOString(),
+  )
+  await restored.user.click(
+    within(historySection).getByText('Ver sessões concluídas (2)'),
+  )
+  const entries = within(historySection).getAllByRole('listitem')
+  expect(entries[0].textContent).toContain('Tentativas4Acertos4Erros0')
+  expect(entries[1].textContent).toContain('Tentativas5Acertos3Erros2')
+
+  await restored.user.click(
+    screen.getByRole('link', { name: 'Voltar à situação' }),
+  )
+  expect(await screen.findByText('1 de 2 simulações concluídas')).toBeTruthy()
+  expect(
+    screen.getByRole('link', {
+      name: /Check-in para o voo.*Concluída.*Última prática/,
+    }),
+  ).toBeTruthy()
+  expect(
+    screen.getByRole('link', { name: /Pedindo direções.*Ainda não concluída/ }),
+  ).toBeTruthy()
 })
 
 it('confirms restart and exit, preserves the session when cancelled, and cancels audio on exit', async () => {
@@ -253,9 +329,10 @@ it('confirms restart and exit, preserves the session when cancelled, and cancels
     }),
   )
   expect(
-    await screen.findByRole('heading', { name: 'Catálogo da situação' }),
+    await screen.findByRole('heading', { name: 'No aeroporto' }),
   ).toBeTruthy()
   expect(cancel).toHaveBeenCalledTimes(1)
+  expect(localStorage.getItem(progressStorageKey)).toBeNull()
 })
 
 it('handles preview-only and invalid routes with helpful navigation', async () => {

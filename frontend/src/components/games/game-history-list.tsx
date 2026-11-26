@@ -1,18 +1,9 @@
+import { SessionDate } from '@/components/ui/session-date'
 import { Link } from 'react-router'
 import { difficultyLabels, gameTitle } from '@/data/game-labels'
 import { getGameSessionPath } from '@/data/navigation'
 import { formatStudyTime } from '@/services/study-time'
 import type { CompletedGameSession } from '@/types/game-history'
-
-const localDate = new Intl.DateTimeFormat('pt-BR', {
-  dateStyle: 'medium',
-  timeStyle: 'short',
-})
-
-export function SessionDate({ timestamp }: { timestamp: number }) {
-  const date = new Date(timestamp)
-  return <time dateTime={date.toISOString()}>{localDate.format(date)}</time>
-}
 
 export function GameHistoryList({
   history,

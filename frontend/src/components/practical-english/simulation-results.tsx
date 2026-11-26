@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { Button } from '@/components/ui/button'
 import { getPracticalDialoguePath } from '@/data/navigation'
 import { conversationTranscript } from '@/services/conversation-session'
+import { countSimulationAttempts } from '@/services/simulation-progress'
 import { formatStudyTime } from '@/services/study-time'
 import type { SimulationResult } from '@/types/conversation'
 import type { Phrasebook } from '@/types/practical-english'
@@ -11,6 +12,7 @@ import { SimulationTranscript, type SimulationAudio } from './simulation-turn'
 
 export function SimulationResults({
   result,
+  storageUnavailable,
   audio,
   translated,
   phrasebook,
@@ -19,6 +21,7 @@ export function SimulationResults({
   heading,
 }: {
   result: SimulationResult
+  storageUnavailable: boolean
   audio: SimulationAudio
   translated: boolean
   phrasebook: Phrasebook
@@ -32,9 +35,12 @@ export function SimulationResults({
     result.decisions,
     result.terminalNodeId,
   )
+  const attempts = countSimulationAttempts(result.attempts)
   const metrics = [
     ['Decisões concluídas', result.decisions.length],
-    ['Tentativas', result.attempts.length],
+    ['Tentativas', attempts.total],
+    ['Acertos', attempts.correct],
+    ['Erros', attempts.incorrect],
     [
       'Respostas adequadas na primeira tentativa',
       result.firstAttemptAppropriate,
@@ -65,6 +71,15 @@ export function SimulationResults({
         <p>
           <strong>Objetivo</strong> · {scenario.goal}
         </p>
+        {storageUnavailable && (
+          <p
+            role="status"
+            className="rounded-lg border border-border bg-cream p-3"
+          >
+            O navegador não conseguiu salvar o resultado. Ele fica disponível
+            enquanto esta página estiver aberta.
+          </p>
+        )}
         <dl className="grid gap-2 sm:grid-cols-2">
           {metrics.map(([label, value]) => (
             <div key={label} className="border-t border-plum/20 pt-2">

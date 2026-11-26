@@ -6,6 +6,8 @@ import { PhrasebookExplorer } from '@/components/practical-english/phrasebook-ex
 import { SituationIllustration } from '@/components/practical-english/situation-illustration'
 import { practicalEnglishPath } from '@/data/navigation'
 import { SimulationList } from '@/components/practical-english/simulation-list'
+import { useProgress } from '@/hooks/use-progress'
+import { selectSimulationHistory } from '@/services/simulation-progress'
 import { simulationSummaries } from '@/data/simulations'
 import type { loadPracticalSituation } from '@/data/phrasebooks/load-phrasebook'
 
@@ -13,6 +15,7 @@ export function PracticalSituationPage() {
   const { situation, phrasebook } =
     useLoaderData<typeof loadPracticalSituation>()
   const { hash } = useLocation()
+  const { data } = useProgress()
   const dialogues = dialogueSummaries.filter(
     ({ situationId }) => situationId === situation?.id,
   )
@@ -20,6 +23,12 @@ export function PracticalSituationPage() {
   const simulations = simulationSummaries.filter(
     ({ situationId }) => situationId === situation?.id,
   )
+
+  const history = situation ? selectSimulationHistory(data, situation.id) : []
+  const completedCount = new Set(history.map(({ scenarioId }) => scenarioId))
+  const completedSimulations = simulations.filter(({ id }) =>
+    completedCount.has(id),
+  ).length
 
   useEffect(() => {
     if (!phrasebook || !hash) return
@@ -121,7 +130,11 @@ export function PracticalSituationPage() {
             {simulations.length > 0 ? (
               <>
                 <p>Escolha como responder e acompanhe o caminho da conversa.</p>
-                <SimulationList simulations={simulations} />
+                <p className="text-sm font-bold">
+                  {completedSimulations} de {simulations.length} simulações
+                  concluídas
+                </p>
+                <SimulationList simulations={simulations} history={history} />
               </>
             ) : (
               <p className="text-sm font-bold">Em breve</p>

@@ -133,7 +133,11 @@ export function getWeeklyStudyDays(
 
 export function combinedDailyStudyMs(data: LearnerProgress) {
   const days = { ...data.dailyStudyMs }
-  for (const session of Object.values(data.gameSessions ?? {})) {
+  const sessions = [
+    ...Object.values(data.gameSessions ?? {}),
+    ...Object.values(data.simulationSessions ?? {}),
+  ]
+  for (const session of sessions) {
     if (!session) continue
     for (const [day, duration] of Object.entries(session.dailyPracticeMs)) {
       days[day] = (days[day] ?? 0) + (duration ?? 0)

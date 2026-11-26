@@ -1,4 +1,4 @@
-import { SessionDate } from '@/components/games/game-history-list'
+import { SessionDate } from '@/components/ui/session-date'
 import { difficultyLabels, gameTitle } from '@/data/game-labels'
 import { sentenceTopics } from '@/data/sentence-challenges'
 import { vocabularySources } from '@/data/vocabulary-sources'

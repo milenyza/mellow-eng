@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { Link, useLoaderData } from 'react-router'
+import { SimulationHistory } from '@/components/practical-english/simulation-history'
+import { useProgress } from '@/hooks/use-progress'
+import { selectSimulationHistory } from '@/services/simulation-progress'
 import { SimulationList } from '@/components/practical-english/simulation-list'
 import { SimulationPlayer } from '@/components/practical-english/simulation-player'
 import { Button } from '@/components/ui/button'
@@ -10,6 +13,7 @@ import {
 } from '@/data/navigation'
 import type { loadSimulation } from '@/data/simulations/load-simulation'
 import type { GuidedConversation } from '@/types/conversation'
+import type { CompletedSimulationSession } from '@/types/simulation-progress'
 import type { Phrasebook } from '@/types/practical-english'
 
 const linkClass =
@@ -18,6 +22,8 @@ const linkClass =
 export function PracticalSimulationPage() {
   const { situation, summaries, scenario, phrasebook } =
     useLoaderData<typeof loadSimulation>()
+  const { data } = useProgress()
+  const history = situation ? selectSimulationHistory(data, situation.id) : []
   const returnPath = situation
     ? `${getPracticalSituationPath(situation.id)}#simulacoes`
     : practicalEnglishPath
@@ -51,9 +57,12 @@ export function PracticalSimulationPage() {
           scenario={scenario}
           phrasebook={phrasebook}
           returnPath={returnPath}
+          history={history.filter(
+            ({ scenarioId }) => scenarioId === scenario.id,
+          )}
         />
       ) : (
-        <SimulationList simulations={summaries} />
+        <SimulationList simulations={summaries} history={history} />
       )}
     </div>
   )
@@ -63,10 +72,12 @@ function SimulationFlow({
   scenario,
   phrasebook,
   returnPath,
+  history,
 }: {
   scenario: GuidedConversation
   phrasebook: Phrasebook
   returnPath: string
+  history: readonly CompletedSimulationSession[]
 }) {
   const [sessionNumber, setSessionNumber] = useState(0)
 
@@ -79,44 +90,49 @@ function SimulationFlow({
       onRestart={() => setSessionNumber((number) => number + 1)}
     />
   ) : (
-    <section
-      className="space-y-4 rounded-xl border-l-4 border-sage bg-sage/25 p-4 sm:p-5"
-      aria-labelledby="scenario-intro"
-    >
-      <h2 id="scenario-intro" className="text-2xl font-semibold">
-        Antes de começar
-      </h2>
-      <p>{scenario.context}</p>
-      <p>
-        <strong>Seu papel</strong> ·{' '}
-        {
-          scenario.participants.find(({ id }) => id === scenario.learnerId)
-            ?.role
-        }
-      </p>
-      <p>
-        <strong>Objetivo</strong> · {scenario.goal}
-      </p>
-      <ul
-        aria-label="Objetivos de aprendizagem"
-        className="list-disc space-y-1 pl-5"
+    <>
+      <section
+        className="space-y-4 rounded-xl border-l-4 border-sage bg-sage/25 p-4 sm:p-5"
+        aria-labelledby="scenario-intro"
       >
-        {scenario.objectives.map((objective) => (
-          <li key={objective}>{objective}</li>
-        ))}
-      </ul>
-      <div className="flex flex-wrap gap-x-4 gap-y-2">
-        <Button onClick={() => setSessionNumber(1)}>Começar conversa</Button>
-        <Link
-          to={getPracticalDialoguePath(
-            scenario.situationId,
-            scenario.dialogueId,
-          )}
-          className={linkClass}
+        <h2 id="scenario-intro" className="text-2xl font-semibold">
+          Antes de começar
+        </h2>
+        <p>{scenario.context}</p>
+        <p>
+          <strong>Seu papel</strong> ·{' '}
+          {
+            scenario.participants.find(({ id }) => id === scenario.learnerId)
+              ?.role
+          }
+        </p>
+        <p>
+          <strong>Objetivo</strong> · {scenario.goal}
+        </p>
+        <ul
+          aria-label="Objetivos de aprendizagem"
+          className="list-disc space-y-1 pl-5"
         >
-          Consultar diálogo relacionado
-        </Link>
-      </div>
-    </section>
+          {scenario.objectives.map((objective) => (
+            <li key={objective}>{objective}</li>
+          ))}
+        </ul>
+        <div className="flex flex-wrap gap-x-4 gap-y-2">
+          <Button onClick={() => setSessionNumber(1)}>
+            {history.length ? 'Praticar novamente' : 'Começar conversa'}
+          </Button>
+          <Link
+            to={getPracticalDialoguePath(
+              scenario.situationId,
+              scenario.dialogueId,
+            )}
+            className={linkClass}
+          >
+            Consultar diálogo relacionado
+          </Link>
+        </div>
+      </section>
+      <SimulationHistory history={history} />
+    </>
   )
 }

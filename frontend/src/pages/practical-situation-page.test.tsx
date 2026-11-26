@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 
 import { cleanup, render, screen, within } from '@testing-library/react'
+import { ProgressProvider } from '@/components/progress/progress-provider'
 import userEvent from '@testing-library/user-event'
 import { createMemoryRouter, RouterProvider } from 'react-router'
 import { afterEach, expect, it, vi } from 'vitest'
@@ -30,7 +31,11 @@ function mount(id = 'at-the-hotel') {
     ],
     { initialEntries: [`${practicalEnglishPath}/${id}`] },
   )
-  const view = render(<RouterProvider router={router} />)
+  const view = render(
+    <ProgressProvider>
+      <RouterProvider router={router} />
+    </ProgressProvider>,
+  )
   return { ...view, user: userEvent.setup() }
 }
 
