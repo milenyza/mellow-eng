@@ -10,6 +10,7 @@ import {
   practicalEnglishPath,
   practicalSituationRoute,
   practicalDialogueRoute,
+  practicalGuidanceRoute,
   practicalSimulationRoute,
   storiesPath,
   storyRoute,
@@ -138,6 +139,18 @@ export const router = createBrowserRouter([
         lazy: async () => ({
           Component: (await import('@/pages/practical-simulation-page'))
             .PracticalSimulationPage,
+        }),
+      },
+      {
+        path: practicalGuidanceRoute,
+        hydrateFallbackElement: <p role="status">Carregando orientações…</p>,
+        loader: async ({ params }) =>
+          (
+            await import('@/data/cultural-guidance/load-cultural-guidance')
+          ).loadCulturalGuidance(params.situationId),
+        lazy: async () => ({
+          Component: (await import('@/pages/practical-guidance-page'))
+            .PracticalGuidancePage,
         }),
       },
       ...[...modules, ...accountPages]

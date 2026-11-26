@@ -9,7 +9,7 @@ import { findCourseLesson } from '@/services/curriculum'
 import type { PracticalSituation } from '@/types/practical-english'
 import { filterSituations } from './practical-english-catalog'
 
-it('keeps the eight planned A1 situations and categories under stable IDs', () => {
+it('keeps the eight published A1 situations and categories under stable IDs', () => {
   expect(situationCategories.map(({ id }) => id)).toEqual([
     'airport',
     'hotel',
@@ -35,9 +35,9 @@ it('keeps the eight planned A1 situations and categories under stable IDs', () =
   )
 
   for (const situation of practicalSituations as readonly PracticalSituation[]) {
-    expect(situation.publication).toBe('planned')
+    expect(situation.publication).toBe('available')
     expect(situation.level).toBe('A1')
-    expect(situation.content).toBeUndefined()
+    expect(situation.phrasebook).toBe('available')
     expect(situation.estimatedMinutes).toBeGreaterThan(0)
     expect(situation.objectives.every((objective) => objective.trim())).toBe(
       true,

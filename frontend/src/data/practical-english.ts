@@ -33,7 +33,7 @@ export const practicalSituations = [
     ],
     level: 'A1',
     estimatedMinutes: 10,
-    publication: 'planned',
+    publication: 'available',
     phrasebook: 'available',
     objectives: [
       'Pedir uma informação sobre o portão.',
@@ -79,7 +79,7 @@ export const practicalSituations = [
     ],
     level: 'A1',
     estimatedMinutes: 8,
-    publication: 'planned',
+    publication: 'available',
     phrasebook: 'available',
     objectives: [
       'Informar o nome da reserva.',
@@ -118,7 +118,7 @@ export const practicalSituations = [
     ],
     level: 'A1',
     estimatedMinutes: 10,
-    publication: 'planned',
+    publication: 'available',
     phrasebook: 'available',
     objectives: [
       'Pedir uma bebida ou um item do cardápio.',
@@ -163,8 +163,8 @@ export const practicalSituations = [
     ],
     level: 'A1',
     estimatedMinutes: 8,
-    publication: 'planned',
-    phrasebook: 'planned',
+    publication: 'available',
+    phrasebook: 'available',
     objectives: [
       'Perguntar quanto custa um produto.',
       'Pedir outro tamanho de roupa.',
@@ -204,8 +204,8 @@ export const practicalSituations = [
     ],
     level: 'A1',
     estimatedMinutes: 10,
-    publication: 'planned',
-    phrasebook: 'planned',
+    publication: 'available',
+    phrasebook: 'available',
     objectives: [
       'Pedir uma passagem para um destino.',
       'Confirmar a plataforma ou o ponto de embarque.',
@@ -250,8 +250,8 @@ export const practicalSituations = [
     ],
     level: 'A1',
     estimatedMinutes: 8,
-    publication: 'planned',
-    phrasebook: 'planned',
+    publication: 'available',
+    phrasebook: 'available',
     objectives: [
       'Cumprimentar e apresentar-se pelo nome.',
       'Perguntar de onde a outra pessoa é.',
@@ -298,8 +298,8 @@ export const practicalSituations = [
     ],
     level: 'A1',
     estimatedMinutes: 8,
-    publication: 'planned',
-    phrasebook: 'planned',
+    publication: 'available',
+    phrasebook: 'available',
     objectives: [
       'Dizer de forma simples como está se sentindo.',
       'Pedir ajuda e informar sua localização.',
@@ -338,8 +338,8 @@ export const practicalSituations = [
     ],
     level: 'A1',
     estimatedMinutes: 10,
-    publication: 'planned',
-    phrasebook: 'planned',
+    publication: 'available',
+    phrasebook: 'available',
     objectives: [
       'Perguntar onde fica um lugar.',
       'Reconhecer instruções simples de direção.',

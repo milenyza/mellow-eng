@@ -22,6 +22,26 @@ const loaders: Record<
     import('./food-and-drink-simulations').then(
       ({ foodAndDrinkSimulations }) => foodAndDrinkSimulations,
     ),
+  shopping: () =>
+    import('./shopping-simulations').then(
+      ({ shoppingSimulations }) => shoppingSimulations,
+    ),
+  'getting-around': () =>
+    import('./transportation-simulations').then(
+      ({ transportationSimulations }) => transportationSimulations,
+    ),
+  'meeting-people': () =>
+    import('./meeting-people-simulations').then(
+      ({ meetingPeopleSimulations }) => meetingPeopleSimulations,
+    ),
+  'health-and-emergencies': () =>
+    import('./health-and-emergencies-simulations').then(
+      ({ healthAndEmergenciesSimulations }) => healthAndEmergenciesSimulations,
+    ),
+  'around-the-city': () =>
+    import('./around-the-city-simulations').then(
+      ({ aroundTheCitySimulations }) => aroundTheCitySimulations,
+    ),
 }
 
 export async function loadSimulation(

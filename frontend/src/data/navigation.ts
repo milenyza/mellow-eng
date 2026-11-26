@@ -28,6 +28,7 @@ export const lessonsPath = '/aulas'
 export const gamesPath = '/jogos'
 export const practicalEnglishPath = '/ingles-na-pratica'
 export const practicalSituationRoute = `${practicalEnglishPath}/:situationId`
+export const practicalGuidanceRoute = `${practicalSituationRoute}/orientacoes`
 export const practicalDialogueRoute = `${practicalSituationRoute}/dialogos/:dialogueId`
 
 export const practicalSimulationRoute = `${practicalSituationRoute}/simulacoes/:scenarioId`
@@ -42,6 +43,10 @@ export function getPracticalSimulationPath(
 export function getPracticalSituationPath(situationId: string) {
   return `${practicalEnglishPath}/${encodeURIComponent(situationId)}`
 }
+export function getPracticalGuidancePath(situationId: string) {
+  return `${getPracticalSituationPath(situationId)}/orientacoes`
+}
+
 export function getPracticalDialoguePath(
   situationId: string,
   dialogueId: string,

@@ -1,6 +1,16 @@
 # Practical English
 
-The catalog at `/ingles-na-pratica` groups A1 situations by what a learner wants to do. Its eight categories cover airports, hotels, food and drink, shopping, transportation, introductions, health and emergencies, and getting around a city. The first collection offers two scenario outlines per category. All eight situations are previewable. The airport, hotel, and food and drink phrasebooks are available with 18, 19, and 19 A1 expressions respectively. Each of those three situations also offers two interactive dialogues and two guided simulations. The other five situations are preview-only. Dedicated cultural guidance remains upcoming.
+The catalog at `/ingles-na-pratica` publishes eight A1 situations. Each situation has a searchable phrasebook, two interactive dialogues with ten lines and three communication notes each, and two guided simulations. There are 111 expressions, 16 dialogues and 16 simulations. Each situation also has four cultural and communication guidance entries, for 32 entries in total.
+
+The expanded collection adds five situations.
+
+| Situation              | Dialogue and simulation contexts                                          |
+| ---------------------- | ------------------------------------------------------------------------- |
+| Shopping               | Ask about a price or discount, and find a size that fits.                 |
+| Transportation         | Buy a train ticket and confirm where to get off a bus.                    |
+| Meeting people         | Meet a classmate and ask about origin or current residence.               |
+| Health and emergencies | Explain that you feel unwell and give a location to someone who can help. |
+| Around the city        | Ask how to reach a place and confirm which way to turn at a landmark.     |
 
 ## Learning approach
 
@@ -12,7 +22,7 @@ Structured reading uses short dialogues with optional Brazilian Portuguese trans
 
 ## Architecture
 
-- `frontend/src/types/practical-english.ts` defines the publication states, categories, scenario outlines, expressions, dialogues and cultural guidance. Phrasebooks, dialogues and simulations can be released independently of full-situation publication. `frontend/src/types/conversation.ts` defines the guided conversation graph, learner actions recorded by the engine and the result model.
+- `frontend/src/types/practical-english.ts` defines the publication states, categories, scenario outlines, expressions, dialogues and cultural guidance. Publication is recorded in catalog metadata. Phrasebooks, dialogues, simulation graphs and cultural guidance load from separate modules for the requested situation. `frontend/src/types/conversation.ts` defines the guided conversation graph, learner actions recorded by the engine and the result model.
 - `frontend/src/data/practical-english.ts` holds static catalog metadata, objectives and scenario outlines. Use stable kebab-case IDs for categories, situations, scenarios and future entries. Change display titles without changing IDs. References point to existing lessons, stories or vocabulary and carry no prerequisite behavior.
 - `frontend/src/services/practical-english-catalog.ts` filters content by category and search terms. Search is case- and accent-insensitive and matches both titles and authored keywords. The service accepts plain data, so a future API adapter can supply the same catalog model.
 - The route in `pages/practical-english-page.tsx` and the components under `components/practical-english/` render catalog controls and native previews. Decorative SVG illustrations are stored locally under `assets/practical-english/` and mapped by category. Catalog interactions do not read or write learner records. The detail route at `/ingles-na-pratica/:situationId` reads completed simulation records for that situation. The favorite control continues to write only to the existing favorites list.
@@ -41,7 +51,7 @@ Translations are initially hidden. Individual and global controls change local r
 
 Open a simulation at `/ingles-na-pratica/:situationId/simulacoes/:scenarioId` or from the situation's simulation list. The list imports only summaries. The route lazily loads the player, then requests only the selected situation's authored graphs and published phrasebook. Invalid and cross-situation IDs return a fallback without fetching a graph. A scenario must pass graph validation and resolve its outline (when specified), dialogue and phrasebook references before it can open.
 
-The six A1 simulations cover flight check-in, boarding gate directions, hotel arrival, reception assistance, a restaurant meal, and coffee to go. Each successful path has four learner decisions. For example, showing a passport or giving the flight number first prompts a different follow-up at check-in. Ordering a small or large coffee changes the price.
+All 16 simulations have four learner decisions on every successful path. Each has at least one alternative path with a different follow-up. For example, showing a passport or giving the flight number first prompts a different follow-up at check-in. Ordering a small or large coffee changes the price.
 
 A shared state transition function handles selection, explicit submission, deterministic branching, hints, retries and correction review. Only appropriate choices advance. A context distractor is well-formed English for a different need. A language distractor needs an English correction. Learners can retry or explicitly choose an appropriate response after reviewing the correction. The transcript includes only visited turns and identifies replies chosen during review. Choices shuffle within each session without changing what they do.
 
@@ -49,8 +59,14 @@ Playback uses the shared audio abstraction with a stable speaker roster for ever
 
 Completing a simulation records its date, stable scenario and session IDs, attempt classifications and active time in the shared local progress repository. The situation page counts each available scenario once and shows the latest completion date per scenario. Reopen a scenario to see its session history, sorted by most recent completion, and practice again. A replay adds a separate record without changing earlier sessions. Correct and incorrect counts reflect submissions. An appropriate response selected during a correction review does not count as a submission. The active time of each completed session contributes to Dashboard totals and weekly activity. Unfinished sessions and the live transcript are held in memory.
 
-## Publication roadmap
+## Cultural and communication guidance
 
-1. Extend the phrasebook, dialogue and simulation collections after bilingual, A1-level and accessibility review.
-2. Add dedicated cultural guidance after editorial review.
-3. Use the shared progress repository contract if persistence moves beyond the browser.
+Open **Ler orientações culturais** from a situation or go to `/ingles-na-pratica/:situationId/orientacoes`. Append an entry ID as a fragment to focus that article. The route loads its component, the selected guidance chunk and that situation's phrasebook. It uses summary metadata for links to dialogues and simulations. It does not fetch their full scripts or graphs.
+
+The four categories are politeness, clarification, vocabulary and use in context. Each entry has an English example with a Brazilian Portuguese translation and a usage tip. Regional pairs illustrate vocabulary that learners may encounter in American and British English. The terminology comparisons follow Cambridge Dictionary for [baggage reclaim](https://dictionary.cambridge.org/dictionary/english/baggage-reclaim), [bill](https://dictionary.cambridge.org/dictionary/essential-british-english/bill), [round-trip ticket](https://dictionary.cambridge.org/dictionary/english/round-trip-ticket) and [return ticket](https://dictionary.cambridge.org/dictionary/english/return-ticket). The example sentences are original.
+
+Examples drawn from the phrasebook resolve to its canonical ID and share its favorite control. Original examples are available for reading and listening. Pronunciation requests use the shared playback hook and request a regional voice for tagged examples. The browser may fall back to another English voice. Playback stops when another example starts or the learner leaves the page. Reading the guide has no prerequisites and writes no progress records.
+
+## Next steps
+
+Extend the collection after bilingual and accessibility review. Continue using the shared progress repository contract if persistence moves beyond the browser.

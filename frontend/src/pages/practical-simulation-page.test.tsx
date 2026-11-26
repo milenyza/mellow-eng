@@ -335,7 +335,7 @@ it('confirms restart and exit, preserves the session when cancelled, and cancels
   expect(localStorage.getItem(progressStorageKey)).toBeNull()
 })
 
-it('handles preview-only and invalid routes with helpful navigation', async () => {
+it('handles cross-situation and invalid routes with helpful navigation', async () => {
   const view = mount('at-the-airport', 'invalid')
   expect(
     await screen.findByRole('heading', { name: 'Simulação não encontrada' }),
@@ -344,10 +344,55 @@ it('handles preview-only and invalid routes with helpful navigation', async () =
     screen.getByRole('link', { name: /Pedindo direções até o portão/ }),
   ).toBeTruthy()
   view.unmount()
-  mount('shopping', 'ask-the-price')
+  mount('shopping', 'flight-check-in')
   expect(
     await screen.findByRole('heading', { name: 'Simulação não encontrada' }),
   ).toBeTruthy()
   expect(screen.getByRole('link', { name: 'Voltar à situação' })).toBeTruthy()
   expect(screen.queryByRole('button', { name: 'Começar conversa' })).toBeNull()
+})
+
+it('completes a newly published shopping branch and restores history and linked vocabulary', async () => {
+  const first = mount('shopping', 'ask-the-price')
+  const { user } = first
+  await user.click(
+    await screen.findByRole('button', { name: 'Começar conversa' }),
+  )
+  expect(screen.queryByText('Oi. Posso ajudar?')).toBeNull()
+  await user.click(screen.getByRole('button', { name: 'Traduções' }))
+  expect(screen.getByText('Oi. Posso ajudar?')).toBeTruthy()
+  await user.click(screen.getByRole('button', { name: 'Traduções' }))
+  async function submit(text: string) {
+    await user.click(screen.getByRole('radio', { name: text }))
+    await user.click(screen.getByRole('button', { name: 'Confirmar resposta' }))
+  }
+  async function answer(text: string) {
+    await submit(text)
+    await user.click(screen.getByRole('button', { name: 'Continuar conversa' }))
+  }
+  await user.click(screen.getByRole('button', { name: 'Ver dica' }))
+  await submit('How much this is?')
+  expect(screen.getByText('Ajuste de inglês')).toBeTruthy()
+  await user.click(screen.getByRole('button', { name: 'Tentar novamente' }))
+  await answer('Is this on sale?')
+  expect(screen.getByText(/^This one isn’t on sale/)).toBeTruthy()
+  await answer('Can I see a small notebook, please?')
+  await answer('Yes, I’ll take it.')
+  await answer('Can I have a receipt, please?')
+  expect(
+    screen.getByRole('heading', { name: 'Conversa concluída' }),
+  ).toBeTruthy()
+  const favorite = screen.getByRole('button', {
+    name: /Favorito.*Can I have a receipt/,
+  })
+  await user.click(favorite)
+  expect(JSON.parse(localStorage.getItem('mellow:favorite-words')!)).toContain(
+    'practical-shopping-receipt',
+  )
+  first.unmount()
+  mount('shopping', 'ask-the-price')
+  expect(
+    await screen.findByRole('heading', { name: 'Histórico de sessões' }),
+  ).toBeTruthy()
+  expect(screen.getByText('Ver sessões concluídas (1)')).toBeTruthy()
 })

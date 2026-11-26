@@ -20,6 +20,26 @@ const loaders: Record<
     import('./food-and-drink-dialogues').then(
       ({ foodAndDrinkDialogues }) => foodAndDrinkDialogues,
     ),
+  shopping: () =>
+    import('./shopping-dialogues').then(
+      ({ shoppingDialogues }) => shoppingDialogues,
+    ),
+  'getting-around': () =>
+    import('./transportation-dialogues').then(
+      ({ transportationDialogues }) => transportationDialogues,
+    ),
+  'meeting-people': () =>
+    import('./meeting-people-dialogues').then(
+      ({ meetingPeopleDialogues }) => meetingPeopleDialogues,
+    ),
+  'health-and-emergencies': () =>
+    import('./health-and-emergencies-dialogues').then(
+      ({ healthAndEmergenciesDialogues }) => healthAndEmergenciesDialogues,
+    ),
+  'around-the-city': () =>
+    import('./around-the-city-dialogues').then(
+      ({ aroundTheCityDialogues }) => aroundTheCityDialogues,
+    ),
 }
 
 export async function loadPracticalDialogue(

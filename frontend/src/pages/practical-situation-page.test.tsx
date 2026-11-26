@@ -39,7 +39,7 @@ function mount(id = 'at-the-hotel') {
   return { ...view, user: userEvent.setup() }
 }
 
-it('loads a direct detail route and shows available dialogues and keeps future activities upcoming', async () => {
+it('loads a direct detail route and shows available dialogues, simulations and cultural guidance', async () => {
   mount()
   expect(screen.getByText('Carregando expressões…')).toBeTruthy()
   expect(await screen.findByRole('heading', { name: 'No hotel' })).toBeTruthy()
@@ -54,20 +54,32 @@ it('loads a direct detail route and shows available dialogues and keeps future a
   const section = screen
     .getByRole('heading', { name: 'Orientações culturais' })
     .closest('section')!
-  expect(within(section).getByText('Em breve')).toBeTruthy()
+  expect(
+    within(section)
+      .getByRole('link', { name: 'Ler orientações culturais' })
+      .getAttribute('href'),
+  ).toBe('/ingles-na-pratica/at-the-hotel/orientacoes')
 })
 
-it('opens preview-only situations and offers a way back from an invalid identifier', async () => {
+it('loads the new shopping guide and offers a way back from an invalid identifier', async () => {
   const view = mount('shopping')
   expect(
-    await screen.findByRole('heading', { name: 'Prévia da situação' }),
+    await screen.findByRole('heading', { name: 'Fazendo compras' }),
   ).toBeTruthy()
-  expect(screen.queryByRole('searchbox')).toBeNull()
+  expect(screen.getByRole('searchbox')).toBeTruthy()
   const simulations = screen.getByRole('region', {
     name: 'Simulações de conversa',
   })
-  expect(within(simulations).getByText('Em breve')).toBeTruthy()
-  expect(within(simulations).queryByRole('link')).toBeNull()
+  expect(within(simulations).getAllByRole('link')).toHaveLength(2)
+  expect(
+    within(simulations).getByText('0 de 2 simulações concluídas'),
+  ).toBeTruthy()
+  expect(
+    within(screen.getByRole('region', { name: 'Diálogos' })).getAllByRole(
+      'link',
+    ),
+  ).toHaveLength(2)
+  expect(screen.queryByText('Em breve')).toBeNull()
   view.unmount()
   mount('unknown')
   expect(

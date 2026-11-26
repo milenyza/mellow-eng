@@ -1,10 +1,9 @@
 import { expect, it } from 'vitest'
 import { dialogueSummaries } from '@/data/dialogues'
 import { loadPracticalDialogue } from '@/data/dialogues/load-dialogue'
-import { practicalSituations } from '@/data/practical-english'
 import { createDialogueAudio } from './dialogue-audio'
 
-it('links six complete A1 dialogues to published phrasebooks without publishing full situations', async () => {
+it('links sixteen A1 dialogues to published phrasebooks', async () => {
   expect(dialogueSummaries.map(({ id }) => id)).toEqual([
     'flight-check-in',
     'boarding-gate',
@@ -12,10 +11,17 @@ it('links six complete A1 dialogues to published phrasebooks without publishing 
     'hotel-reception-info',
     'restaurant-meal',
     'coffee-to-go',
+    'price-at-the-shop',
+    'trying-a-shirt',
+    'ticket-window',
+    'bus-to-the-library',
+    'first-english-class',
+    'where-we-are-from',
+    'asking-for-help',
+    'meeting-at-the-entrance',
+    'finding-the-museum',
+    'confirming-the-turn',
   ])
-  expect(
-    practicalSituations.every(({ publication }) => publication === 'planned'),
-  ).toBe(true)
   for (const summary of dialogueSummaries) {
     const { id, situationId } = summary
     const { situation, dialogue, phrasebook, choices } =
@@ -31,10 +37,14 @@ it('links six complete A1 dialogues to published phrasebooks without publishing 
       ).toBe(true)
     }
     const { turns, participants, notes } = dialogue!
-    expect(turns.length).toBeGreaterThanOrEqual(8)
-    expect(turns.length).toBeLessThanOrEqual(12)
-    expect(notes.length).toBeGreaterThanOrEqual(2)
-    expect(notes.length).toBeLessThanOrEqual(4)
+    expect(turns).toHaveLength(10)
+    expect(notes).toHaveLength(3)
+    expect(notes.every(({ text }) => text.trim())).toBe(true)
+    expect(
+      participants.every(({ id }) =>
+        turns.some(({ participantId }) => participantId === id),
+      ),
+    ).toBe(true)
     for (const entries of [turns, participants, notes]) {
       expect(new Set(entries.map(({ id }) => id)).size).toBe(entries.length)
       expect(entries.every(({ id }) => /^[a-z]+(?:-[a-z]+)*$/.test(id))).toBe(
@@ -64,10 +74,10 @@ it('links six complete A1 dialogues to published phrasebooks without publishing 
   }
 })
 
-it('rejects unknown, cross-situation and preview-only dialogue URLs', async () => {
+it('rejects unknown and cross-situation dialogue URLs', async () => {
   expect(
-    (await loadPracticalDialogue('shopping', 'boarding-gate')).choices,
-  ).toHaveLength(0)
+    (await loadPracticalDialogue('shopping', 'boarding-gate')).dialogue,
+  ).toBeUndefined()
   expect(
     (await loadPracticalDialogue('at-the-hotel', 'boarding-gate')).dialogue,
   ).toBeUndefined()

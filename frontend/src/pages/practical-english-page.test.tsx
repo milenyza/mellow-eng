@@ -49,11 +49,11 @@ it('renders eight illustrated cards with labelled previews and only published ph
   const user = userEvent.setup()
   const cards = screen.getAllByRole('article')
   expect(cards).toHaveLength(8)
-  expect(screen.getAllByText('Em breve')).toHaveLength(5)
-  expect(screen.getAllByText('Expressões disponíveis')).toHaveLength(3)
+  expect(screen.queryByText('Em breve')).toBeNull()
+  expect(screen.getAllByText('Expressões disponíveis')).toHaveLength(8)
   expect(screen.getAllByText('Nível A1')).toHaveLength(8)
   expect(screen.queryByRole('button')).toBeNull()
-  expect(screen.getAllByRole('link')).toHaveLength(3)
+  expect(screen.getAllByRole('link')).toHaveLength(8)
   expect(
     screen
       .getByRole('link', { name: 'Consultar expressões de No aeroporto' })
@@ -198,6 +198,21 @@ it('loads the catalog through the real Dashboard and keeps learner records byte-
       .getByRole('link', { name: 'Inglês na prática' })
       .getAttribute('aria-current'),
   ).toBe('page')
+  await user.click(
+    main.getByRole('link', { name: 'Ler orientações culturais' }),
+  )
+  expect(
+    await main.findByRole(
+      'heading',
+      { level: 1, name: 'Orientações culturais' },
+      routeWait,
+    ),
+  ).toBeTruthy()
+  expect(window.location.pathname).toBe(
+    '/ingles-na-pratica/at-the-hotel/orientacoes',
+  )
+  expect(main.getAllByRole('article')).toHaveLength(4)
+  expect(localStorage.getItem(progressStorageKey)).toBe(data)
   await user.click(sidebar.getByRole('link', { name: 'Histórias' }))
   expect(
     await main.findByRole(

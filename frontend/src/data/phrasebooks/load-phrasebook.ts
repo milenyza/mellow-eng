@@ -13,6 +13,24 @@ const loaders: Record<PhrasebookSituationId, () => Promise<Phrasebook>> = {
     import('./food-and-drink').then(
       ({ foodAndDrinkPhrasebook }) => foodAndDrinkPhrasebook,
     ),
+  shopping: () =>
+    import('./shopping').then(({ shoppingPhrasebook }) => shoppingPhrasebook),
+  'getting-around': () =>
+    import('./transportation').then(
+      ({ transportationPhrasebook }) => transportationPhrasebook,
+    ),
+  'meeting-people': () =>
+    import('./meeting-people').then(
+      ({ meetingPeoplePhrasebook }) => meetingPeoplePhrasebook,
+    ),
+  'health-and-emergencies': () =>
+    import('./health-and-emergencies').then(
+      ({ healthAndEmergenciesPhrasebook }) => healthAndEmergenciesPhrasebook,
+    ),
+  'around-the-city': () =>
+    import('./around-the-city').then(
+      ({ aroundTheCityPhrasebook }) => aroundTheCityPhrasebook,
+    ),
 }
 
 export function loadPhrasebook(situationId: PhrasebookSituationId) {

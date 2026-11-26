@@ -4,7 +4,10 @@ import { DialogueList } from '@/components/practical-english/dialogue-list'
 import { dialogueSummaries } from '@/data/dialogues'
 import { PhrasebookExplorer } from '@/components/practical-english/phrasebook-explorer'
 import { SituationIllustration } from '@/components/practical-english/situation-illustration'
-import { practicalEnglishPath } from '@/data/navigation'
+import {
+  getPracticalGuidancePath,
+  practicalEnglishPath,
+} from '@/data/navigation'
 import { SimulationList } from '@/components/practical-english/simulation-list'
 import { useProgress } from '@/hooks/use-progress'
 import { selectSimulationHistory } from '@/services/simulation-progress'
@@ -15,6 +18,7 @@ export function PracticalSituationPage() {
   const { situation, phrasebook } =
     useLoaderData<typeof loadPracticalSituation>()
   const { hash } = useLocation()
+  const guidesAvailable = !!phrasebook && situation?.publication === 'available'
   const { data } = useProgress()
   const dialogues = dialogueSummaries.filter(
     ({ situationId }) => situationId === situation?.id,
@@ -85,6 +89,14 @@ export function PracticalSituationPage() {
                   className="ml-3 inline-flex min-h-11 items-center rounded-sm text-sm font-bold underline underline-offset-4"
                 >
                   Ir às simulações
+                </a>
+              )}
+              {guidesAvailable && (
+                <a
+                  href="#orientacoes"
+                  className="ml-3 inline-flex min-h-11 items-center rounded-sm text-sm font-bold underline underline-offset-4"
+                >
+                  Ir às orientações
                 </a>
               )}
             </div>
@@ -168,9 +180,30 @@ export function PracticalSituationPage() {
               </ul>
             </section>
           )}
-          <section className="space-y-1 border-t border-plum/20 pt-5">
-            <h2 className="text-lg font-semibold">Orientações culturais</h2>
-            <p className="text-sm font-bold">Em breve</p>
+          <section
+            id="orientacoes"
+            tabIndex={-1}
+            aria-labelledby="practical-guidance"
+            className="space-y-2 scroll-mt-5 border-t border-plum/20 pt-5"
+          >
+            <h2 id="practical-guidance" className="text-xl font-semibold">
+              Orientações culturais
+            </h2>
+            {guidesAvailable ? (
+              <>
+                <p>
+                  Consulte exemplos e dicas para se comunicar nesta situação.
+                </p>
+                <Link
+                  to={getPracticalGuidancePath(situation.id)}
+                  className="inline-flex min-h-11 items-center rounded-sm text-sm font-bold underline underline-offset-4"
+                >
+                  Ler orientações culturais
+                </Link>
+              </>
+            ) : (
+              <p className="text-sm font-bold">Em breve</p>
+            )}
           </section>
         </>
       ) : (

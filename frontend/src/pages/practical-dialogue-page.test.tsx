@@ -12,7 +12,7 @@ import {
 } from '@/data/navigation'
 import { PracticalDialoguePage } from './practical-dialogue-page'
 
-function mount(id = 'flight-check-in') {
+function mount(id = 'flight-check-in', situation = 'at-the-airport') {
   const router = createMemoryRouter(
     [
       {
@@ -24,7 +24,7 @@ function mount(id = 'flight-check-in') {
       },
       { path: practicalSituationRoute, element: <h1>Catálogo da situação</h1> },
     ],
-    { initialEntries: [getPracticalDialoguePath('at-the-airport', id)] },
+    { initialEntries: [getPracticalDialoguePath(situation, id)] },
   )
   const view = render(<RouterProvider router={router} />)
   return { ...view, user: userEvent.setup() }
@@ -177,4 +177,42 @@ it('keeps dialogue reading available without speech synthesis and reports invali
   expect(
     await screen.findByRole('heading', { name: 'Diálogo não encontrado' }),
   ).toBeTruthy()
+})
+
+it('plays a newly published transportation dialogue at both speeds and keeps its translations optional', async () => {
+  const { utterances, speak, cancel } = stubSpeech()
+  const { user } = mount('ticket-window', 'getting-around')
+  expect(
+    await screen.findByRole('heading', { name: 'Uma passagem para Riverside' }),
+  ).toBeTruthy()
+  const notes = screen.getByRole('region', { name: 'Notas de comunicação' })
+  expect(within(notes).getAllByRole('listitem')).toHaveLength(3)
+  const translate = screen.getByRole('button', {
+    name: 'Mostrar tradução da fala 1',
+  })
+  expect(translate.getAttribute('aria-expanded')).toBe('false')
+  await user.click(translate)
+  expect(translate.getAttribute('aria-expanded')).toBe('true')
+  await user.click(screen.getByRole('button', { name: /^Ouvir fala 1\b/ }))
+  expect(speak).toHaveBeenLastCalledWith(
+    expect.objectContaining({
+      text: 'Hi. One ticket to Riverside, please.',
+      rate: 1,
+    }),
+  )
+  await user.selectOptions(
+    screen.getByRole('combobox', { name: 'Velocidade da narração' }),
+    '0.75',
+  )
+  expect(cancel).toHaveBeenCalledOnce()
+  await user.click(
+    screen.getByRole('button', { name: 'Ouvir diálogo completo' }),
+  )
+  act(() => utterances[1].onend?.())
+  expect(speak).toHaveBeenLastCalledWith(
+    expect.objectContaining({
+      text: 'One way or round trip?',
+      rate: 0.75,
+    }),
+  )
 })

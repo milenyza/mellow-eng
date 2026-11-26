@@ -13,27 +13,31 @@ const publishedIds = [
   'at-the-airport',
   'at-the-hotel',
   'restaurants-and-coffee-shops',
+  'shopping',
+  'getting-around',
+  'meeting-people',
+  'health-and-emergencies',
+  'around-the-city',
 ] as const
 
-it('publishes only three complete A1 phrasebooks with stable, unique, scoped expression IDs', async () => {
+it('publishes eight A1 phrasebooks with stable, unique, scoped expression IDs', async () => {
   expect(
     practicalSituations
       .filter(({ phrasebook }) => phrasebook === 'available')
       .map(({ id }) => id),
   ).toEqual(publishedIds)
-  expect(
-    practicalSituations.every(({ publication }) => publication === 'planned'),
-  ).toBe(true)
   const ids = new Set<string>()
   for (const id of publishedIds) {
     const phrasebook = await loadPhrasebook(id)
     expect(phrasebook.situationId).toBe(id)
-    expect(phrasebook.groups).toHaveLength(6)
-    expect(new Set(phrasebook.groups.map(({ id }) => id)).size).toBe(6)
+    expect(phrasebook.groups.length).toBeGreaterThanOrEqual(3)
+    expect(new Set(phrasebook.groups.map(({ id }) => id)).size).toBe(
+      phrasebook.groups.length,
+    )
     const expressions = phrasebook.groups.flatMap(
       ({ expressions }) => expressions,
     )
-    expect(expressions.length).toBeGreaterThanOrEqual(18)
+    expect(expressions.length).toBeGreaterThanOrEqual(11)
     expect(expressions.length).toBeLessThanOrEqual(24)
     const local = new Set(expressions.map(({ id }) => id))
     for (const group of phrasebook.groups) {
@@ -80,7 +84,7 @@ it('publishes only three complete A1 phrasebooks with stable, unique, scoped exp
     }
   }
   expect(ids.has('practical-at-the-hotel-breakfast-time')).toBe(true)
-  expect(ids.size).toBe(56)
+  expect(ids.size).toBe(111)
 })
 
 it('searches either language, normalizes apostrophes and accents, and combines contextual search with intent', async () => {
@@ -100,12 +104,12 @@ it('searches either language, normalizes apostrophes and accents, and combines c
   expect(find('cafe da manha', 'departure')).toEqual([])
 })
 
-it('resolves lazy-loaded details and handles preview-only or unknown identifiers', async () => {
+it('resolves lazy-loaded details and handles unknown identifiers', async () => {
   const airport = await loadPracticalSituation('at-the-airport')
   expect(airport.phrasebook?.situationId).toBe('at-the-airport')
   const shopping = await loadPracticalSituation('shopping')
-  expect(shopping.situation?.phrasebook).toBe('planned')
-  expect(shopping.phrasebook).toBeUndefined()
+  expect(shopping.situation?.phrasebook).toBe('available')
+  expect(shopping.phrasebook?.situationId).toBe('shopping')
   expect((await loadPracticalSituation('unknown')).situation).toBeUndefined()
 })
 

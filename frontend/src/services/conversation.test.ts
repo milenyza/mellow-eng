@@ -33,7 +33,7 @@ const references = {
 }
 
 describe('published conversation graphs', () => {
-  it('has six stable links only for situations with published content', async () => {
+  it('has sixteen stable links only for situations with published content', async () => {
     expect(
       simulationSummaries.map(({ situationId, id }) => [situationId, id]),
     ).toEqual([
@@ -43,6 +43,16 @@ describe('published conversation graphs', () => {
       ['at-the-hotel', 'reception-information'],
       ['restaurants-and-coffee-shops', 'restaurant-meal'],
       ['restaurants-and-coffee-shops', 'order-at-the-counter'],
+      ['shopping', 'ask-the-price'],
+      ['shopping', 'ask-for-a-size'],
+      ['getting-around', 'buy-a-ticket'],
+      ['getting-around', 'confirm-the-stop'],
+      ['meeting-people', 'meet-a-classmate'],
+      ['meeting-people', 'talk-about-origins'],
+      ['health-and-emergencies', 'say-how-you-feel'],
+      ['health-and-emergencies', 'give-your-location'],
+      ['around-the-city', 'find-a-place'],
+      ['around-the-city', 'confirm-a-direction'],
     ])
     for (const { situationId, id } of simulationSummaries) {
       const loaded = await loadSimulation(situationId, id)
@@ -53,8 +63,8 @@ describe('published conversation graphs', () => {
       (await loadSimulation('at-the-hotel', 'find-the-gate')).scenario,
     ).toBeUndefined()
     expect(
-      (await loadSimulation('shopping', 'ask-the-price')).summaries,
-    ).toEqual([])
+      (await loadSimulation('shopping', 'find-a-place')).scenario,
+    ).toBeUndefined()
     expect(
       (await loadSimulation('unknown', 'unknown')).situation,
     ).toBeUndefined()
@@ -66,12 +76,24 @@ describe('published conversation graphs', () => {
       const { scenario } = await loadSimulation(situationId, id)
       expect(scenario).toBeDefined()
       if (!scenario) return
+      expect(
+        scenario.nodes.some((node) => node.kind === 'decision' && !!node.hint),
+      ).toBe(true)
+      const feedbackTypes = scenario.nodes.flatMap((node) =>
+        node.kind === 'decision' ? node.choices.map(({ fit }) => fit) : [],
+      )
+      expect(feedbackTypes).toContain('context')
+      expect(feedbackTypes).toContain('language')
       const paths: string[][] = []
       function walk(session: ConversationSession) {
         const node = currentConversationNode(scenario!, session)
         if (node.kind === 'success') {
-          expect(session.decisions.length).toBeGreaterThanOrEqual(4)
-          expect(session.decisions.length).toBeLessThanOrEqual(7)
+          expect(session.decisions).toHaveLength(4)
+          expect(
+            conversationTranscript(scenario!, session.decisions, node.id).some(
+              ({ expressionIds }) => expressionIds?.length,
+            ),
+          ).toBe(true)
           expect(
             finishConversation(scenario!, session, 1800)?.terminalNodeId,
           ).toBe(node.id)

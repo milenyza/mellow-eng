@@ -1,4 +1,3 @@
-import type { GuidedConversation } from '@/types/conversation'
 import type { AudioSource } from '@/types/audio'
 import type { CefrCode } from '@/types/curriculum'
 import type { TranslatedExample } from '@/types/lesson-content'
@@ -91,15 +90,38 @@ export interface ScenarioOutline {
   goal: string
 }
 
+export type GuidanceCategory =
+  'politeness' | 'clarification' | 'vocabulary' | 'context'
+
+export type GuidanceExample = { id: string } & (
+  | { kind: 'phrasebook'; expressionId: string }
+  | ({ kind: 'example'; region?: 'en-US' | 'en-GB' } & TranslatedExample)
+)
+
 export interface CulturalGuidance {
   id: string
+  situationId: PhrasebookSituationId
+  category: GuidanceCategory
   title: string
-  guidance: string
-  context?: string
+  explanation: string
+  usage: string
+  examples: readonly [GuidanceExample, ...GuidanceExample[]]
+  references: {
+    expressionIds: readonly string[]
+    dialogueIds?: readonly string[]
+    simulationIds?: readonly string[]
+  }
 }
 
 export type PhrasebookSituationId =
-  'at-the-airport' | 'at-the-hotel' | 'restaurants-and-coffee-shops'
+  | 'at-the-airport'
+  | 'at-the-hotel'
+  | 'restaurants-and-coffee-shops'
+  | 'shopping'
+  | 'getting-around'
+  | 'meeting-people'
+  | 'health-and-emergencies'
+  | 'around-the-city'
 
 export interface PhrasebookGroup {
   id: string
@@ -129,19 +151,7 @@ export type PracticalSituation = SituationMetadata &
   (
     | { phrasebook: 'available'; id: PhrasebookSituationId }
     | { phrasebook: 'planned' }
-  ) &
-  (
-    | {
-        publication: 'planned'
-        scenarios: readonly [ScenarioOutline, ...ScenarioOutline[]]
-        content?: never
-      }
-    | {
-        publication: 'available'
-        scenarios: readonly [GuidedConversation, ...GuidedConversation[]]
-        content: {
-          dialogues: readonly PracticalDialogue[]
-          culturalGuidance: readonly CulturalGuidance[]
-        }
-      }
-  )
+  ) & {
+    publication: 'planned' | 'available'
+    scenarios: readonly [ScenarioOutline, ...ScenarioOutline[]]
+  }
