@@ -1,12 +1,7 @@
 import type { LucideIcon } from 'lucide-react'
 import { NavLink } from 'react-router'
 import { cn } from '@/components/utils'
-import {
-  gamesPath,
-  lessonsPath,
-  practicalEnglishPath,
-  storiesPath,
-} from '@/data/navigation'
+import { isModulePath } from '@/data/navigation'
 
 export const mobileItemClass =
   'flex min-h-14 min-w-0 flex-col items-center justify-center gap-1 rounded-lg px-0.5 py-1 text-center text-xs leading-tight hover:bg-lavender'
@@ -24,12 +19,7 @@ export function ModuleLink({
   return (
     <NavLink
       to={path}
-      end={
-        path !== lessonsPath &&
-        path !== storiesPath &&
-        path !== gamesPath &&
-        path !== practicalEnglishPath
-      }
+      end={!isModulePath(path)}
       onClick={onClick}
       className={({ isActive }) =>
         cn(

@@ -4,7 +4,7 @@ import { matchPath, useLocation } from 'react-router'
 import { cn } from '@/components/utils'
 import {
   moreNavigation,
-  practicalEnglishPath,
+  isModulePath,
   primaryNavigation,
 } from '@/data/navigation'
 import { mobileItemClass, ModuleLink } from './module-link'
@@ -14,7 +14,7 @@ export function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false)
   const { pathname } = useLocation()
   const isMoreActive = moreNavigation.some(({ path }) =>
-    matchPath({ path, end: path !== practicalEnglishPath }, pathname),
+    matchPath({ path, end: !isModulePath(path) }, pathname),
   )
 
   useEffect(() => {

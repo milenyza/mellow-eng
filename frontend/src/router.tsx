@@ -10,6 +10,8 @@ import {
   lessonsPath,
   modules,
   notebookPath,
+  activityHistoryPath,
+  learningProgressPath,
   practicalEnglishPath,
   practicalSituationRoute,
   practicalDialogueRoute,
@@ -180,6 +182,24 @@ export const router = createBrowserRouter([
             .FlashcardHistoryPage,
         }),
       },
+      {
+        path: learningProgressPath,
+        hydrateFallbackElement: <p role="status">Carregando seu progresso…</p>,
+        lazy: async () => ({
+          Component: (await import('@/pages/learning-progress-page'))
+            .LearningProgressPage,
+        }),
+      },
+      {
+        path: activityHistoryPath,
+        hydrateFallbackElement: (
+          <p role="status">Carregando histórico de atividades…</p>
+        ),
+        lazy: async () => ({
+          Component: (await import('@/pages/activity-history-page'))
+            .ActivityHistoryPage,
+        }),
+      },
       ...[...modules, ...accountPages]
         .filter(
           ({ path }) =>
@@ -187,7 +207,8 @@ export const router = createBrowserRouter([
             path !== storiesPath &&
             path !== gamesPath &&
             path !== practicalEnglishPath &&
-            path !== notebookPath,
+            path !== notebookPath &&
+            path !== learningProgressPath,
         )
         .map(({ path, title, description }) => ({
           path,

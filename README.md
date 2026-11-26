@@ -35,7 +35,7 @@ Em `frontend/src/`, `layouts` e `pages` contêm as telas e sua estrutura compart
 
 ## Rotas e tema
 
-A rota `/` exibe a página inicial, `/aulas` exibe o catálogo do nível A1, `/historias` abre a biblioteca, `/jogos` abre a coleção de jogos e `/ingles-na-pratica` abre o catálogo de situações. `/meu-caderno` reúne o vocabulário salvo. As rotas `/meu-progresso`, `/perfil` e `/configuracoes` exibem páginas provisórias. Em telas estreitas, abra **Mais** na barra inferior para acessar todos os módulos. Use Tab para percorrer os controles, Enter para ativá-los e Esc para fechar o menu. Endereços desconhecidos exibem uma página com um link de retorno. Em hospedagem estática, configure o servidor para servir `index.html` nas rotas do aplicativo e entregar os arquivos estáticos normalmente.
+A rota `/` exibe a página inicial, `/aulas` exibe o catálogo do nível A1, `/historias` abre a biblioteca, `/jogos` abre a coleção de jogos e `/ingles-na-pratica` abre o catálogo de situações. `/meu-caderno` reúne o vocabulário salvo. `/meu-progresso` reúne a atividade registrada. As rotas `/perfil` e `/configuracoes` exibem páginas provisórias. Em telas estreitas, abra **Mais** na barra inferior para acessar todos os módulos. Use Tab para percorrer os controles, Enter para ativá-los e Esc para fechar o menu. Endereços desconhecidos exibem uma página com um link de retorno. Em hospedagem estática, configure o servidor para servir `index.html` nas rotas do aplicativo e entregar os arquivos estáticos normalmente.
 
 O tema em `frontend/src/styles/globals.css` expõe a paleta da marca e tokens semânticos como `bg-background` e `text-foreground`. As famílias Lora, Nunito Sans e Caveat são distribuídas localmente pelo build. Use `font-handwritten` para detalhes manuscritos pontuais.
 
@@ -96,3 +96,17 @@ Consulte a [documentação de Inglês na prática](docs/practical-english.md) pa
 Abra uma aula já iniciada para retomar a última etapa. **Reiniciar aula** pede confirmação antes de descartar a tentativa atual e preserva a primeira conclusão. Para concluir, visite todas as etapas obrigatórias, responda ou revise a correção das atividades obrigatórias e selecione **Confirmar conclusão**.
 
 O tempo ativo é estimado enquanto a página da aula está visível, em foco e dentro da janela de 60 segundos após a última interação. O progresso fica no armazenamento local deste navegador. Consulte a [documentação de progresso](docs/progress.md) para detalhes e limitações.
+
+## Meu progresso
+
+Em **Meu progresso**, consulte as conclusões acumuladas e expanda as 12 unidades do currículo A1 para ver os 48 planos de aula, seus objetivos e o estado de cada aula. Os indicadores separam suas conclusões da cobertura de publicação. Escolha a semana atual, os últimos 7 ou 30 dias, o mês atual, toda a atividade ou um período personalizado com datas inclusivas. O gráfico mostra o tempo ativo estimado, acompanhado do total, da média por dia com estudo ativo e da distribuição por módulo. A familiaridade e os favoritos refletem o estado atual.
+
+O **Calendário de estudo** permite consultar outros meses sem alterar o filtro do gráfico. Selecione um dia para ver a duração registrada e as conclusões com data disponível. Com o teclado, use as setas para mudar de dia dentro do mês.
+
+Em **Relatórios por módulo**, escolha Aulas, Histórias, Jogos, Inglês na prática ou Meu caderno. O relatório mostra as atividades registradas no período, identifica totais acumulados e informações atuais e oferece links para voltar à prática. Em Meu caderno, você também pode abrir as sugestões de revisão.
+
+Consulte as [definições de métricas](docs/learning-analytics.md) para entender quais registros entram em cada total.
+
+Em **Atividade recente**, escolha **Ver histórico de atividades** para abrir `/meu-progresso/historico`. O histórico agrupa conclusões e sessões por dia local. Use os filtros de módulo e período para encontrar uma atividade e abrir o conteúdo publicado ou o resultado da sessão. Os capítulos sem data disponível continuam nos totais de leitura.
+
+Para a próxima etapa, consulte a [revisão do frontend](docs/frontend-readiness.md) e os [requisitos de integração do backend](docs/backend-readiness.md).

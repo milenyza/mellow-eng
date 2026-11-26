@@ -1,3 +1,4 @@
+import { recordedSessions } from '@/services/study-time'
 import type {
   CompletedFlashcardSession,
   FlashcardResult,
@@ -122,7 +123,7 @@ export function selectFlashcardHistory(
   data: LearnerProgress,
   direction?: ReviewDirection,
 ) {
-  return Object.values(data.flashcardSessions ?? {})
+  return recordedSessions(data.flashcardSessions)
     .filter(
       (session): session is CompletedFlashcardSession =>
         !!session &&

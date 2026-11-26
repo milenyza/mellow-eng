@@ -27,6 +27,8 @@ export function getStoryPath(storyId: string, chapterId?: string) {
 export const lessonsPath = '/aulas'
 export const gamesPath = '/jogos'
 export const notebookPath = '/meu-caderno'
+export const learningProgressPath = '/meu-progresso'
+export const activityHistoryPath = `${learningProgressPath}/historico`
 export const flashcardsPath = `${notebookPath}/cartoes`
 export const flashcardHistoryPath = `${notebookPath}/revisoes`
 export const flashcardHistoryRoute = `${flashcardHistoryPath}/:sessionId?`
@@ -112,7 +114,7 @@ export const modules = [
       'Seu espaço para reunir palavras e expressões que você quer lembrar.',
   },
   {
-    path: '/meu-progresso',
+    path: learningProgressPath,
     title: 'Meu progresso',
     icon: ChartNoAxesCombined,
     description:
@@ -138,3 +140,7 @@ export const accountPages = [
 
 export const primaryNavigation = [home, ...modules.slice(0, 3)]
 export const moreNavigation = [...modules.slice(3), ...accountPages]
+
+export function isModulePath(path: string) {
+  return modules.some((module) => module.path === path)
+}

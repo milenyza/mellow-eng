@@ -9,6 +9,7 @@ import {
 export const introductoryUnit = {
   id: 'en-a1-introductions',
   title: 'Hello, nice to meet you!',
+  titlePtBr: 'Olá, prazer em conhecer você!',
   focus: 'Pronomes pessoais e verbo to be',
   lessons: [
     introductionsLessonMetadata,
@@ -22,6 +23,7 @@ export const plannedA1Units: readonly CurriculumUnit[] = [
   {
     id: 'en-a1-family',
     title: 'My family and friends',
+    titlePtBr: 'Minha família e meus amigos',
     focus: 'Possessivos e adjetivos',
     lessons: [
       {
@@ -81,6 +83,7 @@ export const plannedA1Units: readonly CurriculumUnit[] = [
   {
     id: 'en-a1-routines',
     title: 'My everyday life',
+    titlePtBr: 'Meu dia a dia',
     focus: 'Presente simples',
     lessons: [
       {
@@ -134,6 +137,7 @@ export const plannedA1Units: readonly CurriculumUnit[] = [
   {
     id: 'en-a1-cafe',
     title: 'A coffee, please!',
+    titlePtBr: 'Um café, por favor!',
     focus: 'Artigos, some, any e would like',
     lessons: [
       {
@@ -190,6 +194,7 @@ export const plannedA1Units: readonly CurriculumUnit[] = [
   {
     id: 'en-a1-time',
     title: 'What time is it?',
+    titlePtBr: 'Que horas são?',
     focus: 'Horas e advérbios de frequência',
     lessons: [
       {
@@ -249,6 +254,7 @@ export const plannedA1Units: readonly CurriculumUnit[] = [
   {
     id: 'en-a1-home',
     title: 'My home',
+    titlePtBr: 'Minha casa',
     focus: 'There is, there are e preposições',
     lessons: [
       {
@@ -305,6 +311,7 @@ export const plannedA1Units: readonly CurriculumUnit[] = [
   {
     id: 'en-a1-shopping',
     title: "Let's go shopping!",
+    titlePtBr: 'Vamos às compras!',
     focus: 'Demonstrativos, números e preços',
     lessons: [
       {
@@ -364,6 +371,7 @@ export const plannedA1Units: readonly CurriculumUnit[] = [
   {
     id: 'en-a1-city',
     title: 'Around the city',
+    titlePtBr: 'Pela cidade',
     focus: 'Imperativos e direções',
     lessons: [
       {
@@ -421,6 +429,7 @@ export const plannedA1Units: readonly CurriculumUnit[] = [
   {
     id: 'en-a1-transport',
     title: 'Getting around',
+    titlePtBr: 'Como se locomover',
     focus: "Can, can't e perguntas",
     lessons: [
       {
@@ -480,6 +489,7 @@ export const plannedA1Units: readonly CurriculumUnit[] = [
   {
     id: 'en-a1-hotel',
     title: 'At the hotel',
+    titlePtBr: 'No hotel',
     focus: 'Pedidos e perguntas básicas',
     lessons: [
       {
@@ -539,6 +549,7 @@ export const plannedA1Units: readonly CurriculumUnit[] = [
   {
     id: 'en-a1-airport',
     title: 'At the airport',
+    titlePtBr: 'No aeroporto',
     focus: 'Expressões de viagem',
     lessons: [
       {
@@ -599,6 +610,7 @@ export const plannedA1Units: readonly CurriculumUnit[] = [
   {
     id: 'en-a1-plans',
     title: "Let's make plans!",
+    titlePtBr: 'Vamos fazer planos!',
     focus: 'Introdução a going to e revisão',
     lessons: [
       {

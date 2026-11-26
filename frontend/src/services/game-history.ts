@@ -1,3 +1,4 @@
+import { recordedSessions } from '@/services/study-time'
 import { isCompletedGameSession } from '@/services/game-history-format'
 import type { CompletedGameSession } from '@/types/game-history'
 import type { GameDifficulty, GameSessionResult } from '@/types/game'
@@ -87,7 +88,7 @@ export function selectGameHistory(
     difficulty?: GameDifficulty
   } = {},
 ): CompletedGameSession[] {
-  return Object.values(data.gameSessions ?? {})
+  return recordedSessions(data.gameSessions)
     .filter(
       (session): session is CompletedGameSession =>
         !!session &&

@@ -35,7 +35,7 @@ export function createStudyClock(report: (start: number, end: number) => void) {
   }
 }
 
-function dayKey(date: Date) {
+export function localStudyDay(date: Date) {
   return [date.getFullYear(), date.getMonth() + 1, date.getDate()]
     .map((part) => String(part).padStart(2, '0'))
     .join('-')
@@ -50,7 +50,7 @@ export function addDailyTime(
   let cursor = start
   while (cursor < end) {
     const date = new Date(cursor)
-    const key = dayKey(date)
+    const key = localStudyDay(date)
     const midnight = new Date(
       date.getFullYear(),
       date.getMonth(),
@@ -127,24 +127,83 @@ export function getWeeklyStudyDays(
       now.getMonth(),
       now.getDate() - todayIndex + index,
     )
-    return (dailyStudyMs[dayKey(date)] ?? 0) > 0
+    return (dailyStudyMs[localStudyDay(date)] ?? 0) > 0
   })
 }
 
-export function combinedDailyStudyMs(data: LearnerProgress) {
-  const days = { ...data.dailyStudyMs }
-  const sessions = [
-    ...Object.values(data.gameSessions ?? {}),
-    ...Object.values(data.simulationSessions ?? {}),
-    ...Object.values(data.flashcardSessions ?? {}),
-  ]
-  for (const session of sessions) {
-    if (!session) continue
-    for (const [day, duration] of Object.entries(session.dailyPracticeMs)) {
-      days[day] = (days[day] ?? 0) + (duration ?? 0)
+export function isStudyDay(value: string) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false
+  const date = new Date(`${value}T00:00:00Z`)
+  return (
+    Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value
+  )
+}
+
+export function recordedSessions<T extends { sessionId: string }>(
+  records?: Readonly<Record<string, T | undefined>>,
+) {
+  return Object.entries(records ?? {}).flatMap(([id, session]) =>
+    session?.sessionId === id ? [session] : [],
+  )
+}
+
+export function getDailyStudySources(data: LearnerProgress) {
+  return {
+    lessonsAndReading: addStudyDays([data.dailyStudyMs]),
+    games: addStudyDays(
+      recordedSessions(data.gameSessions).map(
+        ({ dailyPracticeMs }) => dailyPracticeMs,
+      ),
+    ),
+    simulations: addStudyDays(
+      recordedSessions(data.simulationSessions).map(
+        ({ dailyPracticeMs }) => dailyPracticeMs,
+      ),
+    ),
+    flashcards: addStudyDays(
+      recordedSessions(data.flashcardSessions).map(
+        ({ dailyPracticeMs }) => dailyPracticeMs,
+      ),
+    ),
+  }
+}
+
+function addStudyDays(sources: readonly LearnerProgress['dailyStudyMs'][]) {
+  const days: Record<string, number> = {}
+  for (const source of sources) {
+    for (const [day, duration] of Object.entries(source)) {
+      if (
+        isStudyDay(day) &&
+        typeof duration === 'number' &&
+        Number.isFinite(duration) &&
+        duration > 0
+      )
+        days[day] = (days[day] ?? 0) + duration
     }
   }
   return days
+}
+
+export function getSharedStudySplit(data: LearnerProgress, readingMs: number) {
+  const shared = Object.values(addStudyDays([data.dailyStudyMs])).reduce(
+    (sum, duration) => sum + duration,
+    0,
+  )
+  const minimumLessons = Object.values(data.lessons).reduce((sum, lesson) => {
+    if (!lesson) return sum
+    const original = lesson.completion?.run
+    return (
+      sum +
+      lesson.run.activeMs +
+      (original && original.id !== lesson.run.id ? original.activeMs : 0)
+    )
+  }, 0)
+  const lessonsMs = shared - readingMs
+  return lessonsMs >= minimumLessons ? { lessonsMs, readingMs } : undefined
+}
+
+export function combinedDailyStudyMs(data: LearnerProgress) {
+  return addStudyDays(Object.values(getDailyStudySources(data)))
 }
 
 export function totalStudyMs(data: LearnerProgress) {

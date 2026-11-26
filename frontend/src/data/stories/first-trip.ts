@@ -1,25 +1,14 @@
 import cover from '@/assets/stories/first-trip.svg'
 import type { PublishedStory } from '@/types/story'
 
+import { firstTripMetadata } from '../story-index'
+
 export const firstTripStory = {
-  id: 'the-first-trip',
-  title: 'The First Trip',
-  description:
-    'Caio pega um trem sozinho pela primeira vez. Entre o bilhete e a plataforma, ele aprende a fazer as perguntas de que precisa.',
-  level: 'A1',
-  genres: ['travel'],
+  ...firstTripMetadata,
   cover,
-  readingMinutes: 7,
-  objectives: [
-    'Localizar informações simples sobre horários e plataformas.',
-    'Reconhecer perguntas breves sobre destinos e direções.',
-  ],
-  publication: 'available',
   chapters: [
     {
-      id: 'a-ticket-to-the-coast',
-      title: 'A Ticket to the Coast',
-      description: 'Caio confere o horário de partida impresso no bilhete.',
+      ...firstTripMetadata.chapters[0],
       paragraphs: [
         {
           id: 'at-the-station',
@@ -154,10 +143,7 @@ export const firstTripStory = {
       },
     },
     {
-      id: 'the-right-platform',
-      title: 'The Right Platform',
-      description:
-        'Uma funcionária indica a plataforma quando Caio pede ajuda.',
+      ...firstTripMetadata.chapters[1],
       paragraphs: [
         {
           id: 'asking-for-help',
@@ -312,10 +298,7 @@ export const firstTripStory = {
       },
     },
     {
-      id: 'by-the-window',
-      title: 'By the Window',
-      description:
-        'Já no trem, ele encontra seu assento e vê a cidade ficar para trás.',
+      ...firstTripMetadata.chapters[2],
       paragraphs: [
         {
           id: 'finding-the-seat',

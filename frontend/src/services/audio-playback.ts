@@ -114,3 +114,14 @@ export function createAudioPlayback(
     },
   }
 }
+
+let interruptActivePlayback: (() => void) | undefined
+
+export function claimSpeechPlayback(interrupt: () => void) {
+  interruptActivePlayback?.()
+  interruptActivePlayback = interrupt
+  return () => {
+    if (interruptActivePlayback === interrupt)
+      interruptActivePlayback = undefined
+  }
+}

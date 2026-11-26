@@ -19,6 +19,7 @@ export interface CefrLevel {
 export interface CurriculumUnit {
   id: string
   title: string
+  titlePtBr?: string
   focus: string
   lessons: readonly LessonOutline[]
 }

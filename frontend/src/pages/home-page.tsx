@@ -16,6 +16,7 @@ import { getCurriculumOverview } from '@/services/curriculum'
 import { readingTotals } from '@/services/reading-progress'
 import {
   combinedDailyStudyMs,
+  getSharedStudySplit,
   getWeeklyStudyDays,
   totalStudyMs,
 } from '@/services/study-time'
@@ -27,6 +28,7 @@ export function HomePage() {
     englishA1Index,
     data,
   )
+  const reading = readingTotals(data)
   const studiedWeekdays = getWeeklyStudyDays(
     combinedDailyStudyMs(data),
     localTime,
@@ -68,7 +70,10 @@ export function HomePage() {
           totals={{
             completedLessons: completedCount,
             studyMs: totalStudyMs(data),
-            reading: readingTotals(data),
+            reading: {
+              ...reading,
+              activeMs: getSharedStudySplit(data, reading.activeMs)?.readingMs,
+            },
           }}
         />
         <ReviewActivity compact history={selectFlashcardHistory(data)} />

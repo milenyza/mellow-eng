@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   createAudioPlayback,
+  claimSpeechPlayback,
   supportsSpeechPause,
 } from '@/services/audio-playback'
 import type { AudioSource } from '@/types/audio'
@@ -28,6 +29,7 @@ export function useSpeechPlayback(language = 'en-US') {
   const current = useRef<{
     id: string
     controller: ReturnType<typeof createAudioPlayback>
+    release: () => void
   } | null>(null)
   const synthesis = window.speechSynthesis
   const supported =
@@ -48,6 +50,7 @@ export function useSpeechPlayback(language = 'en-US') {
     return () => {
       const active = current.current
       current.current = null
+      active?.release()
       try {
         active?.controller.stop()
       } catch {
@@ -60,6 +63,7 @@ export function useSpeechPlayback(language = 'en-US') {
     const active = current.current
     if (!active || active.id !== id) return
     current.current = null
+    active.release()
     try {
       active.controller.stop()
       setPlayback({ activeId: null, status: 'stopped' })
@@ -100,6 +104,7 @@ export function useSpeechPlayback(language = 'en-US') {
     try {
       const previous = current.current
       current.current = null
+      previous?.release()
       previous?.controller.stop()
       if (previous?.id === id) {
         setPlayback({ activeId: null, status: 'stopped' })
@@ -115,6 +120,7 @@ export function useSpeechPlayback(language = 'en-US') {
         rate,
         (status) => {
           if (current.current?.controller !== controller) return
+          current.current.release()
           current.current = null
           setPlayback({ activeId: null, status })
           if (status === 'ended') onEnded?.()
@@ -124,10 +130,12 @@ export function useSpeechPlayback(language = 'en-US') {
             setPlayback((previous) => ({ ...previous, partId }))
         },
       )
-      current.current = { id, controller }
+      const release = claimSpeechPlayback(() => stop(id))
+      current.current = { id, controller, release }
       setPlayback({ activeId: id, status: 'playing' })
       controller.start()
     } catch {
+      current.current?.release()
       current.current = null
       setPlayback({ activeId: null, status: 'error' })
     }

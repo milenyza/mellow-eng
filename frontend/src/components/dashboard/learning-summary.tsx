@@ -65,7 +65,9 @@ export function LearningSummary({ totals }: { totals: LearningTotals }) {
         <div>
           <dt className="text-sm font-bold">Tempo de leitura ativo</dt>
           <dd className="font-heading text-2xl font-semibold">
-            {formatStudyTime(totals.reading.activeMs)}
+            {totals.reading.activeMs === undefined
+              ? 'Indisponível'
+              : formatStudyTime(totals.reading.activeMs)}
           </dd>
         </div>
       </dl>

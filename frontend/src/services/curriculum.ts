@@ -21,19 +21,27 @@ export function getCurriculumOverview(
   level: CefrLevelIndex,
   progress: LearnerProgress,
 ) {
+  const seen = new Set<string>()
   const lessons = level.units.flatMap((unit, unitIndex) =>
-    unit.lessons.map((lesson) => ({
-      unit,
-      unitNumber: unitIndex + 1,
-      lesson,
-      status: getLessonStatus(lesson, progress.lessons[lesson.id]),
-    })),
+    unit.lessons.flatMap((lesson) => {
+      if (seen.has(lesson.id)) return []
+      seen.add(lesson.id)
+      return [
+        {
+          unit,
+          unitNumber: unitIndex + 1,
+          lesson,
+          status: getLessonStatus(lesson, progress.lessons[lesson.id]),
+        },
+      ]
+    }),
   )
   const completedCount = lessons.filter(
     ({ status }) => status === 'completed',
   ).length
   return {
     completedCount,
+    lessons,
     totalCount: lessons.length,
     recommended:
       lessons.find(({ status }) => status === 'in-progress') ??

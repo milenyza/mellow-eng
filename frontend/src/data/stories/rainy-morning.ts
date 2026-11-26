@@ -2,27 +2,15 @@ import cover from '@/assets/stories/rainy-morning.svg'
 import type { PublishedStory } from '@/types/story'
 import { rainyMorningComprehension } from './rainy-morning-comprehension'
 
+import { rainyMorningMetadata } from '../story-index'
+
 export const rainyMorningStory = {
-  id: 'a-rainy-morning',
-  title: 'A Rainy Morning',
-  description:
-    'A chuva muda os planos de Lia no caminho para o trabalho. Uma parada na padaria do bairro dá outro começo à manhã.',
-  level: 'A1',
-  genres: ['everyday-life'],
+  ...rainyMorningMetadata,
   cover,
-  readingMinutes: 6,
-  objectives: [
-    'Reconhecer palavras sobre o clima e a rotina da manhã.',
-    'Identificar a ordem das ações em uma situação cotidiana.',
-  ],
-  publication: 'available',
   chapters: [
     {
-      id: 'rain-at-the-window',
+      ...rainyMorningMetadata.chapters[0],
       comprehension: rainyMorningComprehension.window,
-      title: 'Rain at the Window',
-      description:
-        'Lia percebe que vai precisar mudar o caminho para o trabalho.',
       paragraphs: [
         {
           id: 'morning-rain',
@@ -110,10 +98,8 @@ export const rainyMorningStory = {
       ],
     },
     {
-      id: 'inside-the-bakery',
+      ...rainyMorningMetadata.chapters[1],
       comprehension: rainyMorningComprehension.bakery,
-      title: 'Inside the Bakery',
-      description: 'Ela espera a chuva passar e pede um café na padaria.',
       paragraphs: [
         {
           id: 'ordering-coffee',
@@ -213,11 +199,8 @@ export const rainyMorningStory = {
       ],
     },
     {
-      id: 'back-on-the-street',
+      ...rainyMorningMetadata.chapters[2],
       comprehension: rainyMorningComprehension.street,
-      title: 'Back on the Street',
-      description:
-        'Quando a chuva dá uma trégua, Lia segue viagem com um pão na mochila.',
       paragraphs: [
         {
           id: 'the-rain-stops',
