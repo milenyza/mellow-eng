@@ -1,14 +1,8 @@
+import { originsLessonMetadata } from './unit-one-metadata'
 import type { AvailableLesson } from '@/types/curriculum'
 
 export const originsLesson = {
-  id: 'en-a1-introductions-from',
-  title: 'Where are you from?',
-  description: 'Converse sobre sua origem e a de outras pessoas.',
-  objectives: ['Perguntar de onde alguém é', 'Responder com cidade ou país'],
-  durationMinutes: 16,
-  focus: 'Perguntas com where e verbo to be',
-  availability: 'available',
-  activities: [],
+  ...originsLessonMetadata,
   blocks: [
     {
       id: 'introduction',

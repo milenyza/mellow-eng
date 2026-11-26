@@ -26,6 +26,29 @@ export function getStoryPath(storyId: string, chapterId?: string) {
 
 export const lessonsPath = '/aulas'
 export const gamesPath = '/jogos'
+export const practicalEnglishPath = '/ingles-na-pratica'
+export const practicalSituationRoute = `${practicalEnglishPath}/:situationId`
+export const practicalDialogueRoute = `${practicalSituationRoute}/dialogos/:dialogueId`
+
+export const practicalSimulationRoute = `${practicalSituationRoute}/simulacoes/:scenarioId`
+
+export function getPracticalSimulationPath(
+  situationId: string,
+  scenarioId: string,
+) {
+  return `${getPracticalSituationPath(situationId)}/simulacoes/${encodeURIComponent(scenarioId)}`
+}
+
+export function getPracticalSituationPath(situationId: string) {
+  return `${practicalEnglishPath}/${encodeURIComponent(situationId)}`
+}
+export function getPracticalDialoguePath(
+  situationId: string,
+  dialogueId: string,
+) {
+  return `${getPracticalSituationPath(situationId)}/dialogos/${encodeURIComponent(dialogueId)}`
+}
+
 export const gameHistoryPath = `${gamesPath}/historico`
 export const gameHistoryRoute = `${gameHistoryPath}/:sessionId?`
 export function getGameSessionPath(sessionId: string) {
@@ -63,7 +86,7 @@ export const modules = [
       'O espaço para praticar inglês com desafios leves e interativos.',
   },
   {
-    path: '/ingles-na-pratica',
+    path: practicalEnglishPath,
     title: 'Inglês na prática',
     icon: MessagesSquare,
     description:

@@ -6,11 +6,13 @@ export function GameSessionConfirmation({
   onCancel,
   onConfirm,
   restartDescription,
+  continueLabel = 'Continuar jogando',
 }: {
   action: 'restart' | 'leave'
   onCancel: () => void
   onConfirm: () => void
   restartDescription?: string
+  continueLabel?: string
 }) {
   const dialog = useRef<HTMLDialogElement>(null)
   useEffect(() => {
@@ -41,7 +43,7 @@ export function GameSessionConfirmation({
       </p>
       <div className="flex flex-wrap gap-2">
         <Button variant="secondary" onClick={onCancel}>
-          Continuar jogando
+          {continueLabel}
         </Button>
         <Button onClick={onConfirm}>
           {restart ? 'Confirmar reinício' : 'Sair da sessão'}

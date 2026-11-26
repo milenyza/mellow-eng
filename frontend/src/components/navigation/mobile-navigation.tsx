@@ -2,7 +2,11 @@ import { Ellipsis, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { matchPath, useLocation } from 'react-router'
 import { cn } from '@/components/utils'
-import { moreNavigation, primaryNavigation } from '@/data/navigation'
+import {
+  moreNavigation,
+  practicalEnglishPath,
+  primaryNavigation,
+} from '@/data/navigation'
 import { mobileItemClass, ModuleLink } from './module-link'
 
 export function MobileNavigation() {
@@ -10,7 +14,7 @@ export function MobileNavigation() {
   const [isOpen, setIsOpen] = useState(false)
   const { pathname } = useLocation()
   const isMoreActive = moreNavigation.some(({ path }) =>
-    matchPath(path, pathname),
+    matchPath({ path, end: path !== practicalEnglishPath }, pathname),
   )
 
   useEffect(() => {

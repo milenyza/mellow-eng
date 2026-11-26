@@ -7,7 +7,7 @@ import { Greeting } from '@/components/dashboard/greeting'
 import { LearningSummary } from '@/components/dashboard/learning-summary'
 import { NextLesson } from '@/components/dashboard/next-lesson'
 import { WeeklyProgress } from '@/components/dashboard/weekly-progress'
-import { englishA1 } from '@/data/curriculum/english-a1'
+import { englishA1Index } from '@/data/curriculum/english-a1-index'
 import { dailyWord } from '@/data/dashboard'
 import { useProgress } from '@/hooks/use-progress'
 import { getCurriculumOverview } from '@/services/curriculum'
@@ -21,7 +21,10 @@ import {
 export function HomePage() {
   const [localTime, setLocalTime] = useState(() => new Date())
   const { data } = useProgress()
-  const { recommended, completedCount } = getCurriculumOverview(englishA1, data)
+  const { recommended, completedCount } = getCurriculumOverview(
+    englishA1Index,
+    data,
+  )
   const studiedWeekdays = getWeeklyStudyDays(
     combinedDailyStudyMs(data),
     localTime,

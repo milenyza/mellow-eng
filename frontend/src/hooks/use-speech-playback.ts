@@ -1,12 +1,17 @@
 import { useEffect, useRef, useState } from 'react'
-import { createAudioPlayback } from '@/services/audio-playback'
+import {
+  createAudioPlayback,
+  supportsSpeechPause,
+} from '@/services/audio-playback'
 import type { AudioSource } from '@/types/audio'
 
-type PlaybackStatus = 'idle' | 'playing' | 'ended' | 'stopped' | 'error'
+type PlaybackStatus =
+  'idle' | 'playing' | 'paused' | 'ended' | 'stopped' | 'error'
 
 const messages = {
   idle: '',
   playing: 'Reproduzindo o áudio.',
+  paused: 'Áudio pausado.',
   ended: 'Reprodução concluída.',
   stopped: 'Reprodução interrompida.',
   error: 'Não foi possível reproduzir o áudio neste navegador.',
@@ -17,6 +22,8 @@ export function useSpeechPlayback(language = 'en-US') {
   const [playback, setPlayback] = useState<{
     activeId: string | null
     status: PlaybackStatus
+    partId?: string
+    controlNotice?: string
   }>({ activeId: null, status: 'idle' })
   const current = useRef<{
     id: string
@@ -29,10 +36,23 @@ export function useSpeechPlayback(language = 'en-US') {
     typeof window.SpeechSynthesisUtterance === 'function'
 
   useEffect(() => {
+    // Some browsers populate getVoices asynchronously after the first query.
+    try {
+      synthesis?.getVoices?.()
+    } catch {
+      // Browsers can still attempt narration with their default voice.
+    }
+  }, [synthesis])
+
+  useEffect(() => {
     return () => {
       const active = current.current
       current.current = null
-      active?.controller.stop()
+      try {
+        active?.controller.stop()
+      } catch {
+        // Playback has already been detached from this view.
+      }
     }
   }, [])
 
@@ -46,6 +66,27 @@ export function useSpeechPlayback(language = 'en-US') {
     } catch {
       setPlayback({ activeId: null, status: 'error' })
     }
+  }
+
+  function changePause(paused: boolean) {
+    const active = current.current
+    if (!active) return
+    const success = paused
+      ? active.controller.pause()
+      : active.controller.resume()
+    setPlayback((previous) =>
+      success
+        ? {
+            ...previous,
+            status: paused ? 'paused' : 'playing',
+            controlNotice: undefined,
+          }
+        : {
+            ...previous,
+            controlNotice:
+              'O navegador não conseguiu alterar a pausa. Você pode parar o áudio.',
+          },
+    )
   }
 
   function toggle(
@@ -69,12 +110,20 @@ export function useSpeechPlayback(language = 'en-US') {
         typeof input === 'string'
           ? { kind: 'speech', language, parts: [{ text: input }] }
           : input
-      const controller = createAudioPlayback(source, rate, (status) => {
-        if (current.current?.controller !== controller) return
-        current.current = null
-        setPlayback({ activeId: null, status })
-        if (status === 'ended') onEnded?.()
-      })
+      const controller = createAudioPlayback(
+        source,
+        rate,
+        (status) => {
+          if (current.current?.controller !== controller) return
+          current.current = null
+          setPlayback({ activeId: null, status })
+          if (status === 'ended') onEnded?.()
+        },
+        ({ id: partId }) => {
+          if (partId && current.current?.controller === controller)
+            setPlayback((previous) => ({ ...previous, partId }))
+        },
+      )
       current.current = { id, controller }
       setPlayback({ activeId: id, status: 'playing' })
       controller.start()
@@ -87,7 +136,11 @@ export function useSpeechPlayback(language = 'en-US') {
   const status = supported ? playback.status : 'unsupported'
   return {
     activeId: playback.activeId,
-    message: messages[status],
+    message: playback.controlNotice ?? messages[status],
+    activePartId: playback.partId,
+    canPause: supported && supportsSpeechPause(synthesis),
+    pause: () => changePause(true),
+    resume: () => changePause(false),
     status,
     supported,
     stop,

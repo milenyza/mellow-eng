@@ -1,9 +1,10 @@
+import { englishTargetLanguage } from '@/data/curriculum/english-a1-index'
 import { englishA1 } from '@/data/curriculum/english-a1'
 import type { Course } from '@/types/curriculum'
 
 export const englishCourse = {
   id: 'english-for-pt-br',
-  targetLanguage: 'en',
+  targetLanguage: englishTargetLanguage,
   interfaceLanguage: 'pt-BR',
   levels: [
     englishA1,

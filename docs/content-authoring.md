@@ -2,10 +2,10 @@
 
 ## Start with the outline
 
-1. Locate the planned record in `frontend/src/data/curriculum/english-a1.ts`. Preserve its ID, title, objectives, estimated duration and position in the unit.
+1. Locate the planned record in `frontend/src/data/curriculum/english-a1-index.ts`. Preserve its ID, title, objectives, estimated duration and position in the unit.
 2. Create an English-named `*-lesson.ts` module alongside the outline. Export a record checked with `satisfies AvailableLesson`. Keep educational data outside UI components and learner progress.
 3. Plan a practical adult conversation. Introduce each target before assessing it. Reuse vocabulary from earlier lessons and introduce only enough new material to serve the objectives.
-4. Validate the content while the planned record is still in the catalog. Then import the validated module and replace that record in place. The existing player, recommendation and completion links pick up the available lesson.
+4. Validate the content while the planned record is still in the catalog. Then change the outline to available, keep its metadata in the lightweight index and register the full lesson in the composition in `english-a1.ts`. Published content modules should import shared metadata. Keep their activity blocks out of the index so the Dashboard and catalog can load independently.
 
 ## Content blocks
 
@@ -102,3 +102,54 @@ const originsDictation = {
 Replace a planned outline in `frontend/src/data/stories.ts` with a `PublishedStory` module under `frontend/src/data/stories/`. Preserve the story and chapter IDs, outline descriptions and learning objectives. Give each English paragraph a stable ID, supply the Portuguese translation, and reference contextual vocabulary in text order. Narration uses the authored English text by default. Comprehension exercises use the shared evaluator and can reference paragraph IDs from the same chapter. They remain optional for reading completion.
 
 Verify references, translations, pronunciation transcriptions and all accepted answers. Test direct chapter links, reading resume, explicit marking and optional exercise navigation before publishing.
+
+## Practical phrasebooks
+
+Author expressions in a situation module under `frontend/src/data/phrasebooks/`. Group each entry under a useful communicative objective. Give it a stable slug, natural English, an idiomatic Brazilian Portuguese translation and a short usage note. Mark formality or region when it changes how the expression is used. Add contextual keywords, phonetics and related expression slugs where they help. For example, the hotel group `breakfast` contains `breakfast-time`, which the authoring helper expands to `practical-at-the-hotel-breakfast-time`. Keep the slug stable when editing its wording so existing favorites still resolve.
+
+Reference a published lesson, story or vocabulary record when there is a specific teaching connection. Review that the related slugs resolve within the phrasebook and that search works for both languages. Set the catalog's `phrasebook` state to `available` and register the lazy loader only when the complete collection is ready. Keep the full scenario's publication state independent. Verify the situation directly on mobile, including the speech controls and saving and removing a phrase.
+
+## Practical dialogues
+
+Add the summary metadata to `frontend/src/data/dialogues/index.ts` and author turns in the requested situation's lazy-loaded module. Reuse an existing scenario ID when it describes the same conversation. Keep dialogue, participant, turn and note IDs stable. Give each turn a speaker ID, short English text and a natural Brazilian Portuguese translation. A dialogue can reference one or more phrasebook slugs per turn or note. For example, the airport dialogue `flight-check-in` references `check-bag`, which resolves to the airport phrasebook entry and its existing favorite ID. Write usage notes that explain what the speaker is trying to do and define essential new terms.
+
+Check all references against the situation's published phrasebook, keep conversations short and verify that participants speak in the authored order. Test hidden translations, direct routes, keyboard and touch, and playback cancellation before publication. The optional dialogue audio language defaults to en-US. Keep examples of regional English contextual and avoid making assumptions about a speaker's voice.
+
+## Branching conversation simulations
+
+Register a summary in `frontend/src/data/simulations/index.ts`. Reuse a situation outline ID if the objective is the same and link to a published passive dialogue from that situation. Author the graph in the corresponding lazy-loaded situation module. Keep scenario IDs stable within the catalog and node IDs stable within the scenario. The authoring helper prefixes option slugs with their node ID and resolves expression slugs against the situation's phrasebook namespace.
+
+Start with a decision. Write short English turns and natural Brazilian Portuguese translations. A choice takes a bilingual line, explanatory Brazilian Portuguese feedback and one of three outcomes. An object with `next` identifies an appropriate choice and its next node. The string `context` describes correct English for a different situation. The string `language` identifies an English form that needs adjustment. The following excerpt uses the airport phrasebook slug `passport`.
+
+```ts
+decision(
+  'documents',
+  [
+    'Good morning. Do you have your passport and flight number?',
+    'Bom dia. Você está com seu passaporte e o número do voo?',
+  ],
+  [
+    [
+      'passport',
+      ['Here is my passport.', 'Aqui está meu passaporte.', ['passport']],
+      'Você pode apresentar o passaporte primeiro.',
+      { next: 'flight-number' },
+    ],
+    [
+      'flight',
+      ['My flight number is 205.', 'Meu voo é o 205.', ['flight-number']],
+      'Você pode informar o número do voo primeiro.',
+      { next: 'show-passport' },
+    ],
+    [
+      'hotel',
+      ['I have a hotel reservation.', 'Tenho uma reserva de hotel.'],
+      'Use essa frase no hotel. Aqui a pessoa pediu o passaporte e o número do voo.',
+      'context',
+    ],
+  ],
+  'Escolha uma das duas informações pedidas.',
+)
+```
+
+Both next-node IDs must resolve to authored nodes. End every valid path in a successful terminal. Keep early branches meaningfully different and review every path for coherence and level before publishing. Do not penalize learners for choosing a second natural reply. Add helpful hints without exposing later turns. Validate the graph with the same-situation expression and dialogue references, then test direct links, branch convergence, correction review, translations, audio cancellation, favorites, keyboard operation, and touch at narrow widths.

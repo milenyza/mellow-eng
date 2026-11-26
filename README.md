@@ -35,7 +35,7 @@ Em `frontend/src/`, `layouts` e `pages` contêm as telas e sua estrutura compart
 
 ## Rotas e tema
 
-A rota `/` exibe a página inicial, `/aulas` exibe o catálogo do nível A1, `/historias` abre a biblioteca e `/jogos` abre a coleção de jogos. As rotas `/ingles-na-pratica`, `/meu-caderno`, `/meu-progresso`, `/perfil` e `/configuracoes` exibem páginas provisórias. Em telas estreitas, abra **Mais** na barra inferior para acessar todos os módulos. Use Tab para percorrer os controles, Enter para ativá-los e Esc para fechar o menu. Endereços desconhecidos exibem uma página com um link de retorno. Em hospedagem estática, configure o servidor para servir `index.html` nas rotas do aplicativo e entregar os arquivos estáticos normalmente.
+A rota `/` exibe a página inicial, `/aulas` exibe o catálogo do nível A1, `/historias` abre a biblioteca, `/jogos` abre a coleção de jogos e `/ingles-na-pratica` abre o catálogo de situações. As rotas `/meu-caderno`, `/meu-progresso`, `/perfil` e `/configuracoes` exibem páginas provisórias. Em telas estreitas, abra **Mais** na barra inferior para acessar todos os módulos. Use Tab para percorrer os controles, Enter para ativá-los e Esc para fechar o menu. Endereços desconhecidos exibem uma página com um link de retorno. Em hospedagem estática, configure o servidor para servir `index.html` nas rotas do aplicativo e entregar os arquivos estáticos normalmente.
 
 O tema em `frontend/src/styles/globals.css` expõe a paleta da marca e tokens semânticos como `bg-background` e `text-foreground`. As famílias Lora, Nunito Sans e Caveat são distribuídas localmente pelo build. Use `font-handwritten` para detalhes manuscritos pontuais.
 
@@ -72,6 +72,12 @@ Em **Memory Game**, encontre os pares de inglês e português em um único tabul
 Em **Ver histórico de jogos**, filtre as sessões concluídas por jogo e dificuldade e abra os detalhes para rever pares, frases ou correções. Jogos concluídos contribuem para o tempo ativo total e a atividade semanal. O histórico fica no armazenamento deste navegador. Partidas interrompidas não são retomadas.
 
 Consulte a [documentação técnica de jogos](docs/games.md) e a [documentação de progresso](docs/progress.md).
+
+## Inglês na prática
+
+Em `/ingles-na-pratica`, busque situações pelo título em português ou inglês ou por palavras-chave. Use **Categoria** para refinar os resultados e **Ver prévia** para conhecer os objetivos e roteiros. Os guias A1 **No aeroporto**, **No hotel** e **Restaurantes e cafeterias** oferecem 56 expressões ao todo. Abra **Consultar expressões** para buscar em português ou inglês, filtrar por objetivo, ouvir em velocidade normal ou reduzida e salvar frases nos favoritos. As outras cinco situações continuam em prévia. Cada um dos três guias também oferece dois diálogos A1 com tradução sob demanda, áudio por fala ou da conversa inteira, notas de comunicação e acesso às expressões relacionadas. Nas páginas desses três guias, **Simulações de conversa** oferece seis práticas A1 com caminhos diferentes conforme as respostas. Cada prática tem áudio sob demanda, dicas, revisão de correções e um resumo ao final. O resumo dura apenas durante a sessão. As expressões salvas aparecem nos favoritos já existentes. As orientações culturais continuam em preparação.
+
+Consulte a [documentação de Inglês na prática](docs/practical-english.md) para conhecer a proposta de aprendizagem, o modelo de conteúdo e o roteiro de publicação.
 
 ## Retomada e conclusão
 

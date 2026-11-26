@@ -1,20 +1,10 @@
+import { introductionsLessonMetadata } from './unit-one-metadata'
 import { introductionsListening } from './introductions-listening'
 import { introductionsExercises } from './introductions-exercises'
 import type { AvailableLesson } from '@/types/curriculum'
 
 export const introductionsLesson = {
-  id: 'en-a1-introductions-hello',
-  title: 'Hello, nice to meet you!',
-  description: 'Dê os primeiros passos em uma conversa de apresentação.',
-  objectives: [
-    'Escolher um cumprimento de acordo com o momento do dia.',
-    'Apresentar-se pelo nome e perguntar o nome de outra pessoa.',
-    'Despedir-se em uma conversa curta.',
-  ],
-  durationMinutes: 15,
-  focus: 'Cumprimentos e apresentações com I am, you are e my name is.',
-  availability: 'available',
-  activities: [],
+  ...introductionsLessonMetadata,
   blocks: [
     {
       id: 'introduction',

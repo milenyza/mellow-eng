@@ -6,6 +6,8 @@ The English course for Brazilian Portuguese speakers declares A1 through C2. A1 
 
 Learner progress lives separately from course content. The catalog computes completion against all A1 outlines. The four Unit 01 lessons display availability, in-progress or completed status according to the saved learner record. The other 44 lessons remain planned and their outlines can be previewed. Recommendations prefer in-progress published lessons and then unstarted published lessons in curriculum order. The Dashboard and catalog share the same derivations; see [learner progress](progress.md).
 
+The Dashboard and lesson catalog import `english-a1-index.ts`, which contains outline metadata and publication status. The lazy Lesson Player and modules that reuse educational content import the full `english-course.ts`. Unit 01 metadata is shared between both views, keeping recommendations and published lessons in sync without loading activity blocks on the Dashboard.
+
 ## Unit 01 progression
 
 1. **Hello, nice to meet you!** introduces greetings, names and the forms `I am` and `you are`.

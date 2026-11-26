@@ -7,6 +7,10 @@ import {
   lessonRoute,
   lessonsPath,
   modules,
+  practicalEnglishPath,
+  practicalSituationRoute,
+  practicalDialogueRoute,
+  practicalSimulationRoute,
   storiesPath,
   storyRoute,
   sentenceBuilderPath,
@@ -14,8 +18,6 @@ import {
 } from '@/data/navigation'
 import { RootLayout } from '@/layouts/root-layout'
 import { HomePage } from '@/pages/home-page'
-import { LessonPage } from '@/pages/lesson-page'
-import { LessonsPage } from '@/pages/lessons-page'
 import { ModulePage } from '@/pages/module-page'
 import { NotFoundPage } from '@/pages/not-found-page'
 
@@ -26,8 +28,20 @@ export const router = createBrowserRouter([
     Component: RootLayout,
     children: [
       { index: true, Component: HomePage },
-      { path: lessonRoute, Component: LessonPage },
-      { path: lessonsPath, Component: LessonsPage },
+      {
+        path: lessonRoute,
+        hydrateFallbackElement: <p role="status">Carregando aula…</p>,
+        lazy: async () => ({
+          Component: (await import('@/pages/lesson-page')).LessonPage,
+        }),
+      },
+      {
+        path: lessonsPath,
+        hydrateFallbackElement: <p role="status">Carregando aulas…</p>,
+        lazy: async () => ({
+          Component: (await import('@/pages/lessons-page')).LessonsPage,
+        }),
+      },
       {
         path: gamesPath,
         hydrateFallbackElement: <p role="status">Carregando jogos…</p>,
@@ -81,10 +95,58 @@ export const router = createBrowserRouter([
           Component: (await import('@/pages/story-page')).StoryPage,
         }),
       },
+      {
+        path: practicalEnglishPath,
+        hydrateFallbackElement: <p role="status">Carregando situações…</p>,
+        lazy: async () => ({
+          Component: (await import('@/pages/practical-english-page'))
+            .PracticalEnglishPage,
+        }),
+      },
+      {
+        path: practicalSituationRoute,
+        hydrateFallbackElement: <p role="status">Carregando expressões…</p>,
+        loader: async ({ params }) =>
+          (
+            await import('@/data/phrasebooks/load-phrasebook')
+          ).loadPracticalSituation(params.situationId),
+        lazy: async () => ({
+          Component: (await import('@/pages/practical-situation-page'))
+            .PracticalSituationPage,
+        }),
+      },
+      {
+        path: practicalDialogueRoute,
+        hydrateFallbackElement: <p role="status">Carregando diálogo…</p>,
+        loader: async ({ params }) =>
+          (
+            await import('@/data/dialogues/load-dialogue')
+          ).loadPracticalDialogue(params.situationId, params.dialogueId),
+        lazy: async () => ({
+          Component: (await import('@/pages/practical-dialogue-page'))
+            .PracticalDialoguePage,
+        }),
+      },
+      {
+        path: practicalSimulationRoute,
+        hydrateFallbackElement: <p role="status">Carregando simulação…</p>,
+        loader: async ({ params }) =>
+          (await import('@/data/simulations/load-simulation')).loadSimulation(
+            params.situationId,
+            params.scenarioId,
+          ),
+        lazy: async () => ({
+          Component: (await import('@/pages/practical-simulation-page'))
+            .PracticalSimulationPage,
+        }),
+      },
       ...[...modules, ...accountPages]
         .filter(
           ({ path }) =>
-            path !== lessonsPath && path !== storiesPath && path !== gamesPath,
+            path !== lessonsPath &&
+            path !== storiesPath &&
+            path !== gamesPath &&
+            path !== practicalEnglishPath,
         )
         .map(({ path, title, description }) => ({
           path,

@@ -1,10 +1,10 @@
 import { Link } from 'react-router'
-import { modules } from '@/data/navigation'
+import { modules, practicalEnglishPath } from '@/data/navigation'
 
 const moduleDescriptions: Partial<Record<string, string>> = {
   '/historias': 'Leia pequenas histórias em inglês.',
   '/jogos': 'Pratique com desafios leves.',
-  '/ingles-na-pratica': 'Ensaie conversas do dia a dia.',
+  [practicalEnglishPath]: 'Explore roteiros de conversas do dia a dia.',
   '/meu-caderno': 'Reúna palavras e expressões.',
 }
 

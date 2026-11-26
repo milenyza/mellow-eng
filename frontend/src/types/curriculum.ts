@@ -23,6 +23,14 @@ export interface CurriculumUnit {
   lessons: readonly LessonOutline[]
 }
 
+export type CefrLevelIndex = Omit<CefrLevel, 'units'> & {
+  units: readonly CurriculumUnitIndex[]
+}
+
+export type CurriculumUnitIndex = Omit<CurriculumUnit, 'lessons'> & {
+  lessons: readonly LessonMetadata[]
+}
+
 interface LessonBase {
   id: string
   title: string
@@ -32,6 +40,8 @@ interface LessonBase {
   focus: string
   activities: readonly LearningActivity[]
 }
+
+export type LessonMetadata = LessonBase & { availability: LessonAvailability }
 
 export type AvailableLesson = LessonBase & {
   availability: 'available'

@@ -1,14 +1,16 @@
 import { useRef } from 'react'
 import { CurriculumOverview } from '@/components/curriculum/curriculum-overview'
 import { UnitDisclosure } from '@/components/curriculum/unit-disclosure'
-import { englishA1 } from '@/data/curriculum/english-a1'
-import { englishCourse } from '@/data/curriculum/english-course'
+import {
+  englishA1Index,
+  englishTargetLanguage,
+} from '@/data/curriculum/english-a1-index'
 import { useProgress } from '@/hooks/use-progress'
 import { getCurriculumOverview } from '@/services/curriculum'
 
 export function LessonsPage() {
   const { data } = useProgress()
-  const overview = getCurriculumOverview(englishA1, data)
+  const overview = getCurriculumOverview(englishA1Index, data)
   const recommendedUnit = useRef<HTMLDetailsElement>(null)
 
   function showRecommendedUnit() {
@@ -34,8 +36,8 @@ export function LessonsPage() {
           </p>
         </header>
         <CurriculumOverview
-          level={englishA1.code}
-          language={englishCourse.targetLanguage}
+          level={englishA1Index.code}
+          language={englishTargetLanguage}
           overview={overview}
           onShowUnit={showRecommendedUnit}
         />
@@ -44,12 +46,12 @@ export function LessonsPage() {
             Unidades do nível A1
           </h2>
           <ol className="mt-3 border-t border-plum/20">
-            {englishA1.units.map((unit, index) => (
+            {englishA1Index.units.map((unit, index) => (
               <li key={unit.id} className="[&>details]:scroll-mt-4">
                 <UnitDisclosure
                   unit={unit}
                   number={index + 1}
-                  language={englishCourse.targetLanguage}
+                  language={englishTargetLanguage}
                   lessonProgress={data.lessons}
                   ref={
                     unit.id === overview.recommended?.unit.id

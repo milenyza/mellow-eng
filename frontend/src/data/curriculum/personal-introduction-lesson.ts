@@ -1,17 +1,8 @@
+import { personalIntroductionLessonMetadata } from './unit-one-metadata'
 import type { AvailableLesson } from '@/types/curriculum'
 
 export const personalIntroductionLesson = {
-  id: 'en-a1-introductions-about-me',
-  title: 'A little about me',
-  description: 'Reúna informações básicas sobre si em uma apresentação curta.',
-  objectives: [
-    'Dizer algo sobre si e fazer uma pergunta',
-    'Distinguir respostas afirmativas e negativas',
-  ],
-  durationMinutes: 20,
-  focus: 'Afirmativas, negativas e perguntas com to be',
-  availability: 'available',
-  activities: [],
+  ...personalIntroductionLessonMetadata,
   blocks: [
     {
       id: 'introduction',

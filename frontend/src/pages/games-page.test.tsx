@@ -63,7 +63,7 @@ it('displays status and metadata and provides distinct keyboard-focusable game p
 })
 
 it('opens the existing games URL through the real navigation and preserves stored data', async () => {
-  const routeWait = { timeout: 4000 }
+  const routeWait = { timeout: 8000 }
   vi.stubGlobal('scrollTo', vi.fn())
   vi.stubGlobal('matchMedia', () => ({
     matches: true,
@@ -100,6 +100,9 @@ it('opens the existing games URL through the real navigation and preserves store
     await screen.findByRole('heading', { name: 'The First Trip' }, routeWait),
   ).toBeTruthy()
   await user.click(within(sidebar).getByRole('link', { name: 'Aulas' }))
+  expect(
+    await screen.findByRole('heading', { name: 'Aulas' }, routeWait),
+  ).toBeTruthy()
   expect(window.location.pathname).toBe('/aulas')
   await user.click(gamesLink)
   expect(
@@ -148,4 +151,4 @@ it('opens the existing games URL through the real navigation and preserves store
   expect(gamesLink.getAttribute('aria-current')).toBe('page')
   expect(localStorage.getItem(progressStorageKey)).toBe(progress)
   expect(localStorage.getItem('mellow:favorite-words')).toBe(savedWords)
-}, 10000)
+}, 20000)

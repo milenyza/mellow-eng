@@ -1,17 +1,8 @@
+import { introducingAFriendLessonMetadata } from './unit-one-metadata'
 import type { AvailableLesson } from '@/types/curriculum'
 
 export const introducingAFriendLesson = {
-  id: 'en-a1-introductions-meet',
-  title: 'This is my friend',
-  description: 'Apresente uma terceira pessoa em uma conversa breve.',
-  objectives: [
-    'Selecionar o pronome pessoal adequado',
-    'Apresentar alguém pelo nome',
-  ],
-  durationMinutes: 17,
-  focus: 'He, she e they com is e are',
-  availability: 'available',
-  activities: [],
+  ...introducingAFriendLessonMetadata,
   blocks: [
     {
       id: 'introduction',

@@ -2,14 +2,14 @@ import { lessonProgressStatus } from '@/services/lesson-progress'
 import type { LearnerProgress, LessonProgress } from '@/types/progress'
 import type {
   AvailableLesson,
-  CefrLevel,
+  CefrLevelIndex,
   Course,
   LessonOutline,
   LessonStatus,
 } from '@/types/curriculum'
 
 export function getLessonStatus(
-  lesson: LessonOutline,
+  lesson: Pick<LessonOutline, 'availability'>,
   progress?: LessonProgress,
 ): LessonStatus {
   if (lesson.availability === 'planned') return 'planned'
@@ -18,7 +18,7 @@ export function getLessonStatus(
 }
 
 export function getCurriculumOverview(
-  level: CefrLevel,
+  level: CefrLevelIndex,
   progress: LearnerProgress,
 ) {
   const lessons = level.units.flatMap((unit, unitIndex) =>

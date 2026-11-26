@@ -6,7 +6,7 @@ import { getLessonPath } from '@/data/navigation'
 import { LessonStatusBadge } from '@/components/curriculum/lesson-status-badge'
 import { getLessonStatus } from '@/services/curriculum'
 import type { LearnerProgress } from '@/types/progress'
-import type { CurriculumUnit } from '@/types/curriculum'
+import type { CurriculumUnitIndex } from '@/types/curriculum'
 
 export function UnitDisclosure({
   unit,
@@ -15,7 +15,7 @@ export function UnitDisclosure({
   lessonProgress,
   ref,
 }: {
-  unit: CurriculumUnit
+  unit: CurriculumUnitIndex
   number: number
   language: string
   lessonProgress: LearnerProgress['lessons']
