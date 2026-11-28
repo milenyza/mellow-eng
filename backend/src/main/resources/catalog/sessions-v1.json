@@ -1,0 +1,3174 @@
+{
+  "schema": 1,
+  "wordMatchRoundCount": 3,
+  "games": {
+    "WORD_MATCH": {
+      "levels": ["A1"],
+      "lengths": { "EASY": 4, "MEDIUM": 6, "HARD": 8 }
+    },
+    "SENTENCE_BUILDER": {
+      "levels": ["A1"],
+      "lengths": { "EASY": 5, "MEDIUM": 8, "HARD": 10 }
+    },
+    "MEMORY_GAME": {
+      "levels": ["A1"],
+      "lengths": { "EASY": 4, "MEDIUM": 6, "HARD": 8 }
+    }
+  },
+  "vocabulary": {
+    "english-for-pt-br/en-a1-introductions-hello/greetings/hello": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true,
+      "conflicts": ["english-for-pt-br/en-a1-introductions-hello/greetings/hi"]
+    },
+    "english-for-pt-br/en-a1-introductions-hello/greetings/hi": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-hello/greetings/good-morning": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true,
+      "conflicts": [
+        "english-for-pt-br/en-a1-introductions-about-me/personal-details/good-morning"
+      ]
+    },
+    "english-for-pt-br/en-a1-introductions-hello/greetings/good-afternoon": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-hello/greetings/good-evening": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-hello/greetings/goodbye": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-hello/greetings/see-you": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-hello/names/my-name-is": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true,
+      "conflicts": [
+        "english-for-pt-br/en-a1-introductions-about-me/personal-details/my-name-is"
+      ]
+    },
+    "english-for-pt-br/en-a1-introductions-hello/names/whats-your-name": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-hello/names/nice-to-meet-you": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true,
+      "conflicts": [
+        "english-for-pt-br/en-a1-introductions-meet/introducing/nice-to-meet-you"
+      ]
+    },
+    "english-for-pt-br/en-a1-introductions-from/places/where-are-you-from": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true,
+      "conflicts": [
+        "english-for-pt-br/en-a1-introductions-about-me/personal-details/where-are-you-from"
+      ]
+    },
+    "english-for-pt-br/en-a1-introductions-from/places/im-from": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true,
+      "conflicts": [
+        "english-for-pt-br/en-a1-introductions-about-me/personal-details/im-from"
+      ]
+    },
+    "english-for-pt-br/en-a1-introductions-from/places/brazil": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-from/places/canada": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-from/places/mexico": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-from/places/recife": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-from/nationalities/brazilian": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-from/nationalities/canadian": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-from/nationalities/mexican": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-meet/introducing/this-is": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-meet/introducing/my-friend": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-meet/introducing/he": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-meet/introducing/she": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-meet/introducing/nice-to-meet-you": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-meet/pronouns/they": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-meet/pronouns/hes": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-meet/pronouns/shes": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-meet/pronouns/theyre": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-about-me/personal-details/good-morning": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-about-me/personal-details/my-name-is": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-about-me/personal-details/im-from": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-about-me/personal-details/where-are-you-from": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-about-me/confirming/are-you-from": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-about-me/confirming/yes-i-am": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-about-me/confirming/no-im-not": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "english-for-pt-br/en-a1-introductions-about-me/confirming/im-not-from": {
+      "source": "LESSON",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-rainy-morning-raining": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "story-rainy-morning-walk-to-work": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-rainy-morning-umbrella": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "story-rainy-morning-on-the-corner": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-rainy-morning-at-the-counter": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-rainy-morning-a-cup-of-coffee": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-rainy-morning-wet": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "story-rainy-morning-seat-free": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-rainy-morning-loaf": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "story-rainy-morning-rain-stops": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-rainy-morning-nice-day": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-rainy-morning-coworker": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "story-rainy-morning-backpack": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "story-first-trip-train-station": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-first-trip-ticket": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "story-first-trip-leaves-at": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-first-trip-information-desk": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-first-trip-excuse-me": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-first-trip-platform": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "story-first-trip-turn-left": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-first-trip-seat": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "WORD",
+      "gameEligible": true
+    },
+    "story-first-trip-by-window": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "story-first-trip-sits-down": {
+      "source": "STORY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    },
+    "practical-at-the-airport-where-counter": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-check-in-here": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-flight-number": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-passport": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-boarding-pass": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-id-enough": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-check-bag": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-carry-on": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-weigh-bag": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-where-gate": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-boarding-time": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-gate-change": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-help": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-repeat": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-missed-flight": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-vacation": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-stay": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-airport-hotel-address": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-have-reservation": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-reservation-name": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-show-confirmation": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-check-in": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-room-ready": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-room-key": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-breakfast-time": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-breakfast-included": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-breakfast-place": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-extra-towel": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-key-not-working": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-help-bags": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-wifi": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-hair-dryer": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-air-conditioning": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-check-out-time": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-check-out": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-late-check-out": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-at-the-hotel-receipt": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-table-for-two": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-sit-outside": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-wait-time": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-menu": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-whats-this": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-todays-special": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-coffee": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-get-coffee": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-sandwich": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-glass-of-water": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-peanut-allergy": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-contains-milk": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-vegetarian": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-bill": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-pay-card": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-pay-separately": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-to-go": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-takeaway": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-restaurants-and-coffee-shops-box": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-shopping-how-much": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-shopping-price-tag": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-shopping-another-color": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-shopping-on-sale": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-shopping-size-medium": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-shopping-larger-size": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-shopping-try-on": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-shopping-fitting-room": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-shopping-take-it": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-shopping-keep-looking": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-shopping-receipt": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-getting-around-ticket-to": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-getting-around-one-way": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-getting-around-round-trip": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-getting-around-return-time": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-getting-around-next-train": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-getting-around-platform": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-getting-around-go-to": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-getting-around-bus-number": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-getting-around-get-off": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-getting-around-tell-me": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-getting-around-right-stop": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-meeting-people-name": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-meeting-people-your-name": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-meeting-people-nice-to-meet": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-meeting-people-first-class": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-meeting-people-where-from": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-meeting-people-from-brazil": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-meeting-people-live-here": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-meeting-people-visiting": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-meeting-people-say-again": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-meeting-people-sit-here": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-meeting-people-see-next": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-health-and-emergencies-not-well": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-health-and-emergencies-dizzy": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-health-and-emergencies-headache": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-health-and-emergencies-knee-hurts": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-health-and-emergencies-need-help": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-health-and-emergencies-stay-with-me": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-health-and-emergencies-call-friend": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-health-and-emergencies-repeat": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-health-and-emergencies-main-entrance": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-health-and-emergencies-near-desk": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-health-and-emergencies-in-front": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-around-the-city-museum": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-around-the-city-find": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-around-the-city-far": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-around-the-city-walk": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-around-the-city-straight": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-around-the-city-left": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-around-the-city-right": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-around-the-city-next-to": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-around-the-city-which-way": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-around-the-city-this-corner": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "practical-around-the-city-before-after": {
+      "source": "PRACTICAL",
+      "level": "A1",
+      "type": "PHRASE",
+      "gameEligible": false
+    },
+    "en-a-little": {
+      "source": "DAILY",
+      "level": "A1",
+      "type": "EXPRESSION",
+      "gameEligible": true
+    }
+  },
+  "sentences": {
+    "name-ana": {
+      "difficulty": "EASY",
+      "topics": ["INTRODUCTIONS", "AFFIRMATIVE"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-hello",
+        "blockId": "pronouns"
+      },
+      "hint": false,
+      "tiles": {
+        "name-ana-word-1": "My",
+        "name-ana-word-2": "name",
+        "name-ana-word-3": "is",
+        "name-ana-word-4": "Ana"
+      },
+      "orders": [
+        [
+          "name-ana-word-1",
+          "name-ana-word-2",
+          "name-ana-word-3",
+          "name-ana-word-4"
+        ]
+      ]
+    },
+    "name-leo": {
+      "difficulty": "EASY",
+      "topics": ["INTRODUCTIONS", "AFFIRMATIVE"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-about-me",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "name-leo-word-1": "My",
+        "name-leo-word-2": "name",
+        "name-leo-word-3": "is",
+        "name-leo-word-4": "Leo"
+      },
+      "orders": [
+        [
+          "name-leo-word-1",
+          "name-leo-word-2",
+          "name-leo-word-3",
+          "name-leo-word-4"
+        ]
+      ]
+    },
+    "meet-you": {
+      "difficulty": "EASY",
+      "topics": ["INTRODUCTIONS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-hello",
+        "blockId": "pronouns"
+      },
+      "hint": false,
+      "tiles": {
+        "meet-you-word-1": "Nice",
+        "meet-you-word-2": "to",
+        "meet-you-word-3": "meet",
+        "meet-you-word-4": "you"
+      },
+      "orders": [
+        [
+          "meet-you-word-1",
+          "meet-you-word-2",
+          "meet-you-word-3",
+          "meet-you-word-4"
+        ]
+      ]
+    },
+    "morning-clara": {
+      "difficulty": "EASY",
+      "topics": ["INTRODUCTIONS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-hello",
+        "blockId": "greetings"
+      },
+      "hint": false,
+      "tiles": {
+        "morning-clara-word-1": "Good",
+        "morning-clara-word-2": "morning",
+        "morning-clara-word-3": "Clara"
+      },
+      "orders": [
+        ["morning-clara-word-1", "morning-clara-word-2", "morning-clara-word-3"]
+      ]
+    },
+    "clara-intro": {
+      "difficulty": "EASY",
+      "topics": ["INTRODUCTIONS", "AFFIRMATIVE", "PRONOUNS", "TO_BE"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-hello",
+        "blockId": "pronouns"
+      },
+      "hint": false,
+      "tiles": {
+        "clara-intro-word-1": "I",
+        "clara-intro-word-2": "am",
+        "clara-intro-word-3": "Clara"
+      },
+      "orders": [
+        ["clara-intro-word-1", "clara-intro-word-2", "clara-intro-word-3"]
+      ]
+    },
+    "he-from-canada": {
+      "difficulty": "EASY",
+      "topics": ["ORIGINS", "PRONOUNS", "TO_BE", "AFFIRMATIVE"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "he-from-canada-word-1": "He",
+        "he-from-canada-word-2": "is",
+        "he-from-canada-word-3": "from",
+        "he-from-canada-word-4": "Canada"
+      },
+      "orders": [
+        [
+          "he-from-canada-word-1",
+          "he-from-canada-word-2",
+          "he-from-canada-word-3",
+          "he-from-canada-word-4"
+        ]
+      ]
+    },
+    "she-brazilian": {
+      "difficulty": "EASY",
+      "topics": ["ORIGINS", "PRONOUNS", "TO_BE", "AFFIRMATIVE"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "she-brazilian-word-1": "She",
+        "she-brazilian-word-2": "is",
+        "she-brazilian-word-3": "Brazilian"
+      },
+      "orders": [
+        ["she-brazilian-word-1", "she-brazilian-word-2", "she-brazilian-word-3"]
+      ]
+    },
+    "they-from-brazil": {
+      "difficulty": "EASY",
+      "topics": ["ORIGINS", "PRONOUNS", "TO_BE", "AFFIRMATIVE"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "they-from-brazil-word-1": "They",
+        "they-from-brazil-word-2": "are",
+        "they-from-brazil-word-3": "from",
+        "they-from-brazil-word-4": "Brazil"
+      },
+      "orders": [
+        [
+          "they-from-brazil-word-1",
+          "they-from-brazil-word-2",
+          "they-from-brazil-word-3",
+          "they-from-brazil-word-4"
+        ]
+      ]
+    },
+    "i-from-recife": {
+      "difficulty": "EASY",
+      "topics": ["ORIGINS", "PRONOUNS", "TO_BE", "AFFIRMATIVE"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-about-me",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "i-from-recife-word-1": "I",
+        "i-from-recife-word-2": "am",
+        "i-from-recife-word-3": "from",
+        "i-from-recife-word-4": "Recife"
+      },
+      "orders": [
+        [
+          "i-from-recife-word-1",
+          "i-from-recife-word-2",
+          "i-from-recife-word-3",
+          "i-from-recife-word-4"
+        ]
+      ]
+    },
+    "not-from-mexico": {
+      "difficulty": "EASY",
+      "topics": ["NEGATIVE", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-about-me",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "not-from-mexico-word-1": "I’m",
+        "not-from-mexico-word-2": "not",
+        "not-from-mexico-word-3": "from",
+        "not-from-mexico-word-4": "Mexico"
+      },
+      "orders": [
+        [
+          "not-from-mexico-word-1",
+          "not-from-mexico-word-2",
+          "not-from-mexico-word-3",
+          "not-from-mexico-word-4"
+        ]
+      ]
+    },
+    "not-from-brazil": {
+      "difficulty": "EASY",
+      "topics": ["NEGATIVE", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-about-me",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "not-from-brazil-word-1": "I",
+        "not-from-brazil-word-2": "am",
+        "not-from-brazil-word-3": "not",
+        "not-from-brazil-word-4": "from",
+        "not-from-brazil-word-5": "Brazil"
+      },
+      "orders": [
+        [
+          "not-from-brazil-word-1",
+          "not-from-brazil-word-2",
+          "not-from-brazil-word-3",
+          "not-from-brazil-word-4",
+          "not-from-brazil-word-5"
+        ]
+      ]
+    },
+    "he-not-canadian": {
+      "difficulty": "EASY",
+      "topics": ["NEGATIVE", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "he-not-canadian-word-1": "He",
+        "he-not-canadian-word-2": "is",
+        "he-not-canadian-word-3": "not",
+        "he-not-canadian-word-4": "Canadian"
+      },
+      "orders": [
+        [
+          "he-not-canadian-word-1",
+          "he-not-canadian-word-2",
+          "he-not-canadian-word-3",
+          "he-not-canadian-word-4"
+        ]
+      ]
+    },
+    "she-not-mexican": {
+      "difficulty": "EASY",
+      "topics": ["NEGATIVE", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-from",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "she-not-mexican-word-1": "She",
+        "she-not-mexican-word-2": "is",
+        "she-not-mexican-word-3": "not",
+        "she-not-mexican-word-4": "Mexican"
+      },
+      "orders": [
+        [
+          "she-not-mexican-word-1",
+          "she-not-mexican-word-2",
+          "she-not-mexican-word-3",
+          "she-not-mexican-word-4"
+        ]
+      ]
+    },
+    "they-not-canadian": {
+      "difficulty": "EASY",
+      "topics": ["NEGATIVE", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "they-not-canadian-word-1": "They",
+        "they-not-canadian-word-2": "are",
+        "they-not-canadian-word-3": "not",
+        "they-not-canadian-word-4": "Canadian"
+      },
+      "orders": [
+        [
+          "they-not-canadian-word-1",
+          "they-not-canadian-word-2",
+          "they-not-canadian-word-3",
+          "they-not-canadian-word-4"
+        ]
+      ]
+    },
+    "ask-leo": {
+      "difficulty": "EASY",
+      "topics": ["QUESTIONS", "PRONOUNS", "TO_BE"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-hello",
+        "blockId": "pronouns"
+      },
+      "hint": false,
+      "tiles": {
+        "ask-leo-word-1": "Are",
+        "ask-leo-word-2": "you",
+        "ask-leo-word-3": "Leo"
+      },
+      "orders": [["ask-leo-word-1", "ask-leo-word-2", "ask-leo-word-3"]]
+    },
+    "ask-name": {
+      "difficulty": "EASY",
+      "topics": ["QUESTIONS", "INTRODUCTIONS", "TO_BE"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-hello",
+        "blockId": "pronouns"
+      },
+      "hint": false,
+      "tiles": {
+        "ask-name-word-1": "What",
+        "ask-name-word-2": "is",
+        "ask-name-word-3": "your",
+        "ask-name-word-4": "name"
+      },
+      "orders": [
+        [
+          "ask-name-word-1",
+          "ask-name-word-2",
+          "ask-name-word-3",
+          "ask-name-word-4"
+        ]
+      ]
+    },
+    "ask-from": {
+      "difficulty": "EASY",
+      "topics": ["QUESTIONS", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-from",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "ask-from-word-1": "Where",
+        "ask-from-word-2": "are",
+        "ask-from-word-3": "you",
+        "ask-from-word-4": "from"
+      },
+      "orders": [
+        [
+          "ask-from-word-1",
+          "ask-from-word-2",
+          "ask-from-word-3",
+          "ask-from-word-4"
+        ]
+      ]
+    },
+    "ask-canada": {
+      "difficulty": "EASY",
+      "topics": ["QUESTIONS", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-about-me",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "ask-canada-word-1": "Are",
+        "ask-canada-word-2": "you",
+        "ask-canada-word-3": "from",
+        "ask-canada-word-4": "Canada"
+      },
+      "orders": [
+        [
+          "ask-canada-word-1",
+          "ask-canada-word-2",
+          "ask-canada-word-3",
+          "ask-canada-word-4"
+        ]
+      ]
+    },
+    "ask-she-recife": {
+      "difficulty": "EASY",
+      "topics": ["QUESTIONS", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "ask-she-recife-word-1": "Is",
+        "ask-she-recife-word-2": "she",
+        "ask-she-recife-word-3": "from",
+        "ask-she-recife-word-4": "Recife"
+      },
+      "orders": [
+        [
+          "ask-she-recife-word-1",
+          "ask-she-recife-word-2",
+          "ask-she-recife-word-3",
+          "ask-she-recife-word-4"
+        ]
+      ]
+    },
+    "ask-they-mexican": {
+      "difficulty": "EASY",
+      "topics": ["QUESTIONS", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-from",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "ask-they-mexican-word-1": "Are",
+        "ask-they-mexican-word-2": "they",
+        "ask-they-mexican-word-3": "Mexican"
+      },
+      "orders": [
+        [
+          "ask-they-mexican-word-1",
+          "ask-they-mexican-word-2",
+          "ask-they-mexican-word-3"
+        ]
+      ]
+    },
+    "hi-ana": {
+      "difficulty": "MEDIUM",
+      "topics": ["INTRODUCTIONS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-hello",
+        "blockId": "pronouns"
+      },
+      "hint": true,
+      "tiles": {
+        "hi-ana-word-1": "Hi",
+        "hi-ana-word-2": "my",
+        "hi-ana-word-3": "name",
+        "hi-ana-word-4": "is",
+        "hi-ana-word-5": "Ana"
+      },
+      "orders": [
+        [
+          "hi-ana-word-1",
+          "hi-ana-word-2",
+          "hi-ana-word-3",
+          "hi-ana-word-4",
+          "hi-ana-word-5"
+        ],
+        [
+          "hi-ana-word-2",
+          "hi-ana-word-3",
+          "hi-ana-word-4",
+          "hi-ana-word-5",
+          "hi-ana-word-1"
+        ]
+      ]
+    },
+    "meet-clara": {
+      "difficulty": "MEDIUM",
+      "topics": ["INTRODUCTIONS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "dialogue"
+      },
+      "hint": false,
+      "tiles": {
+        "meet-clara-word-1": "Nice",
+        "meet-clara-word-2": "to",
+        "meet-clara-word-3": "meet",
+        "meet-clara-word-4": "you",
+        "meet-clara-word-5": "Clara"
+      },
+      "orders": [
+        [
+          "meet-clara-word-1",
+          "meet-clara-word-2",
+          "meet-clara-word-3",
+          "meet-clara-word-4",
+          "meet-clara-word-5"
+        ]
+      ]
+    },
+    "introduce-friend": {
+      "difficulty": "MEDIUM",
+      "topics": ["INTRODUCTIONS", "TO_BE", "AFFIRMATIVE"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "introduce-friend-word-1": "This",
+        "introduce-friend-word-2": "is",
+        "introduce-friend-word-3": "my",
+        "introduce-friend-word-4": "friend",
+        "introduce-friend-word-5": "Leo"
+      },
+      "orders": [
+        [
+          "introduce-friend-word-1",
+          "introduce-friend-word-2",
+          "introduce-friend-word-3",
+          "introduce-friend-word-4",
+          "introduce-friend-word-5"
+        ]
+      ]
+    },
+    "introduce-clara": {
+      "difficulty": "MEDIUM",
+      "topics": ["INTRODUCTIONS", "TO_BE", "AFFIRMATIVE"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "introduce-clara-word-1": "This",
+        "introduce-clara-word-2": "is",
+        "introduce-clara-word-3": "my",
+        "introduce-clara-word-4": "friend",
+        "introduce-clara-word-5": "Clara"
+      },
+      "orders": [
+        [
+          "introduce-clara-word-1",
+          "introduce-clara-word-2",
+          "introduce-clara-word-3",
+          "introduce-clara-word-4",
+          "introduce-clara-word-5"
+        ]
+      ]
+    },
+    "hello-clara": {
+      "difficulty": "MEDIUM",
+      "topics": ["INTRODUCTIONS", "AFFIRMATIVE", "PRONOUNS", "TO_BE"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-hello",
+        "blockId": "pronouns"
+      },
+      "hint": false,
+      "tiles": {
+        "hello-clara-word-1": "Hello",
+        "hello-clara-word-2": "my",
+        "hello-clara-word-3": "name",
+        "hello-clara-word-4": "is",
+        "hello-clara-word-5": "Clara"
+      },
+      "orders": [
+        [
+          "hello-clara-word-1",
+          "hello-clara-word-2",
+          "hello-clara-word-3",
+          "hello-clara-word-4",
+          "hello-clara-word-5"
+        ]
+      ]
+    },
+    "rain-this-morning": {
+      "difficulty": "MEDIUM",
+      "topics": ["PRONOUNS", "TO_BE", "AFFIRMATIVE"],
+      "reference": {
+        "kind": "story",
+        "storyId": "a-rainy-morning",
+        "chapterId": "rain-at-the-window",
+        "paragraphId": "morning-rain"
+      },
+      "hint": false,
+      "tiles": {
+        "rain-this-morning-word-1": "It",
+        "rain-this-morning-word-2": "is",
+        "rain-this-morning-word-3": "raining",
+        "rain-this-morning-word-4": "this",
+        "rain-this-morning-word-5": "morning"
+      },
+      "orders": [
+        [
+          "rain-this-morning-word-1",
+          "rain-this-morning-word-2",
+          "rain-this-morning-word-3",
+          "rain-this-morning-word-4",
+          "rain-this-morning-word-5"
+        ],
+        [
+          "rain-this-morning-word-4",
+          "rain-this-morning-word-5",
+          "rain-this-morning-word-1",
+          "rain-this-morning-word-2",
+          "rain-this-morning-word-3"
+        ]
+      ]
+    },
+    "not-he-brazil": {
+      "difficulty": "MEDIUM",
+      "topics": ["NEGATIVE", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "not-he-brazil-word-1": "He",
+        "not-he-brazil-word-2": "is",
+        "not-he-brazil-word-3": "not",
+        "not-he-brazil-word-4": "from",
+        "not-he-brazil-word-5": "Brazil"
+      },
+      "orders": [
+        [
+          "not-he-brazil-word-1",
+          "not-he-brazil-word-2",
+          "not-he-brazil-word-3",
+          "not-he-brazil-word-4",
+          "not-he-brazil-word-5"
+        ]
+      ]
+    },
+    "not-she-canada": {
+      "difficulty": "MEDIUM",
+      "topics": ["NEGATIVE", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "not-she-canada-word-1": "She",
+        "not-she-canada-word-2": "is",
+        "not-she-canada-word-3": "not",
+        "not-she-canada-word-4": "from",
+        "not-she-canada-word-5": "Canada"
+      },
+      "orders": [
+        [
+          "not-she-canada-word-1",
+          "not-she-canada-word-2",
+          "not-she-canada-word-3",
+          "not-she-canada-word-4",
+          "not-she-canada-word-5"
+        ]
+      ]
+    },
+    "not-they-recife": {
+      "difficulty": "MEDIUM",
+      "topics": ["NEGATIVE", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "not-they-recife-word-1": "They",
+        "not-they-recife-word-2": "are",
+        "not-they-recife-word-3": "not",
+        "not-they-recife-word-4": "from",
+        "not-they-recife-word-5": "Recife"
+      },
+      "orders": [
+        [
+          "not-they-recife-word-1",
+          "not-they-recife-word-2",
+          "not-they-recife-word-3",
+          "not-they-recife-word-4",
+          "not-they-recife-word-5"
+        ]
+      ]
+    },
+    "not-i-recife": {
+      "difficulty": "MEDIUM",
+      "topics": ["NEGATIVE", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-about-me",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "not-i-recife-word-1": "I",
+        "not-i-recife-word-2": "am",
+        "not-i-recife-word-3": "not",
+        "not-i-recife-word-4": "from",
+        "not-i-recife-word-5": "Recife"
+      },
+      "orders": [
+        [
+          "not-i-recife-word-1",
+          "not-i-recife-word-2",
+          "not-i-recife-word-3",
+          "not-i-recife-word-4",
+          "not-i-recife-word-5"
+        ]
+      ]
+    },
+    "ask-her-canada": {
+      "difficulty": "MEDIUM",
+      "topics": ["QUESTIONS", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "ask-her-canada-word-1": "Is",
+        "ask-her-canada-word-2": "she",
+        "ask-her-canada-word-3": "from",
+        "ask-her-canada-word-4": "Canada",
+        "ask-her-canada-word-5": "Leo"
+      },
+      "orders": [
+        [
+          "ask-her-canada-word-1",
+          "ask-her-canada-word-2",
+          "ask-her-canada-word-3",
+          "ask-her-canada-word-4",
+          "ask-her-canada-word-5"
+        ]
+      ]
+    },
+    "ask-friend-canadian": {
+      "difficulty": "MEDIUM",
+      "topics": ["QUESTIONS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "ask-friend-canadian-word-1": "Is",
+        "ask-friend-canadian-word-2": "your",
+        "ask-friend-canadian-word-3": "friend",
+        "ask-friend-canadian-word-4": "Clara",
+        "ask-friend-canadian-word-5": "Canadian"
+      },
+      "orders": [
+        [
+          "ask-friend-canadian-word-1",
+          "ask-friend-canadian-word-2",
+          "ask-friend-canadian-word-3",
+          "ask-friend-canadian-word-4",
+          "ask-friend-canadian-word-5"
+        ]
+      ]
+    },
+    "ask-where-clara": {
+      "difficulty": "MEDIUM",
+      "topics": ["QUESTIONS", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-from",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "ask-where-clara-word-1": "Clara",
+        "ask-where-clara-word-2": "where",
+        "ask-where-clara-word-3": "are",
+        "ask-where-clara-word-4": "you",
+        "ask-where-clara-word-5": "from"
+      },
+      "orders": [
+        [
+          "ask-where-clara-word-1",
+          "ask-where-clara-word-2",
+          "ask-where-clara-word-3",
+          "ask-where-clara-word-4",
+          "ask-where-clara-word-5"
+        ]
+      ]
+    },
+    "ask-your-friend-from": {
+      "difficulty": "MEDIUM",
+      "topics": ["QUESTIONS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "ask-your-friend-from-word-1": "Where",
+        "ask-your-friend-from-word-2": "is",
+        "ask-your-friend-from-word-3": "your",
+        "ask-your-friend-from-word-4": "friend",
+        "ask-your-friend-from-word-5": "from"
+      },
+      "orders": [
+        [
+          "ask-your-friend-from-word-1",
+          "ask-your-friend-from-word-2",
+          "ask-your-friend-from-word-3",
+          "ask-your-friend-from-word-4",
+          "ask-your-friend-from-word-5"
+        ]
+      ]
+    },
+    "ask-if-my-friend-from": {
+      "difficulty": "MEDIUM",
+      "topics": ["QUESTIONS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "ask-if-my-friend-from-word-1": "Is",
+        "ask-if-my-friend-from-word-2": "my",
+        "ask-if-my-friend-from-word-3": "friend",
+        "ask-if-my-friend-from-word-4": "Leo",
+        "ask-if-my-friend-from-word-5": "from",
+        "ask-if-my-friend-from-word-6": "Canada"
+      },
+      "orders": [
+        [
+          "ask-if-my-friend-from-word-1",
+          "ask-if-my-friend-from-word-2",
+          "ask-if-my-friend-from-word-3",
+          "ask-if-my-friend-from-word-4",
+          "ask-if-my-friend-from-word-5",
+          "ask-if-my-friend-from-word-6"
+        ]
+      ]
+    },
+    "repeat-from": {
+      "difficulty": "MEDIUM",
+      "topics": ["NEGATIVE", "PRONOUNS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-about-me",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "repeat-from-word-1": "He",
+        "repeat-from-word-2": "is",
+        "repeat-from-word-3": "from",
+        "repeat-from-word-4": "Brazil",
+        "repeat-from-word-5": "not",
+        "repeat-from-word-6": "from",
+        "repeat-from-word-7": "Canada"
+      },
+      "orders": [
+        [
+          "repeat-from-word-1",
+          "repeat-from-word-2",
+          "repeat-from-word-3",
+          "repeat-from-word-4",
+          "repeat-from-word-5",
+          "repeat-from-word-6",
+          "repeat-from-word-7"
+        ]
+      ]
+    },
+    "hard-intro-canada": {
+      "difficulty": "HARD",
+      "topics": ["INTRODUCTIONS", "TO_BE", "AFFIRMATIVE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "hard-intro-canada-word-1": "This",
+        "hard-intro-canada-word-2": "is",
+        "hard-intro-canada-word-3": "my",
+        "hard-intro-canada-word-4": "friend",
+        "hard-intro-canada-word-5": "Leo",
+        "hard-intro-canada-word-6": "from",
+        "hard-intro-canada-word-7": "Canada",
+        "hard-intro-canada-extra-1": "are"
+      },
+      "orders": [
+        [
+          "hard-intro-canada-word-1",
+          "hard-intro-canada-word-2",
+          "hard-intro-canada-word-3",
+          "hard-intro-canada-word-4",
+          "hard-intro-canada-word-5",
+          "hard-intro-canada-word-6",
+          "hard-intro-canada-word-7"
+        ],
+        [
+          "hard-intro-canada-word-1",
+          "hard-intro-canada-word-2",
+          "hard-intro-canada-word-5",
+          "hard-intro-canada-word-3",
+          "hard-intro-canada-word-4",
+          "hard-intro-canada-word-6",
+          "hard-intro-canada-word-7"
+        ]
+      ]
+    },
+    "hard-intro-recife": {
+      "difficulty": "HARD",
+      "topics": ["INTRODUCTIONS", "TO_BE", "AFFIRMATIVE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "hard-intro-recife-word-1": "This",
+        "hard-intro-recife-word-2": "is",
+        "hard-intro-recife-word-3": "my",
+        "hard-intro-recife-word-4": "friend",
+        "hard-intro-recife-word-5": "Clara",
+        "hard-intro-recife-word-6": "from",
+        "hard-intro-recife-word-7": "Recife",
+        "hard-intro-recife-extra-1": "am"
+      },
+      "orders": [
+        [
+          "hard-intro-recife-word-1",
+          "hard-intro-recife-word-2",
+          "hard-intro-recife-word-3",
+          "hard-intro-recife-word-4",
+          "hard-intro-recife-word-5",
+          "hard-intro-recife-word-6",
+          "hard-intro-recife-word-7"
+        ],
+        [
+          "hard-intro-recife-word-1",
+          "hard-intro-recife-word-2",
+          "hard-intro-recife-word-5",
+          "hard-intro-recife-word-3",
+          "hard-intro-recife-word-4",
+          "hard-intro-recife-word-6",
+          "hard-intro-recife-word-7"
+        ]
+      ]
+    },
+    "hard-friend-affirmative": {
+      "difficulty": "HARD",
+      "topics": ["INTRODUCTIONS", "TO_BE", "AFFIRMATIVE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "hard-friend-affirmative-word-1": "My",
+        "hard-friend-affirmative-word-2": "friend",
+        "hard-friend-affirmative-word-3": "Leo",
+        "hard-friend-affirmative-word-4": "is",
+        "hard-friend-affirmative-word-5": "from",
+        "hard-friend-affirmative-word-6": "Canada",
+        "hard-friend-affirmative-extra-1": "are"
+      },
+      "orders": [
+        [
+          "hard-friend-affirmative-word-1",
+          "hard-friend-affirmative-word-2",
+          "hard-friend-affirmative-word-3",
+          "hard-friend-affirmative-word-4",
+          "hard-friend-affirmative-word-5",
+          "hard-friend-affirmative-word-6"
+        ]
+      ]
+    },
+    "hard-friend-clara-affirmative": {
+      "difficulty": "HARD",
+      "topics": ["INTRODUCTIONS", "TO_BE", "AFFIRMATIVE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "hard-friend-clara-affirmative-word-1": "My",
+        "hard-friend-clara-affirmative-word-2": "friend",
+        "hard-friend-clara-affirmative-word-3": "Clara",
+        "hard-friend-clara-affirmative-word-4": "is",
+        "hard-friend-clara-affirmative-word-5": "from",
+        "hard-friend-clara-affirmative-word-6": "Brazil",
+        "hard-friend-clara-affirmative-extra-1": "am"
+      },
+      "orders": [
+        [
+          "hard-friend-clara-affirmative-word-1",
+          "hard-friend-clara-affirmative-word-2",
+          "hard-friend-clara-affirmative-word-3",
+          "hard-friend-clara-affirmative-word-4",
+          "hard-friend-clara-affirmative-word-5",
+          "hard-friend-clara-affirmative-word-6"
+        ]
+      ]
+    },
+    "hard-friend-negative": {
+      "difficulty": "HARD",
+      "topics": ["NEGATIVE", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "hard-friend-negative-word-1": "My",
+        "hard-friend-negative-word-2": "friend",
+        "hard-friend-negative-word-3": "Leo",
+        "hard-friend-negative-word-4": "is",
+        "hard-friend-negative-word-5": "not",
+        "hard-friend-negative-word-6": "from",
+        "hard-friend-negative-word-7": "Mexico",
+        "hard-friend-negative-extra-1": "are"
+      },
+      "orders": [
+        [
+          "hard-friend-negative-word-1",
+          "hard-friend-negative-word-2",
+          "hard-friend-negative-word-3",
+          "hard-friend-negative-word-4",
+          "hard-friend-negative-word-5",
+          "hard-friend-negative-word-6",
+          "hard-friend-negative-word-7"
+        ]
+      ]
+    },
+    "hard-friend-clara-negative": {
+      "difficulty": "HARD",
+      "topics": ["NEGATIVE", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "hard-friend-clara-negative-word-1": "My",
+        "hard-friend-clara-negative-word-2": "friend",
+        "hard-friend-clara-negative-word-3": "Clara",
+        "hard-friend-clara-negative-word-4": "is",
+        "hard-friend-clara-negative-word-5": "not",
+        "hard-friend-clara-negative-word-6": "from",
+        "hard-friend-clara-negative-word-7": "Canada",
+        "hard-friend-clara-negative-extra-1": "am"
+      },
+      "orders": [
+        [
+          "hard-friend-clara-negative-word-1",
+          "hard-friend-clara-negative-word-2",
+          "hard-friend-clara-negative-word-3",
+          "hard-friend-clara-negative-word-4",
+          "hard-friend-clara-negative-word-5",
+          "hard-friend-clara-negative-word-6",
+          "hard-friend-clara-negative-word-7"
+        ]
+      ]
+    },
+    "hard-your-friend-negative": {
+      "difficulty": "HARD",
+      "topics": ["NEGATIVE", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "hard-your-friend-negative-word-1": "Your",
+        "hard-your-friend-negative-word-2": "friend",
+        "hard-your-friend-negative-word-3": "Leo",
+        "hard-your-friend-negative-word-4": "is",
+        "hard-your-friend-negative-word-5": "not",
+        "hard-your-friend-negative-word-6": "Brazilian",
+        "hard-your-friend-negative-extra-1": "are"
+      },
+      "orders": [
+        [
+          "hard-your-friend-negative-word-1",
+          "hard-your-friend-negative-word-2",
+          "hard-your-friend-negative-word-3",
+          "hard-your-friend-negative-word-4",
+          "hard-your-friend-negative-word-5",
+          "hard-your-friend-negative-word-6"
+        ]
+      ]
+    },
+    "hard-your-friend-clara-negative": {
+      "difficulty": "HARD",
+      "topics": ["NEGATIVE", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "hard-your-friend-clara-negative-word-1": "Your",
+        "hard-your-friend-clara-negative-word-2": "friend",
+        "hard-your-friend-clara-negative-word-3": "Clara",
+        "hard-your-friend-clara-negative-word-4": "is",
+        "hard-your-friend-clara-negative-word-5": "not",
+        "hard-your-friend-clara-negative-word-6": "Canadian",
+        "hard-your-friend-clara-negative-extra-1": "am"
+      },
+      "orders": [
+        [
+          "hard-your-friend-clara-negative-word-1",
+          "hard-your-friend-clara-negative-word-2",
+          "hard-your-friend-clara-negative-word-3",
+          "hard-your-friend-clara-negative-word-4",
+          "hard-your-friend-clara-negative-word-5",
+          "hard-your-friend-clara-negative-word-6"
+        ]
+      ]
+    },
+    "hard-where-your-friend": {
+      "difficulty": "HARD",
+      "topics": ["QUESTIONS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": true,
+      "tiles": {
+        "hard-where-your-friend-word-1": "Where",
+        "hard-where-your-friend-word-2": "is",
+        "hard-where-your-friend-word-3": "your",
+        "hard-where-your-friend-word-4": "friend",
+        "hard-where-your-friend-word-5": "Clara",
+        "hard-where-your-friend-word-6": "from",
+        "hard-where-your-friend-extra-1": "are"
+      },
+      "orders": [
+        [
+          "hard-where-your-friend-word-1",
+          "hard-where-your-friend-word-2",
+          "hard-where-your-friend-word-3",
+          "hard-where-your-friend-word-4",
+          "hard-where-your-friend-word-5",
+          "hard-where-your-friend-word-6"
+        ]
+      ]
+    },
+    "hard-ask-friend-mexico": {
+      "difficulty": "HARD",
+      "topics": ["QUESTIONS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "hard-ask-friend-mexico-word-1": "Is",
+        "hard-ask-friend-mexico-word-2": "your",
+        "hard-ask-friend-mexico-word-3": "friend",
+        "hard-ask-friend-mexico-word-4": "Leo",
+        "hard-ask-friend-mexico-word-5": "from",
+        "hard-ask-friend-mexico-word-6": "Mexico",
+        "hard-ask-friend-mexico-extra-1": "am"
+      },
+      "orders": [
+        [
+          "hard-ask-friend-mexico-word-1",
+          "hard-ask-friend-mexico-word-2",
+          "hard-ask-friend-mexico-word-3",
+          "hard-ask-friend-mexico-word-4",
+          "hard-ask-friend-mexico-word-5",
+          "hard-ask-friend-mexico-word-6"
+        ]
+      ]
+    },
+    "hard-ask-friend-brazil": {
+      "difficulty": "HARD",
+      "topics": ["QUESTIONS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "hard-ask-friend-brazil-word-1": "Is",
+        "hard-ask-friend-brazil-word-2": "your",
+        "hard-ask-friend-brazil-word-3": "friend",
+        "hard-ask-friend-brazil-word-4": "Clara",
+        "hard-ask-friend-brazil-word-5": "from",
+        "hard-ask-friend-brazil-word-6": "Brazil",
+        "hard-ask-friend-brazil-extra-1": "are"
+      },
+      "orders": [
+        [
+          "hard-ask-friend-brazil-word-1",
+          "hard-ask-friend-brazil-word-2",
+          "hard-ask-friend-brazil-word-3",
+          "hard-ask-friend-brazil-word-4",
+          "hard-ask-friend-brazil-word-5",
+          "hard-ask-friend-brazil-word-6"
+        ]
+      ]
+    },
+    "hard-ask-my-friend": {
+      "difficulty": "HARD",
+      "topics": ["QUESTIONS", "TO_BE", "ORIGINS"],
+      "reference": {
+        "kind": "lesson",
+        "lessonId": "en-a1-introductions-meet",
+        "blockId": "grammar"
+      },
+      "hint": false,
+      "tiles": {
+        "hard-ask-my-friend-word-1": "Is",
+        "hard-ask-my-friend-word-2": "my",
+        "hard-ask-my-friend-word-3": "friend",
+        "hard-ask-my-friend-word-4": "Leo",
+        "hard-ask-my-friend-word-5": "from",
+        "hard-ask-my-friend-word-6": "Recife",
+        "hard-ask-my-friend-extra-1": "am"
+      },
+      "orders": [
+        [
+          "hard-ask-my-friend-word-1",
+          "hard-ask-my-friend-word-2",
+          "hard-ask-my-friend-word-3",
+          "hard-ask-my-friend-word-4",
+          "hard-ask-my-friend-word-5",
+          "hard-ask-my-friend-word-6"
+        ]
+      ]
+    }
+  },
+  "simulations": {
+    "at-the-airport": {
+      "flight-check-in": {
+        "start": "documents",
+        "nodes": {
+          "documents": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "documents-passport": {
+                "fit": "APPROPRIATE",
+                "next": "flight-number"
+              },
+              "documents-flight": {
+                "fit": "APPROPRIATE",
+                "next": "show-passport"
+              },
+              "documents-hotel": { "fit": "CONTEXT" }
+            }
+          },
+          "flight-number": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "flight-number-number": {
+                "fit": "APPROPRIATE",
+                "next": "luggage"
+              },
+              "flight-number-omit-verb": { "fit": "LANGUAGE" }
+            }
+          },
+          "show-passport": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "show-passport-show": { "fit": "APPROPRIATE", "next": "luggage" },
+              "show-passport-not-now": { "fit": "CONTEXT" }
+            }
+          },
+          "luggage": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "luggage-check": { "fit": "APPROPRIATE", "next": "gate" },
+              "luggage-cabin": { "fit": "CONTEXT" }
+            }
+          },
+          "gate": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "gate-confirm": { "fit": "APPROPRIATE", "next": "done" },
+              "gate-room": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      },
+      "find-the-gate": {
+        "start": "ask",
+        "nodes": {
+          "ask": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "ask-directions": {
+                "fit": "APPROPRIATE",
+                "next": "confirm-gate"
+              },
+              "ask-confirm": { "fit": "APPROPRIATE", "next": "ask-directions" },
+              "ask-omit-verb": { "fit": "LANGUAGE" }
+            }
+          },
+          "confirm-gate": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "confirm-gate-number": {
+                "fit": "APPROPRIATE",
+                "next": "boarding"
+              },
+              "confirm-gate-documents": { "fit": "CONTEXT" }
+            }
+          },
+          "ask-directions": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "ask-directions-where": {
+                "fit": "APPROPRIATE",
+                "next": "give-directions"
+              },
+              "ask-directions-hotel": { "fit": "CONTEXT" }
+            }
+          },
+          "boarding": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "boarding-time": { "fit": "APPROPRIATE", "next": "acknowledge" },
+              "boarding-luggage": { "fit": "CONTEXT" }
+            }
+          },
+          "give-directions": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "give-directions-time": {
+                "fit": "APPROPRIATE",
+                "next": "acknowledge"
+              },
+              "give-directions-time-error": { "fit": "LANGUAGE" }
+            }
+          },
+          "acknowledge": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "acknowledge-confirm": { "fit": "APPROPRIATE", "next": "done" },
+              "acknowledge-wrong-time": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      }
+    },
+    "at-the-hotel": {
+      "check-in-at-reception": {
+        "start": "arrive",
+        "nodes": {
+          "arrive": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "arrive-name": { "fit": "APPROPRIATE", "next": "confirm-nights" },
+              "arrive-booking": {
+                "fit": "APPROPRIATE",
+                "next": "confirm-name"
+              },
+              "arrive-meal": { "fit": "CONTEXT" }
+            }
+          },
+          "confirm-nights": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "confirm-nights-yes": { "fit": "APPROPRIATE", "next": "room" },
+              "confirm-nights-change": { "fit": "CONTEXT" }
+            }
+          },
+          "confirm-name": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "confirm-name-yes": { "fit": "APPROPRIATE", "next": "room" },
+              "confirm-name-show": { "fit": "LANGUAGE" }
+            }
+          },
+          "room": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "room-ready": { "fit": "APPROPRIATE", "next": "key" },
+              "room-ticket": { "fit": "CONTEXT" }
+            }
+          },
+          "key": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "key-request": { "fit": "APPROPRIATE", "next": "done" },
+              "key-checkout": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      },
+      "reception-information": {
+        "start": "ask",
+        "nodes": {
+          "ask": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "ask-breakfast": {
+                "fit": "APPROPRIATE",
+                "next": "breakfast-place"
+              },
+              "ask-wifi": { "fit": "APPROPRIATE", "next": "wifi-card" },
+              "ask-price": { "fit": "CONTEXT" }
+            }
+          },
+          "breakfast-place": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "breakfast-place-where": {
+                "fit": "APPROPRIATE",
+                "next": "towel-after-breakfast"
+              },
+              "breakfast-place-wrong-question": { "fit": "LANGUAGE" }
+            }
+          },
+          "wifi-card": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "wifi-card-confirm": {
+                "fit": "APPROPRIATE",
+                "next": "towel-after-wifi"
+              },
+              "wifi-card-wrong-line": { "fit": "CONTEXT" }
+            }
+          },
+          "towel-after-breakfast": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "towel-after-breakfast-request": {
+                "fit": "APPROPRIATE",
+                "next": "room-number"
+              },
+              "towel-after-breakfast-bad-verb": { "fit": "LANGUAGE" }
+            }
+          },
+          "towel-after-wifi": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "towel-after-wifi-request": {
+                "fit": "APPROPRIATE",
+                "next": "room-number"
+              },
+              "towel-after-wifi-leave": { "fit": "CONTEXT" }
+            }
+          },
+          "room-number": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "room-number-confirm": { "fit": "APPROPRIATE", "next": "done" },
+              "room-number-wrong-number": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      }
+    },
+    "restaurants-and-coffee-shops": {
+      "restaurant-meal": {
+        "start": "table",
+        "nodes": {
+          "table": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "table-inside": { "fit": "APPROPRIATE", "next": "inside-menu" },
+              "table-outside": { "fit": "APPROPRIATE", "next": "outside-menu" },
+              "table-takeaway": { "fit": "CONTEXT" }
+            }
+          },
+          "inside-menu": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "inside-menu-menu": { "fit": "APPROPRIATE", "next": "order" },
+              "inside-menu-mistake": { "fit": "LANGUAGE" }
+            }
+          },
+          "outside-menu": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "outside-menu-menu": { "fit": "APPROPRIATE", "next": "order" },
+              "outside-menu-bill": { "fit": "CONTEXT" }
+            }
+          },
+          "order": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "order-meal": { "fit": "APPROPRIATE", "next": "bill" },
+              "order-mistake": { "fit": "LANGUAGE" }
+            }
+          },
+          "bill": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "bill-pay": { "fit": "APPROPRIATE", "next": "done" },
+              "bill-table": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      },
+      "order-at-the-counter": {
+        "start": "order",
+        "nodes": {
+          "order": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "order-coffee": { "fit": "APPROPRIATE", "next": "size" },
+              "order-wrong-item": { "fit": "CONTEXT" }
+            }
+          },
+          "size": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "size-small": { "fit": "APPROPRIATE", "next": "small-takeaway" },
+              "size-large": { "fit": "APPROPRIATE", "next": "large-takeaway" },
+              "size-plural": { "fit": "LANGUAGE" }
+            }
+          },
+          "small-takeaway": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "small-takeaway-to-go": {
+                "fit": "APPROPRIATE",
+                "next": "small-payment"
+              },
+              "small-takeaway-for-here": { "fit": "CONTEXT" }
+            }
+          },
+          "large-takeaway": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "large-takeaway-to-go": {
+                "fit": "APPROPRIATE",
+                "next": "large-payment"
+              },
+              "large-takeaway-wrong-place": { "fit": "CONTEXT" }
+            }
+          },
+          "small-payment": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "small-payment-card": { "fit": "APPROPRIATE", "next": "done" },
+              "small-payment-mistake": { "fit": "LANGUAGE" }
+            }
+          },
+          "large-payment": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "large-payment-card": { "fit": "APPROPRIATE", "next": "done" },
+              "large-payment-cash": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      }
+    },
+    "shopping": {
+      "ask-the-price": {
+        "start": "opening",
+        "nodes": {
+          "opening": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "opening-price": { "fit": "APPROPRIATE", "next": "price" },
+              "opening-sale": { "fit": "APPROPRIATE", "next": "discount" },
+              "opening-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "price": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "price-small": { "fit": "APPROPRIATE", "next": "choose" },
+              "price-expensive": { "fit": "CONTEXT" }
+            }
+          },
+          "discount": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "discount-small": { "fit": "APPROPRIATE", "next": "choose" },
+              "discount-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "choose": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "choose-buy": { "fit": "APPROPRIATE", "next": "checkout" },
+              "choose-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "checkout": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "checkout-receipt": { "fit": "APPROPRIATE", "next": "done" },
+              "checkout-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      },
+      "ask-for-a-size": {
+        "start": "opening",
+        "nodes": {
+          "opening": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "opening-medium": { "fit": "APPROPRIATE", "next": "medium" },
+              "opening-larger": { "fit": "APPROPRIATE", "next": "options" },
+              "opening-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "medium": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "medium-try": { "fit": "APPROPRIATE", "next": "fitting" },
+              "medium-leave": { "fit": "CONTEXT" }
+            }
+          },
+          "options": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "options-try": { "fit": "APPROPRIATE", "next": "fitting" },
+              "options-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "fitting": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "fitting-confirm": { "fit": "APPROPRIATE", "next": "decide" },
+              "fitting-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "decide": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "decide-take": { "fit": "APPROPRIATE", "next": "done" },
+              "decide-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      }
+    },
+    "getting-around": {
+      "buy-a-ticket": {
+        "start": "ticket",
+        "nodes": {
+          "ticket": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "ticket-one-way": { "fit": "APPROPRIATE", "next": "one-way" },
+              "ticket-return": { "fit": "APPROPRIATE", "next": "round-trip" },
+              "ticket-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "one-way": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "one-way-time": { "fit": "APPROPRIATE", "next": "departure" },
+              "one-way-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "round-trip": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "round-trip-time": { "fit": "APPROPRIATE", "next": "departure" },
+              "round-trip-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "departure": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "departure-platform": { "fit": "APPROPRIATE", "next": "confirm" },
+              "departure-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "confirm": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "confirm-repeat": { "fit": "APPROPRIATE", "next": "done" },
+              "confirm-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      },
+      "confirm-the-stop": {
+        "start": "opening",
+        "nodes": {
+          "opening": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "opening-destination": { "fit": "APPROPRIATE", "next": "route" },
+              "opening-number": { "fit": "APPROPRIATE", "next": "number" },
+              "opening-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "route": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "route-get-off": { "fit": "APPROPRIATE", "next": "stop" },
+              "route-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "number": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "number-get-off": { "fit": "APPROPRIATE", "next": "stop" },
+              "number-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "stop": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "stop-ask": { "fit": "APPROPRIATE", "next": "check" },
+              "stop-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "check": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "check-confirm": { "fit": "APPROPRIATE", "next": "done" },
+              "check-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      }
+    },
+    "meeting-people": {
+      "meet-a-classmate": {
+        "start": "welcome",
+        "nodes": {
+          "welcome": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "welcome-name": {
+                "fit": "APPROPRIATE",
+                "next": "seat-after-name"
+              },
+              "welcome-seat": {
+                "fit": "APPROPRIATE",
+                "next": "name-after-seat"
+              },
+              "welcome-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "seat-after-name": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "seat-after-name-sit": { "fit": "APPROPRIATE", "next": "class" },
+              "seat-after-name-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "name-after-seat": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "name-after-seat-name": { "fit": "APPROPRIATE", "next": "class" },
+              "name-after-seat-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "class": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "class-ask": { "fit": "APPROPRIATE", "next": "first" },
+              "class-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "first": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "first-yes": { "fit": "APPROPRIATE", "next": "done" },
+              "first-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      },
+      "talk-about-origins": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "start-origin": { "fit": "APPROPRIATE", "next": "origin" },
+              "start-home": { "fit": "APPROPRIATE", "next": "home" },
+              "start-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "origin": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "origin-country": { "fit": "APPROPRIATE", "next": "visit" },
+              "origin-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "home": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "home-country": { "fit": "APPROPRIATE", "next": "visit" },
+              "home-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "visit": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "visit-weekend": { "fit": "APPROPRIATE", "next": "weekend" },
+              "visit-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "weekend": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "weekend-thanks": { "fit": "APPROPRIATE", "next": "done" },
+              "weekend-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      }
+    },
+    "health-and-emergencies": {
+      "say-how-you-feel": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "start-general": { "fit": "APPROPRIATE", "next": "symptom" },
+              "start-specific": { "fit": "APPROPRIATE", "next": "together" },
+              "start-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "symptom": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "symptom-dizzy": { "fit": "APPROPRIATE", "next": "contact" },
+              "symptom-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "together": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "together-stay": { "fit": "APPROPRIATE", "next": "contact" },
+              "together-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "contact": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "contact-call": { "fit": "APPROPRIATE", "next": "number" },
+              "contact-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "number": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "number-show": { "fit": "APPROPRIATE", "next": "done" },
+              "number-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      },
+      "give-your-location": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "start-building": { "fit": "APPROPRIATE", "next": "entrance" },
+              "start-entrance": { "fit": "APPROPRIATE", "next": "outside" },
+              "start-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "entrance": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "entrance-main": { "fit": "APPROPRIATE", "next": "bench" },
+              "entrance-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "outside": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "outside-outside": { "fit": "APPROPRIATE", "next": "bench" },
+              "outside-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "bench": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "bench-confirm": { "fit": "APPROPRIATE", "next": "meet" },
+              "bench-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "meet": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "meet-wait": { "fit": "APPROPRIATE", "next": "done" },
+              "meet-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      }
+    },
+    "around-the-city": {
+      "find-a-place": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "start-directions": { "fit": "APPROPRIATE", "next": "walk-time" },
+              "start-walking": { "fit": "APPROPRIATE", "next": "first-street" },
+              "start-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "walk-time": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "walk-time-which": { "fit": "APPROPRIATE", "next": "corner" },
+              "walk-time-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "first-street": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "first-street-first": { "fit": "APPROPRIATE", "next": "corner" },
+              "first-street-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "corner": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "corner-landmark": { "fit": "APPROPRIATE", "next": "landmark" },
+              "corner-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "landmark": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "landmark-confirm": { "fit": "APPROPRIATE", "next": "done" },
+              "landmark-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      },
+      "confirm-a-direction": {
+        "start": "start",
+        "nodes": {
+          "start": {
+            "success": false,
+            "hint": true,
+            "choices": {
+              "start-turn": { "fit": "APPROPRIATE", "next": "right" },
+              "start-park": { "fit": "APPROPRIATE", "next": "after" },
+              "start-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "right": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "right-ask": { "fit": "APPROPRIATE", "next": "restate" },
+              "right-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "after": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "after-ask": { "fit": "APPROPRIATE", "next": "restate" },
+              "after-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "restate": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "restate-confirm": { "fit": "APPROPRIATE", "next": "pharmacy" },
+              "restate-wrong": { "fit": "CONTEXT" }
+            }
+          },
+          "pharmacy": {
+            "success": false,
+            "hint": false,
+            "choices": {
+              "pharmacy-confirm": { "fit": "APPROPRIATE", "next": "done" },
+              "pharmacy-wrong": { "fit": "LANGUAGE" }
+            }
+          },
+          "done": { "success": true, "hint": false }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+name: mellow-dev
+
+services:
+  postgres:
+    image: postgres:17.12-bookworm
+    environment:
+      POSTGRES_DB: ${MELLOW_DB_NAME:-mellow}
+      POSTGRES_USER: ${MELLOW_DB_USER:-mellow}
+      POSTGRES_PASSWORD: ${MELLOW_DB_PASSWORD:?Set MELLOW_DB_PASSWORD in backend/.env}
+    ports:
+      - '127.0.0.1:${MELLOW_DB_PORT:-55432}:5432'
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          'CMD-SHELL',
+          'pg_isready -h 127.0.0.1 -U "$${POSTGRES_USER}" -d "$${POSTGRES_DB}"',
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+      start_period: 10s
+
+volumes:
+  postgres-data:

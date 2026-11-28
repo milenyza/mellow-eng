@@ -1,7 +1,7 @@
 import { getVocabularyAnnotations } from '@/services/vocabulary-annotations'
 
 export const favoriteWordsKey = 'mellow:favorite-words'
-const savedAtKey = 'mellow:favorite-words-saved-at'
+export const savedAtKey = 'mellow:favorite-words-saved-at'
 const changeEvent = 'mellow:favorites-changed'
 
 export interface FavoriteWordsSnapshot {

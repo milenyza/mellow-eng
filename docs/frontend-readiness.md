@@ -1,6 +1,6 @@
 # Frontend MVP readiness
 
-This review covers the browser application and its current local persistence. Backend, account management and production deployment are future work. `backend/` has only its placeholder. The validation below is evidence for the tested flows and environments.
+This review covers the browser application and its current local persistence. Account management and production deployment are future work. The [backend foundation](backend-architecture.md) runs separately from the browser application. The validation below is evidence for the tested flows and environments.
 
 ## Feature and content inventory
 

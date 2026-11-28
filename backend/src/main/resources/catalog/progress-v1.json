@@ -1,0 +1,679 @@
+{
+  "revision": 1,
+  "lessons": {
+    "en-a1-introductions-hello": {
+      "introduction": {
+        "required": true,
+        "listeningRefs": [],
+        "exercises": {}
+      },
+      "greetings": { "required": true, "listeningRefs": [], "exercises": {} },
+      "names": { "required": true, "listeningRefs": [], "exercises": {} },
+      "pronouns": { "required": true, "listeningRefs": [], "exercises": {} },
+      "dialogue": { "required": true, "listeningRefs": [], "exercises": {} },
+      "listening": {
+        "required": true,
+        "listeningRefs": [
+          "en-a1-introductions-listening-time",
+          "en-a1-introductions-listening-farewell",
+          "en-a1-introductions-listening-write-greeting",
+          "en-a1-introductions-listening-write-name",
+          "en-a1-introductions-listening-dialogue-names",
+          "en-a1-introductions-listening-dialogue-goodbye"
+        ],
+        "exercises": {
+          "en-a1-introductions-listening-time": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["morning", "afternoon", "evening"],
+            "correctOptionId": "morning"
+          },
+          "en-a1-introductions-listening-farewell": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["introducing", "leaving", "asking"],
+            "correctOptionId": "leaving"
+          },
+          "en-a1-introductions-listening-write-greeting": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "expression": ["Good afternoon!", "Good afternoon"] }
+          },
+          "en-a1-introductions-listening-write-name": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": {
+              "expression": [
+                "What’s your name?",
+                "What’s your name",
+                "What's your name?",
+                "What's your name"
+              ]
+            }
+          },
+          "en-a1-introductions-listening-dialogue-names": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["ask-name", "say-goodbye", "confirm-time"],
+            "correctOptionId": "ask-name"
+          },
+          "en-a1-introductions-listening-dialogue-goodbye": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": false
+          }
+        }
+      },
+      "practice": {
+        "required": true,
+        "listeningRefs": [],
+        "exercises": {
+          "en-a1-introductions-exercise-morning": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["afternoon", "morning", "goodbye"],
+            "correctOptionId": "morning"
+          },
+          "en-a1-introductions-exercise-name": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "verb": ["is"] }
+          },
+          "en-a1-introductions-exercise-ask-name": {
+            "required": true,
+            "kind": "sentence-builder",
+            "tiles": { "name": "name?", "whats": "What’s", "your": "your" },
+            "orders": [["whats", "your", "name"]]
+          },
+          "en-a1-introductions-exercise-greetings": {
+            "required": true,
+            "kind": "matching-pairs",
+            "choices": ["night", "morning", "afternoon"],
+            "pairs": {
+              "morning": "morning",
+              "afternoon": "afternoon",
+              "evening": "night"
+            }
+          },
+          "en-a1-introductions-exercise-farewell": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": true
+          },
+          "en-a1-introductions-exercise-first-meeting": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["morning", "farewell", "meet"],
+            "correctOptionId": "meet"
+          },
+          "en-a1-introductions-exercise-i-am": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "subject-verb": ["I am", "I’m", "I'm"] }
+          },
+          "en-a1-introductions-exercise-confirm-name": {
+            "required": true,
+            "kind": "sentence-builder",
+            "tiles": { "you": "you", "leo": "Leo?", "are": "Are" },
+            "orders": [["are", "you", "leo"]]
+          },
+          "en-a1-introductions-exercise-conversation-pairs": {
+            "required": true,
+            "kind": "matching-pairs",
+            "choices": ["bye", "meet", "hi"],
+            "pairs": { "hi": "hi", "goodbye": "bye", "meet": "meet" }
+          },
+          "en-a1-introductions-exercise-to-be": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": false
+          }
+        }
+      },
+      "speaking": { "required": true, "listeningRefs": [], "exercises": {} },
+      "review": { "required": true, "listeningRefs": [], "exercises": {} }
+    },
+    "en-a1-introductions-from": {
+      "introduction": {
+        "required": true,
+        "listeningRefs": [],
+        "exercises": {}
+      },
+      "places": { "required": true, "listeningRefs": [], "exercises": {} },
+      "nationalities": {
+        "required": true,
+        "listeningRefs": [],
+        "exercises": {}
+      },
+      "grammar": { "required": true, "listeningRefs": [], "exercises": {} },
+      "dialogue": { "required": true, "listeningRefs": [], "exercises": {} },
+      "listening": {
+        "required": true,
+        "listeningRefs": [
+          "en-a1-introductions-from-listening-country",
+          "en-a1-introductions-from-listening-city",
+          "en-a1-introductions-from-listening-nationality"
+        ],
+        "exercises": {
+          "en-a1-introductions-from-listening-country": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["brazil", "canada", "mexico"],
+            "correctOptionId": "mexico"
+          },
+          "en-a1-introductions-from-listening-city": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": {
+              "response": [
+                "I’m from Recife.",
+                "I’m from Recife",
+                "I'm from Recife.",
+                "I'm from Recife"
+              ]
+            }
+          },
+          "en-a1-introductions-from-listening-nationality": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["mexican", "brazilian", "canadian"],
+            "correctOptionId": "canadian"
+          }
+        }
+      },
+      "practice": {
+        "required": true,
+        "listeningRefs": [],
+        "exercises": {
+          "en-a1-introductions-from-practice-question": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["name", "origin", "confirm"],
+            "correctOptionId": "origin"
+          },
+          "en-a1-introductions-from-practice-from": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "response": ["from"] }
+          },
+          "en-a1-introductions-from-practice-city": {
+            "required": true,
+            "kind": "sentence-builder",
+            "tiles": { "city": "Recife.", "from": "from", "im": "I’m" },
+            "orders": [["im", "from", "city"]]
+          },
+          "en-a1-introductions-from-practice-nationalities": {
+            "required": true,
+            "kind": "matching-pairs",
+            "choices": ["mx", "br", "ca"],
+            "pairs": { "brazil": "br", "canada": "ca", "mexico": "mx" }
+          },
+          "en-a1-introductions-from-practice-city-meaning": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": true
+          },
+          "en-a1-introductions-from-practice-adjective": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["country", "name", "nationality"],
+            "correctOptionId": "nationality"
+          },
+          "en-a1-introductions-from-practice-mexican": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "response": ["Mexican"] }
+          },
+          "en-a1-introductions-from-practice-negative": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": false
+          }
+        }
+      },
+      "speaking": { "required": true, "listeningRefs": [], "exercises": {} },
+      "review": { "required": true, "listeningRefs": [], "exercises": {} }
+    },
+    "en-a1-introductions-meet": {
+      "introduction": {
+        "required": true,
+        "listeningRefs": [],
+        "exercises": {}
+      },
+      "introducing": { "required": true, "listeningRefs": [], "exercises": {} },
+      "pronouns": { "required": true, "listeningRefs": [], "exercises": {} },
+      "grammar": { "required": true, "listeningRefs": [], "exercises": {} },
+      "dialogue": { "required": true, "listeningRefs": [], "exercises": {} },
+      "listening": {
+        "required": true,
+        "listeningRefs": [
+          "en-a1-introductions-meet-listening-friend",
+          "en-a1-introductions-meet-listening-she",
+          "en-a1-introductions-meet-listening-leo"
+        ],
+        "exercises": {
+          "en-a1-introductions-meet-listening-friend": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["ana", "diego", "clara"],
+            "correctOptionId": "clara"
+          },
+          "en-a1-introductions-meet-listening-she": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": {
+              "response": [
+                "She’s from Canada.",
+                "She’s from Canada",
+                "She's from Canada.",
+                "She's from Canada"
+              ]
+            }
+          },
+          "en-a1-introductions-meet-listening-leo": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": true
+          }
+        }
+      },
+      "practice": {
+        "required": true,
+        "listeningRefs": [],
+        "exercises": {
+          "en-a1-introductions-meet-practice-intro": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["self", "introduce", "question"],
+            "correctOptionId": "introduce"
+          },
+          "en-a1-introductions-meet-practice-he": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "response": ["He"] }
+          },
+          "en-a1-introductions-meet-practice-she-verb": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "response": ["is"] }
+          },
+          "en-a1-introductions-meet-practice-she-city": {
+            "required": true,
+            "kind": "sentence-builder",
+            "tiles": { "from": "from", "recife": "Recife.", "shes": "She’s" },
+            "orders": [["shes", "from", "recife"]]
+          },
+          "en-a1-introductions-meet-practice-pronouns": {
+            "required": true,
+            "kind": "matching-pairs",
+            "choices": ["she", "they", "he"],
+            "pairs": { "he": "he", "she": "she", "they": "they" }
+          },
+          "en-a1-introductions-meet-practice-group": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["she", "they", "you"],
+            "correctOptionId": "they"
+          },
+          "en-a1-introductions-meet-practice-confirm": {
+            "required": true,
+            "kind": "sentence-builder",
+            "tiles": {
+              "she": "she",
+              "from": "from",
+              "canada": "Canada?",
+              "is": "Is"
+            },
+            "orders": [["is", "she", "from", "canada"]]
+          },
+          "en-a1-introductions-meet-practice-agreement": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": false
+          }
+        }
+      },
+      "speaking": { "required": true, "listeningRefs": [], "exercises": {} },
+      "review": { "required": true, "listeningRefs": [], "exercises": {} }
+    },
+    "en-a1-introductions-about-me": {
+      "introduction": {
+        "required": true,
+        "listeningRefs": [],
+        "exercises": {}
+      },
+      "personal-details": {
+        "required": true,
+        "listeningRefs": [],
+        "exercises": {}
+      },
+      "confirming": { "required": true, "listeningRefs": [], "exercises": {} },
+      "grammar": { "required": true, "listeningRefs": [], "exercises": {} },
+      "dialogue": { "required": true, "listeningRefs": [], "exercises": {} },
+      "listening": {
+        "required": true,
+        "listeningRefs": [
+          "en-a1-introductions-about-me-listening-negative",
+          "en-a1-introductions-about-me-listening-affirmative",
+          "en-a1-introductions-about-me-listening-leo"
+        ],
+        "exercises": {
+          "en-a1-introductions-about-me-listening-negative": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["yes", "question", "no"],
+            "correctOptionId": "no"
+          },
+          "en-a1-introductions-about-me-listening-affirmative": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": {
+              "response": ["Yes, I am.", "Yes, I am", "Yes I am.", "Yes I am"]
+            }
+          },
+          "en-a1-introductions-about-me-listening-leo": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": true
+          }
+        }
+      },
+      "practice": {
+        "required": true,
+        "listeningRefs": [],
+        "exercises": {
+          "en-a1-introductions-about-me-practice-greeting-name": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["origin", "farewell", "intro"],
+            "correctOptionId": "intro"
+          },
+          "en-a1-introductions-about-me-practice-question": {
+            "required": true,
+            "kind": "sentence-builder",
+            "tiles": {
+              "you": "you",
+              "canada": "Canada?",
+              "are": "Are",
+              "from": "from"
+            },
+            "orders": [["are", "you", "from", "canada"]]
+          },
+          "en-a1-introductions-about-me-practice-not": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "response": ["not"] }
+          },
+          "en-a1-introductions-about-me-practice-short-yes": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["no", "yes", "where"],
+            "correctOptionId": "yes"
+          },
+          "en-a1-introductions-about-me-practice-conversation": {
+            "required": true,
+            "kind": "matching-pairs",
+            "choices": ["bye", "friend", "where"],
+            "pairs": { "origin": "where", "friend": "friend", "bye": "bye" }
+          },
+          "en-a1-introductions-about-me-practice-affirmative-negative": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": false
+          },
+          "en-a1-introductions-about-me-practice-they-verb": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "response": ["are"] }
+          },
+          "en-a1-introductions-about-me-practice-negative": {
+            "required": true,
+            "kind": "sentence-builder",
+            "tiles": {
+              "mexico": "Mexico.",
+              "not": "not",
+              "from": "from",
+              "im": "I’m"
+            },
+            "orders": [["im", "not", "from", "mexico"]]
+          },
+          "en-a1-introductions-about-me-practice-correct-origin": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["yes", "name", "correct"],
+            "correctOptionId": "correct"
+          }
+        }
+      },
+      "speaking": { "required": true, "listeningRefs": [], "exercises": {} },
+      "review": { "required": true, "listeningRefs": [], "exercises": {} }
+    }
+  },
+  "stories": {
+    "a-rainy-morning": {
+      "rain-at-the-window": {
+        "paragraphs": ["morning-rain", "another-street", "open-door"],
+        "exerciseOrder": [
+          "rainy-morning-window-day",
+          "rainy-morning-window-umbrella",
+          "rainy-morning-window-bakery",
+          "rainy-morning-window-corner",
+          "rainy-morning-window-sequence"
+        ],
+        "exercises": {
+          "rainy-morning-window-day": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["tuesday", "monday", "saturday"],
+            "correctOptionId": "monday"
+          },
+          "rainy-morning-window-umbrella": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "object": ["umbrella"] }
+          },
+          "rainy-morning-window-bakery": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": false
+          },
+          "rainy-morning-window-corner": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["inside", "far", "corner"],
+            "correctOptionId": "corner"
+          },
+          "rainy-morning-window-sequence": {
+            "required": true,
+            "kind": "sequence-ordering",
+            "choices": ["bakery", "window", "umbrella"],
+            "orders": [["window", "umbrella", "bakery"]]
+          }
+        }
+      },
+      "inside-the-bakery": {
+        "paragraphs": ["ordering-coffee", "sharing-table", "bread-for-later"],
+        "exerciseOrder": [
+          "rainy-morning-bakery-drink",
+          "rainy-morning-bakery-seat",
+          "rainy-morning-bakery-vocabulary",
+          "rainy-morning-bakery-lunch",
+          "rainy-morning-bakery-sequence"
+        ],
+        "exercises": {
+          "rainy-morning-bakery-drink": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["tea", "coffee", "water"],
+            "correctOptionId": "coffee"
+          },
+          "rainy-morning-bakery-seat": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["price", "time", "seat"],
+            "correctOptionId": "seat"
+          },
+          "rainy-morning-bakery-vocabulary": {
+            "required": true,
+            "kind": "matching-pairs",
+            "choices": ["moist", "register", "drink"],
+            "pairs": { "counter": "register", "cup": "drink", "wet": "moist" }
+          },
+          "rainy-morning-bakery-lunch": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": true
+          },
+          "rainy-morning-bakery-sequence": {
+            "required": true,
+            "kind": "sequence-ordering",
+            "choices": ["bread", "coffee", "seat"],
+            "orders": [["coffee", "seat", "bread"]]
+          }
+        }
+      },
+      "back-on-the-street": {
+        "paragraphs": ["the-rain-stops", "bakery-bread", "sharing-lunch"],
+        "exerciseOrder": [
+          "rainy-morning-street-weather",
+          "rainy-morning-street-bag",
+          "rainy-morning-street-coworker",
+          "rainy-morning-street-farewell",
+          "rainy-morning-street-sequence"
+        ],
+        "exercises": {
+          "rainy-morning-street-weather": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": true
+          },
+          "rainy-morning-street-bag": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "bag": ["backpack"] }
+          },
+          "rainy-morning-street-coworker": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["man", "coworker", "woman"],
+            "correctOptionId": "coworker"
+          },
+          "rainy-morning-street-farewell": {
+            "required": true,
+            "kind": "matching-pairs",
+            "choices": ["reply", "wish"],
+            "pairs": { "day": "wish", "too": "reply" }
+          },
+          "rainy-morning-street-sequence": {
+            "required": true,
+            "kind": "sequence-ordering",
+            "choices": ["lunch", "walk", "rain"],
+            "orders": [["rain", "walk", "lunch"]]
+          }
+        }
+      }
+    },
+    "the-first-trip": {
+      "a-ticket-to-the-coast": {
+        "paragraphs": ["at-the-station", "departure-time"],
+        "exerciseOrder": [
+          "first-trip-destination",
+          "first-trip-departure",
+          "first-trip-clock",
+          "first-trip-station-words"
+        ],
+        "exercises": {
+          "first-trip-destination": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["home", "coast", "work"],
+            "correctOptionId": "coast"
+          },
+          "first-trip-departure": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "hour": ["nine"] }
+          },
+          "first-trip-clock": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": true
+          },
+          "first-trip-station-words": {
+            "required": true,
+            "kind": "matching-pairs",
+            "choices": ["pass", "place"],
+            "pairs": { "station": "place", "ticket": "pass" }
+          }
+        }
+      },
+      "the-right-platform": {
+        "paragraphs": ["asking-for-help", "directions-to-platform"],
+        "exerciseOrder": [
+          "first-trip-platform-number",
+          "first-trip-left",
+          "first-trip-excuse",
+          "first-trip-platform-sequence"
+        ],
+        "exercises": {
+          "first-trip-platform-number": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["one", "three", "two"],
+            "correctOptionId": "two"
+          },
+          "first-trip-left": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": false
+          },
+          "first-trip-excuse": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["start", "end", "time"],
+            "correctOptionId": "start"
+          },
+          "first-trip-platform-sequence": {
+            "required": true,
+            "kind": "sequence-ordering",
+            "choices": ["find", "board", "ask"],
+            "orders": [["ask", "find", "board"]]
+          }
+        }
+      },
+      "by-the-window": {
+        "paragraphs": ["finding-the-seat", "leaving-the-city"],
+        "exerciseOrder": [
+          "first-trip-seat-number",
+          "first-trip-window",
+          "first-trip-buildings",
+          "first-trip-city"
+        ],
+        "exercises": {
+          "first-trip-seat-number": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["ten", "twelve", "two"],
+            "correctOptionId": "twelve"
+          },
+          "first-trip-window": {
+            "required": true,
+            "kind": "multiple-choice",
+            "choices": ["door", "window", "station"],
+            "correctOptionId": "window"
+          },
+          "first-trip-buildings": {
+            "required": true,
+            "kind": "fill-in-the-blanks",
+            "accepted": { "view": ["trees"] }
+          },
+          "first-trip-city": {
+            "required": true,
+            "kind": "true-or-false",
+            "correctValue": false
+          }
+        }
+      }
+    }
+  }
+}

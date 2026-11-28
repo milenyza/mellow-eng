@@ -1,6 +1,6 @@
 # Backend integration readiness
 
-The npm workspace contains a browser-only React application. The `backend/` directory contains a placeholder file. Educational definitions are authored in TypeScript and shipped with the frontend. Learner records are stored locally. This document describes existing contracts and migration considerations.
+The npm workspace contains a browser-only React application. The separate Spring Boot foundation in `backend/` provides public status checks and protected learner progress, completed session and personal data contracts over PostgreSQL. Educational definitions are authored in TypeScript and shipped with the frontend. Learner records are stored locally. This document describes existing contracts and migration considerations. See [Backend architecture](backend-architecture.md) for the local service.
 
 ## Domain and ownership
 
@@ -44,4 +44,20 @@ All clients on the browser origin can potentially reach the same storage. It pro
 3. Use the existing repository snapshot and subscription seam for learner progress. An API adapter would need a durable queue or explicit asynchronous operations, revision/conflict handling and separate loading/storage/sync failures. Existing synchronous `update` callbacks should not be assumed to be remote transactions.
 4. Add equivalent adapters for `word-favorites.ts` and `vocabulary-annotations.ts`, keeping optional save time, conflict reporting and disabled storage states observable. Treat outcome/duration metrics and favorites as distinct data.
 5. Keep domain rules in the existing lesson, reading, exercise, game and simulation services. If educational content moves to an API, preserve the catalog/content split and replace the static content loaders for curriculum, stories, phrasebooks, dialogues, simulations and vocabulary resolution behind typed interfaces. Keep publication and authorization independent. Validate writes and completions at the trusted boundary and leave analytics read-only over canonical records.
-6. Confirm access control, retention, deletion and privacy requirements before operational rollout. Define time zone and precision handling before merging server and browser events. The frontend intentionally leaves database shape and network contracts open.
+6. Confirm access control, retention, deletion and privacy requirements before operational rollout. Define time zone and precision handling before merging server and browser events. The React client still uses its local repositories. See the [completed session API](api/game-sessions.md#shared-session-contract) for the online validation and retry contract. Existing browser summaries may omit the response evidence required by the online contract. Any future import needs a separate compatibility policy that preserves this distinction.
+
+The backend now has a relational persistence model. Review the [database design and field mappings](database-design.md) before implementing API adapters. Browser records remain the active source for the frontend.
+
+## Personal resource migration considerations
+
+The [favorites](api/favorites.md), [annotations](api/vocabulary-annotations.md) and [preferences](api/preferences.md) endpoints support interactive writes. The backend has a [separate import path](data-migration.md) for trusted, explicitly approved migration. Production identity, consent and browser integration remain pending. Preserve exact reference identity and deduplicate matching keys, while keeping separate meanings that share English text. Retain saved instants, date-only values or unknown dates at their actual precision. Import annotations independently from current favorite membership. Treat missing favorites and an unsupported local annotation version as distinct from a deliberate deletion.
+
+Use per-resource revisions when adding a frontend adapter. On `412`, fetch current state and reconcile the learner's intended changes. Avoid replaying interactive additions as a way to import past favorites. Reconcile reading preferences whose local source has no modification timestamp. Keep voices and capabilities on the device. Do not discard browser data until the learner has reviewed the result and the server has acknowledged it.
+
+## Import status
+
+The [legacy import API](api/data-import.md) accepts the four browser learning keys and covers progress envelopes v1–v5 and annotation envelope v1. It supports dry-run planning, insert-only execution and redacted receipts. Existing conflicts and unsupported entries require acknowledgement before any eligible subset is applied. Browser storage remains authoritative until a future frontend integration explicitly coordinates migration.
+
+## Next integration stage
+
+See the [backend finalization audit](backend-finalization.md) for verified integrity behavior, dependency findings, performance limits and deployment gates. The [frontend integration plan](frontend-integration-plan.md) recommends same-origin server-managed sessions, local backup before consent-based import, and a gradual repository rollout. Browser storage is still independent from backend availability.

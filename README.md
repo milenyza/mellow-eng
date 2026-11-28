@@ -2,7 +2,7 @@
 
 Plataforma web de aprendizado de idiomas, inicialmente voltada ao ensino de inglês para iniciantes. A interface usa português. O conteúdo de aprendizado é em inglês.
 
-## Instalação e execução
+## Frontend local
 
 Use Node.js 22.13 ou superior na linha 22, ou Node.js 24, com npm. Execute os comandos na raiz do repositório.
 
@@ -12,6 +12,81 @@ npm run dev
 ```
 
 Abra `http://localhost:5173` ou use o endereço exibido no terminal pelo Vite.
+
+## Backend local
+
+Use o **JDK 21** e o **Docker Desktop para Mac**, com o Docker Engine em execução e o comando `docker compose` disponível. O Maven Wrapper baixa a distribuição fixada, então basta um JDK instalado. O frontend continua executando com os comandos acima e armazena o progresso no navegador.
+
+No macOS, selecione o JDK 21 no terminal e abra o Docker Desktop, se necessário.
+
+```bash
+export JAVA_HOME="$(/usr/libexec/java_home -v 21)"
+export PATH="$JAVA_HOME/bin:$PATH"
+java -version
+open -a Docker
+docker compose version
+docker info --format '{{.ServerVersion}}'
+```
+
+Se faltar o JDK, instale o [Temurin 21 para macOS](https://adoptium.net/temurin/releases/?version=21). Se faltar Docker, selecione o instalador para seu processador em [Docker Desktop para Mac](https://docs.docker.com/desktop/setup/install/mac-install/). Aguarde o Docker Engine iniciar antes de continuar.
+
+A partir da raiz do repositório, execute `cd backend`. Copie o exemplo caso ainda não tenha configuração local e ajuste a senha de desenvolvimento em `.env` antes da primeira inicialização. Use valores compatíveis com o shell ao editar esse arquivo.
+
+```bash
+if [ ! -f .env ]; then cp .env.example .env; fi
+docker compose config --quiet
+docker compose up -d --wait postgres
+docker compose ps
+```
+
+O PostgreSQL fica em `127.0.0.1:55432`. Use `MELLOW_DB_PORT` em `.env` se precisar de outra porta. No mesmo diretório, carregue as variáveis e inicie o backend com o perfil de desenvolvimento.
+
+```bash
+set -a
+. ./.env
+set +a
+./mvnw --version
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+Em outro terminal, consulte os endpoints. Use o valor de `MELLOW_HTTP_PORT` se tiver alterado a porta padrão.
+
+```bash
+curl --fail-with-body http://127.0.0.1:8080/api/v1/status
+curl --fail-with-body http://127.0.0.1:8080/actuator/health
+```
+
+O primeiro responde `{"status":"UP","apiVersion":"v1"}` quando o processo aceita requisições. O segundo verifica a saúde operacional, incluindo a conexão com o banco, e retorna `{"status":"UP"}` quando os componentes estão saudáveis.
+
+Em `backend/`, use `./mvnw test` para os testes HTTP isolados e `./mvnw verify` para incluir os testes de integração com um PostgreSQL temporário. Para testar com Docker Desktop quando o socket padrão não estiver disponível, use:
+
+```bash
+export JAVA_HOME="$(/usr/libexec/java_home -v 21)"
+export DOCKER_HOST="$(docker context inspect "$(docker context show)" --format '{{.Endpoints.docker.Host}}')"
+export TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE=/var/run/docker.sock
+./mvnw verify
+```
+
+Se o editor estiver escrevendo em `backend/target/`, use um diretório de saída isolado, com o mesmo código e o mesmo Maven Wrapper:
+
+```sh
+build_dir="$(mktemp -d /tmp/mellow-maven.XXXXXX)"
+./mvnw -o "-Dmellow.build.directory=$build_dir" verify
+```
+
+Execute em `backend/` com o Java 21 e o Docker configurados como acima. Use `-o` quando o cache Maven estiver preenchido. Confira os riscos e pré-requisitos de implantação no [relatório de auditoria](docs/backend-finalization.md) e a sequência proposta no [plano de autenticação e integração](docs/frontend-integration-plan.md).
+
+Ao terminar, interrompa o backend com Ctrl+C e execute `docker compose stop postgres`. O volume nomeado guarda os dados para a próxima execução de `docker compose up -d --wait postgres`. Alterar a senha em `.env` após a criação do volume exige a atualização da senha no banco. Consulte a [arquitetura do backend](docs/backend-architecture.md) para detalhes sobre Flyway, testes e configuração fora do desenvolvimento.
+
+O Flyway aplica a V1 para criar o esquema `mellow`, a V2 para criar o modelo de aprendizagem, a V3 para registrar a revisão do catálogo e a validação das sessões, a V4 para controlar as revisões de favoritos, anotações e preferências, e a V5 para registrar as importações legadas e sua proveniência. O banco começa sem estudantes cadastrados. A suíte de integração verifica a instalação desde a V1 e a preservação de registros existentes em uma atualização da V4. Consulte o [modelo de dados](docs/database-design.md) para ver o diagrama e os mapeamentos.
+
+Se a execução do Vitest atingir limites de espera neste ambiente, rode a suíte separadamente do build com `VITEST_MAX_WORKERS=2 npm test`.
+
+O backend já implementa os contratos de [progresso de aulas](docs/api/lesson-progress.md), [progresso de leitura](docs/api/reading-progress.md), [sessões de jogos](docs/api/game-sessions.md), [simulações](docs/api/simulation-sessions.md) e [revisões com flashcards](docs/api/flashcard-sessions.md). As rotas exigem uma identidade confiável resolvida no servidor. Até a integração de autenticação, elas retornam `401` para clientes comuns. A suíte usa uma identidade disponível apenas no contexto de testes. O React continua usando os repositórios locais. Para conferir os catálogos privados de validação gerados a partir do frontend, execute `node backend/tools/export-progress-catalog.mjs --check` na raiz.
+
+O backend também oferece APIs de [favoritos](docs/api/favorites.md), [anotações de vocabulário](docs/api/vocabulary-annotations.md) e [preferências de leitura](docs/api/preferences.md). As escritas usam `If-Match` para proteger alterações concorrentes. Remover um favorito preserva as anotações e o histórico de revisão.
+
+A [importação de dados legados](docs/data-migration.md) oferece uma prévia, aplicação transacional e consulta de recibos. A aplicação exige identidade confiável e aprovação explícita de itens ignorados. Use fixtures sintéticas com o [contrato de importação](docs/api/data-import.md) durante o desenvolvimento. O frontend ainda usa os dados locais e não faz upload automático.
 
 ## Comandos
 
@@ -28,7 +103,7 @@ Abra `http://localhost:5173` ou use o endereço exibido no terminal pelo Vite.
 ## Estrutura
 
 - `frontend/` contém o aplicativo React e é um workspace npm.
-- `backend/` está reservado para Java, Spring Boot e PostgreSQL.
+- `backend/` contém o serviço Spring Boot e a configuração Docker Compose para PostgreSQL.
 - `docs/` está reservado para documentação do projeto.
 
 Em `frontend/src/`, `layouts` e `pages` contêm as telas e sua estrutura compartilhada. `components` contém os componentes reutilizáveis, incluindo `components/ui` para o shadcn/ui. `styles` concentra o tema. `assets`, `hooks`, `services`, `types` e `data` estão preparados para as próximas etapas.
