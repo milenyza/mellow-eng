@@ -1,15 +1,13 @@
 package com.mellow.backend;
 
-import com.mellow.backend.progress.api.TrustedLearnerResolver;
 import com.mellow.backend.study.application.SessionCatalog;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -30,17 +28,14 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = {MellowApplication.class, SessionApiIT.TestIdentities.class})
+@Import(TestSecuritySessions.Configuration.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SessionApiIT {
 
     private static final String GAMES = "/api/v1/game-sessions";
@@ -49,7 +44,6 @@ class SessionApiIT {
     private static final String LESSON = "english-for-pt-br/en-a1-introductions-hello/";
     private static final List<String> BOARD = List.of(LESSON + "greetings/good-morning",
             LESSON + "greetings/good-afternoon", LESSON + "greetings/goodbye", LESSON + "names/my-name-is");
-    private static final Map<String, UUID> IDENTITIES = new ConcurrentHashMap<>();
 
     @Container
     static final PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:17.12-bookworm");
@@ -61,13 +55,8 @@ class SessionApiIT {
         registry.add("spring.datasource.password", postgres::getPassword);
     }
 
-    @TestConfiguration
-    static class TestIdentities {
-        @Bean
-        TrustedLearnerResolver fixtureSessionIdentityResolver() {
-            return request -> Optional.ofNullable(request.getHeader("X-Integration-Test-Identity")).map(IDENTITIES::get);
-        }
-    }
+    @Autowired
+    private TestSecuritySessions sessions;
 
     @LocalServerPort private int port;
     @Autowired private JdbcTemplate jdbc;
@@ -87,14 +76,14 @@ class SessionApiIT {
         other = jdbc.queryForObject("INSERT INTO mellow.learner DEFAULT VALUES RETURNING id", UUID.class);
         token = UUID.randomUUID().toString();
         otherToken = UUID.randomUUID().toString();
-        IDENTITIES.put(token, learner);
-        IDENTITIES.put(otherToken, other);
+        sessions.register(token, learner);
+        sessions.register(otherToken, other);
     }
 
     @AfterEach
     void closeClient() {
         client.close();
-        IDENTITIES.clear();
+        sessions.clear();
     }
 
     @Test
@@ -107,7 +96,8 @@ class SessionApiIT {
             failure(send("PUT", route + "/private", null, "{}"), 401);
         }
         failure(send("GET", "/api/v1/game%2Dsessions/private", null, null), 401);
-        failure(send("GET", GAMES + ";key=value/private", null, null), 401);
+        var rejectedPath = accept(send("GET", GAMES + ";key=value/private", null, null), 400);
+        assertThat(rejectedPath.get("type").asString()).isEqualTo("urn:mellow:problem:request-rejected");
         var word = wordMatch();
         failure(put(GAMES + "/spoof", word.deepCopy().put("learnerId", other.toString())), 400);
         accept(send("PUT", GAMES + "/private?learnerId=" + other, token, word.toString()), 201);
@@ -492,7 +482,7 @@ class SessionApiIT {
     private HttpRequest request(String method, String path, String identity, String body) {
         var builder = HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + port + path))
                 .timeout(Duration.ofSeconds(15)).header("X-Learner-Id", learner.toString());
-        if (identity != null) builder.header("X-Integration-Test-Identity", identity);
+        sessions.authorize(builder, port, identity);
         if (body != null) builder.header("Content-Type", "application/json");
         return builder.method(method, body == null ? HttpRequest.BodyPublishers.noBody()
                 : HttpRequest.BodyPublishers.ofString(body)).build();

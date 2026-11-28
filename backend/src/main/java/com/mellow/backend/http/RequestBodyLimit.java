@@ -1,4 +1,8 @@
-package com.mellow.backend.progress.api;
+package com.mellow.backend.http;
+
+import com.mellow.backend.account.api.AccountController;
+import com.mellow.backend.account.api.AccountRequests;
+import com.mellow.backend.account.api.AccountSessionController;
 
 import com.mellow.backend.study.api.SessionController;
 import com.mellow.backend.legacy.api.LegacyImportController;
@@ -28,9 +32,11 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 
 @RestControllerAdvice(assignableTypes = {SessionController.class, VocabularyController.class, PreferencesController.class,
-        LegacyImportController.class, LessonProgressController.class, ReadingProgressController.class})
-class ProgressBodyLimit extends RequestBodyAdviceAdapter {
+        LegacyImportController.class, LessonProgressController.class, ReadingProgressController.class,
+        AccountController.class, AccountSessionController.class})
+class RequestBodyLimit extends RequestBodyAdviceAdapter {
 
+    private static final int MAX_ACCOUNT_BYTES = 4 * 1024;
     private static final int MAX_BODY_BYTES = 256 * 1024;
     private static final int MAX_PROGRESS_BYTES = 2 * 1024 * 1024;
 
@@ -61,6 +67,7 @@ class ProgressBodyLimit extends RequestBodyAdviceAdapter {
     }
 
     private static int limit(Class<?> type) {
+        if (AccountRequests.Payload.class.isAssignableFrom(type)) return MAX_ACCOUNT_BYTES;
         if (type == ImportDto.Snapshot.class || type == ImportDto.Apply.class) return ImportDto.MAX_BYTES;
         if (type == LessonProgressDto.Write.class || type == ReadingProgressDto.Write.class) return MAX_PROGRESS_BYTES;
         if (SessionDto.Write.class.isAssignableFrom(type) || type == VocabularyDto.AnnotationPatch.class

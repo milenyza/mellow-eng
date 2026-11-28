@@ -1,17 +1,15 @@
 package com.mellow.backend;
 
-import com.mellow.backend.progress.api.TrustedLearnerResolver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -28,18 +26,15 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers
 @ExtendWith(OutputCaptureExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = {MellowApplication.class, LegacyImportIT.TestIdentities.class})
+@Import(TestSecuritySessions.Configuration.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class LegacyImportIT {
 
     @Container
@@ -50,7 +45,6 @@ class LegacyImportIT {
     private static final String FAVORITE_DATES = "mellow:favorite-words-saved-at";
     private static final String ANNOTATIONS = "mellow:vocabulary-annotations";
     private static final String PRIVATE = "PRIVATE_LEGACY_CONTENT_581";
-    private static final Map<String, UUID> IDENTITIES = new ConcurrentHashMap<>();
 
     @DynamicPropertySource
     static void database(DynamicPropertyRegistry registry) {
@@ -59,13 +53,8 @@ class LegacyImportIT {
         registry.add("spring.datasource.password", postgres::getPassword);
     }
 
-    @TestConfiguration
-    static class TestIdentities {
-        @Bean
-        TrustedLearnerResolver legacyTestIdentityResolver() {
-            return request -> Optional.ofNullable(request.getHeader("X-Integration-Test-Identity")).map(IDENTITIES::get);
-        }
-    }
+    @Autowired
+    private TestSecuritySessions sessions;
 
     @LocalServerPort private int port;
     @Autowired private JdbcTemplate jdbc;
@@ -86,7 +75,7 @@ class LegacyImportIT {
     @AfterEach
     void close() {
         client.close();
-        IDENTITIES.clear();
+        sessions.clear();
     }
 
     @Test
@@ -439,9 +428,9 @@ class LegacyImportIT {
         return jdbc.queryForObject("INSERT INTO mellow.learner DEFAULT VALUES RETURNING id", UUID.class);
     }
 
-    private static String identity(UUID learner) {
+    private String identity(UUID learner) {
         var token = UUID.randomUUID().toString();
-        IDENTITIES.put(token, learner);
+        sessions.register(token, learner);
         return token;
     }
 
@@ -463,7 +452,7 @@ class LegacyImportIT {
     private HttpRequest.Builder request(String method, String path, String token, String body) {
         var request = HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + port + path)).timeout(Duration.ofSeconds(15))
                 .header("X-Learner-Id", owner.toString());
-        if (token != null) request.header("X-Integration-Test-Identity", token);
+        sessions.authorize(request, port, token);
         if (body != null) request.header("Content-Type", "application/json");
         return request.method(method, body == null ? HttpRequest.BodyPublishers.noBody()
                 : HttpRequest.BodyPublishers.ofString(body));

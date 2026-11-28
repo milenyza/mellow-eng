@@ -60,8 +60,26 @@ class SchemaUpgradeIT {
 
         Flyway.configure().dataSource(dataSource).defaultSchema("public").target("4").load().migrate();
         var versionFour = jdbc.queryForMap("SELECT * FROM public.flyway_schema_history WHERE version = '4'");
+        Flyway.configure().dataSource(dataSource).defaultSchema("public").target("5").load().migrate();
+        var versionFive = jdbc.queryForMap("SELECT * FROM public.flyway_schema_history WHERE version = '5'");
+        jdbc.update("""
+                INSERT INTO mellow.legacy_import_receipt (learner_id, request_ref, snapshot_fingerprint, imported_at, report)
+                VALUES (?, 'historical-import', repeat('a', 64), CURRENT_TIMESTAMP, '{}'::jsonb)
+                """, learner);
+        var receipt = jdbc.queryForMap("SELECT * FROM mellow.legacy_import_receipt WHERE learner_id = ?", learner);
         var existingRevision = jdbc.queryForObject("SELECT revision FROM mellow.vocabulary_favorite WHERE learner_id = ?",
                 java.util.UUID.class, learner);
+
+        Flyway.configure().dataSource(dataSource).defaultSchema("public").target("6").load().migrate();
+        var versionSix = jdbc.queryForMap("SELECT * FROM public.flyway_schema_history WHERE version = '6'");
+        var account = java.util.UUID.randomUUID();
+        jdbc.update("""
+                INSERT INTO mellow.account (id, learner_id, email_original, email_canonical, password_hash, status,
+                                            email_verified_at, created_at, updated_at)
+                VALUES (?, ?, 'legacy@example.test', 'legacy@example.test', 'synthetic-hash', 'VERIFIED',
+                        CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                """, account, learner);
+        var originalAccount = jdbc.queryForMap("SELECT * FROM mellow.account WHERE id = ?", account);
 
         try (var context = new SpringApplicationBuilder(MellowApplication.class)
                 .web(WebApplicationType.NONE)
@@ -77,6 +95,15 @@ class SchemaUpgradeIT {
                     .isEqualTo(versionThree);
             assertThat(jdbc.queryForMap("SELECT * FROM public.flyway_schema_history WHERE version = '4'"))
                     .isEqualTo(versionFour);
+            assertThat(jdbc.queryForMap("SELECT * FROM public.flyway_schema_history WHERE version = '5'"))
+                    .isEqualTo(versionFive);
+            assertThat(jdbc.queryForMap("SELECT * FROM public.flyway_schema_history WHERE version = '6'"))
+                    .isEqualTo(versionSix);
+            var migrated = jdbc.queryForMap("SELECT * FROM mellow.account WHERE id = ?", account);
+            assertThat(migrated.remove("security_revision")).isEqualTo(0L);
+            assertThat(migrated).isEqualTo(originalAccount);
+            assertThat(jdbc.queryForMap("SELECT * FROM mellow.legacy_import_receipt WHERE learner_id = ?", learner))
+                    .isEqualTo(receipt);
             assertThat(jdbc.queryForObject("SELECT revision FROM mellow.vocabulary_favorite WHERE learner_id = ?",
                     java.util.UUID.class, learner)).isEqualTo(existingRevision);
             assertThat(jdbc.queryForObject("SELECT legacy_imported FROM mellow.flashcard_session WHERE learner_id = ?",
@@ -101,7 +128,7 @@ class SchemaUpgradeIT {
                     .isEqualTo("retired-context");
             assertThat(jdbc.queryForList(
                     "SELECT version FROM public.flyway_schema_history WHERE success ORDER BY installed_rank",
-                    String.class)).containsExactly("1", "2", "3", "4", "5");
+                    String.class)).containsExactly("1", "2", "3", "4", "5", "6", "7");
             assertThat(jdbc.queryForList(
                     "SELECT indexname FROM pg_indexes WHERE schemaname = 'mellow' ORDER BY indexname",
                     String.class)).contains("lesson_one_current", "lesson_one_first_completion",
@@ -113,10 +140,15 @@ class SchemaUpgradeIT {
                     WHERE connamespace = 'mellow'::regnamespace AND contype IN ('p', 'f', 'u', 'c')
                     GROUP BY contype
                     """, String.class);
-            assertThat(constraints).containsExactlyInAnyOrder("p:24", "f:24", "u:16", "c:107");
+            assertThat(constraints).containsExactlyInAnyOrder("p:27", "f:27", "u:20", "c:118");
             assertThat(jdbc.queryForObject(
-                    "SELECT count(*) FROM pg_indexes WHERE schemaname = 'mellow'", Long.class)).isEqualTo(50);
+                    "SELECT count(*) FROM pg_indexes WHERE schemaname = 'mellow'", Long.class)).isEqualTo(61);
             assertThat(jdbc.queryForObject("SELECT count(*) FROM mellow.learner", Long.class)).isEqualTo(1);
+            assertThat(jdbc.queryForObject("SELECT display_name IS NULL FROM mellow.learner WHERE id = ?",
+                    Boolean.class, learner)).isTrue();
+            assertThat(jdbc.queryForObject("SELECT count(*) FROM mellow.account", Long.class)).isEqualTo(1);
+            assertThat(jdbc.queryForObject("SELECT count(*) FROM mellow.password_reset_token", Long.class)).isZero();
+            assertThat(jdbc.queryForObject("SELECT count(*) FROM mellow.email_verification", Long.class)).isZero();
         }
     }
 }

@@ -1,7 +1,5 @@
 package com.mellow.backend.progress.api;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 import java.util.Optional;
 import java.util.UUID;
 
@@ -9,5 +7,5 @@ import java.util.UUID;
 @FunctionalInterface
 public interface TrustedLearnerResolver {
 
-    Optional<UUID> resolve(HttpServletRequest request);
+    Optional<UUID> resolve();
 }

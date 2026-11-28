@@ -6,7 +6,7 @@
 | PUT    | `/api/v1/data-import/{requestId}` | `200` with an applied report or the retained receipt |
 | GET    | `/api/v1/data-import/{requestId}` | `200` with a retained receipt                        |
 
-The trusted identity resolver chooses the learner independently of request data. The production configuration lacks a resolver and returns `401` for ordinary requests. A known trusted identity without a learner returns `403`. Reports use `Cache-Control: no-store`. GET returns `404` when there is no receipt for that learner.
+The trusted identity resolver chooses the learner independently of request data. Requests without a valid authenticated session receive `401`. See the [authentication API](authentication.md) for session establishment. A principal without a matching verified account and learner returns `403`. Both dry-run POST and apply PUT require the session CSRF token. Reports use `Cache-Control: no-store`. See the [security contract](../authentication-architecture.md#http-failures-headers-and-origin) for Problem Details, session expiry and CSRF. GET returns `404` when there is no receipt for that learner.
 
 ## Snapshot and execution
 

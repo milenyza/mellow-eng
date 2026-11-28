@@ -1,17 +1,15 @@
 package com.mellow.backend;
 
-import com.mellow.backend.progress.api.TrustedLearnerResolver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -30,17 +28,15 @@ import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers
 @ExtendWith(OutputCaptureExtension.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = {MellowApplication.class, PersonalResourcesIT.TestIdentities.class})
+@Import(TestSecuritySessions.Configuration.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class PersonalResourcesIT {
 
     private static final String FAVORITES = "/api/v1/favorites";
@@ -51,7 +47,6 @@ class PersonalResourcesIT {
     private static final String MORNING = PREFIX + "good-morning";
     private static final String AFTERNOON = PREFIX + "good-afternoon";
     private static final String RETIRED = "previous-story/expressão com acento";
-    private static final Map<String, UUID> IDENTITIES = new ConcurrentHashMap<>();
 
     @Container
     static final PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:17.12-bookworm");
@@ -63,13 +58,8 @@ class PersonalResourcesIT {
         registry.add("spring.datasource.password", postgres::getPassword);
     }
 
-    @TestConfiguration
-    static class TestIdentities {
-        @Bean
-        TrustedLearnerResolver fixturePersonalIdentityResolver() {
-            return request -> Optional.ofNullable(request.getHeader("X-Integration-Test-Identity")).map(IDENTITIES::get);
-        }
-    }
+    @Autowired
+    private TestSecuritySessions sessions;
 
     @LocalServerPort private int port;
     @Autowired private JdbcTemplate jdbc;
@@ -91,7 +81,7 @@ class PersonalResourcesIT {
     @AfterEach
     void closeClient() {
         client.close();
-        IDENTITIES.clear();
+        sessions.clear();
     }
 
     @Test
@@ -367,9 +357,9 @@ class PersonalResourcesIT {
         return jdbc.queryForObject("INSERT INTO mellow.learner DEFAULT VALUES RETURNING id", UUID.class);
     }
 
-    private static String tokenFor(UUID learner) {
+    private String tokenFor(UUID learner) {
         String token = UUID.randomUUID().toString();
-        IDENTITIES.put(token, learner);
+        sessions.register(token, learner);
         return token;
     }
 
@@ -392,7 +382,7 @@ class PersonalResourcesIT {
     private HttpRequest request(String method, String path, String identity, String match, String body) {
         var builder = HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + port + path))
                 .timeout(Duration.ofSeconds(15)).header("X-Learner-Id", owner.toString());
-        if (identity != null) builder.header("X-Integration-Test-Identity", identity);
+        sessions.authorize(builder, port, identity);
         if (match != null) builder.header("If-Match", match);
         if (body != null) builder.header("Content-Type", "application/json");
         return builder.method(method, body == null ? HttpRequest.BodyPublishers.noBody()

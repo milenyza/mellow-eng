@@ -12,7 +12,7 @@ Use these routes for completed Word Match, Sentence Builder and Memory Game sess
 
 These conventions also apply to [simulation sessions](simulation-sessions.md) and [flashcard sessions](flashcard-sessions.md).
 
-A configured server-side identity resolver is required. The controller scopes every operation to the resolved learner. Learner IDs sent in bodies, query strings or arbitrary headers cannot grant access. The default application has no production resolver and responds with `401`, including in the dev profile. The HTTP tests use a controlled resolver only in the test context. Session responses use `Cache-Control: no-store`.
+A configured server-side identity resolver is required. The controller scopes every operation to the resolved learner. Learner IDs sent in bodies, query strings or arbitrary headers cannot grant access. Requests without a valid authenticated session receive `401`, including in the dev profile. See the [authentication API](authentication.md) for session establishment. Session responses use `Cache-Control: no-store`, and authenticated writes require the session CSRF token. See the [security contract](../authentication-architecture.md#http-failures-headers-and-origin) for Problem Details, session expiry and CSRF.
 
 - The path identifies the session with a 1–160 character string of ASCII letters, digits, underscores or hyphens. The first successful PUT returns `201 Created` and a `Location` header. Identical retries return `200 OK` with the retained representation. An intentional replay uses a new identifier. The same identifier can exist for different learners or resource families.
 - All writes require the lowercase SHA-256 `catalogRevision` advertised in the `Mellow-Catalog-Revision` response header of the authenticated history GET. A client should capture it when starting a session with the matching content release. The hash identifies the bytes of the private, generated session validation catalog. Run `node backend/tools/export-progress-catalog.mjs --check` to detect drift with published frontend content. The public status endpoint exposes neither this metadata nor answer keys.
@@ -27,7 +27,7 @@ A configured server-side identity resolver is required. The controller scopes ev
 | ------ | ---------------------------------------------------------------------------------- |
 | 400    | Invalid JSON, identifiers, enum values, filters, results or educational references |
 | 401    | No trusted server-side identity                                                    |
-| 403    | Trusted identity has no learner record                                             |
+| 403    | No matching verified account and learner                                           |
 | 404    | The session does not exist for the trusted learner                                 |
 | 409    | Conflicting completed session or unavailable catalog revision for a new write      |
 | 413    | Request body above 256 KiB                                                         |

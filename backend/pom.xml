@@ -18,6 +18,9 @@
 
     <properties>
         <java.version>21</java.version>
+        <!-- Security patches pending a Spring Boot BOM that manages these versions. -->
+        <postgresql.version>42.7.15</postgresql.version>
+        <tomcat.version>11.0.29</tomcat.version>
         <mellow.build.directory>${project.basedir}/target</mellow.build.directory>
     </properties>
 
@@ -51,6 +54,21 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk18on</artifactId>
+            <version>1.87</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

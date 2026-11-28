@@ -2,3 +2,10 @@ spring:
   datasource:
     url: jdbc:postgresql://${MELLOW_DB_HOST:127.0.0.1}:${MELLOW_DB_PORT:55432}/${MELLOW_DB_NAME:mellow}
     username: ${MELLOW_DB_USER:mellow}
+
+server:
+  address: 127.0.0.1
+  servlet:
+    session:
+      cookie:
+        secure: false

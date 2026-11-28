@@ -2,7 +2,7 @@
 
 The base path is `/api/v1/lesson-progress`. `GET /api/v1/lesson-progress` lists lesson progress and `GET /{lessonRef}` returns one aggregate with its current attempt, retained attempts and first completion marker. `PUT /{lessonRef}/attempts/{runRef}` creates or replaces the editable snapshot for that attempt and returns the aggregate. References keep their authored or existing stable IDs. Empty lists return HTTP 200. An absent or differently owned aggregate returns 404.
 
-A trusted, server-verified learner context is required before request handling. The production application currently has no identity provider, so requests receive 401. Integration tests install a request-scoped resolver only in the test application context. A caller with a trusted identity but no learner record receives 403. Request payloads, query parameters and headers cannot select the owner.
+A trusted, server-verified learner context is required before request handling. The resolver uses a verified Spring Security session principal. Requests without a valid authenticated session receive `401`. See the [authentication API](authentication.md) for session establishment. A principal without a matching verified account and learner receives `403`. Request payloads, query parameters and headers cannot select the owner. Authenticated mutations require the session CSRF token. See the [security contract](../authentication-architecture.md#http-failures-headers-and-origin) for Problem Details, session expiry and CSRF.
 
 ## Snapshot
 

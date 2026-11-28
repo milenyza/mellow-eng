@@ -11,7 +11,7 @@ Use the exact vocabulary reference as a URL-encoded query value. This preserves 
 
 ## Ownership and conditional writes
 
-These conventions also apply to [annotations](vocabulary-annotations.md) and [preferences](preferences.md). The trusted server-side identity selects the learner on every operation. Body values, query parameters and arbitrary headers cannot select an owner. The production application has no resolver, including in the development profile. Requests return `401` until one is installed. Integration tests use a controlled resolver. Responses use `Cache-Control: no-store`.
+These conventions also apply to [annotations](vocabulary-annotations.md) and [preferences](preferences.md). The trusted server-side identity selects the learner on every operation. Body values, query parameters and arbitrary headers cannot select an owner. Requests without a valid authenticated session receive `401`. See the [authentication API](authentication.md) for session establishment. Responses use `Cache-Control: no-store`, and authenticated mutations require the session CSRF token. See the [security contract](../authentication-architecture.md#http-failures-headers-and-origin) for Problem Details, session expiry and CSRF.
 
 Read the resource's current `ETag` with GET. Send that exact quoted value as `If-Match` on a write. A resource with no stored revision returns `ETag: "missing"`. When a record is removed, its row retains a revision to keep stale writes from succeeding after the state cycles through absence. Revisions change when data changes. The learner row is locked for the duration of write validation and persistence. List results omit revision headers for individual items. Read the item before changing it. Use a single strong tag returned by this endpoint. The tag tracks mutable learner state. Availability and source labels follow the current catalog, so refresh them after a catalog release.
 
@@ -19,7 +19,7 @@ Read the resource's current `ETag` with GET. Send that exact quoted value as `If
 | ------ | ------------------------------------------------------------------------------- |
 | 400    | Invalid request fields, filters, educational reference or precondition syntax   |
 | 401    | Missing trusted identity                                                        |
-| 403    | Trusted identity has no learner record                                          |
+| 403    | No matching verified account and learner                                        |
 | 404    | Unknown route                                                                   |
 | 412    | The revision is stale. Retrieve current state before deciding whether to retry. |
 | 413    | A JSON write to annotations or preferences exceeded 256 KiB                     |

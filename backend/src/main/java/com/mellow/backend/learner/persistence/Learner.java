@@ -21,11 +21,19 @@ public class Learner {
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
+    @Column(length = 80)
+    private String displayName;
+
     protected Learner() {
     }
 
     public Learner(Instant createdAt) {
+        this(createdAt, null);
+    }
+
+    public Learner(Instant createdAt, String displayName) {
         this.createdAt = createdAt;
+        this.displayName = displayName;
     }
 
     public UUID id() {

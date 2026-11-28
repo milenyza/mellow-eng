@@ -1,17 +1,15 @@
 package com.mellow.backend;
 
-import com.mellow.backend.progress.api.TrustedLearnerResolver;
 import com.mellow.backend.progress.application.ProgressCatalog;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -33,16 +31,14 @@ import java.time.Instant;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers
 @ExtendWith(OutputCaptureExtension.class)
-@SpringBootTest(properties = "logging.level.root=DEBUG", webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        classes = {MellowApplication.class, ProgressApiIT.TestIdentities.class})
+@Import(TestSecuritySessions.Configuration.class)
+@SpringBootTest(properties = "logging.level.root=DEBUG", webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ProgressApiIT {
 
     private static final String LESSON_ID = "en-a1-introductions-hello";
@@ -50,7 +46,6 @@ class ProgressApiIT {
     private static final String LESSON = "/api/v1/lesson-progress/" + LESSON_ID;
     private static final String STORY = "/api/v1/reading-progress/" + STORY_ID;
     private static final Instant START = Instant.parse("2025-01-02T14:00:00Z");
-    private static final Map<String, UUID> IDENTITIES = new ConcurrentHashMap<>();
 
     @Container
     static final PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:17.12-bookworm");
@@ -62,16 +57,8 @@ class ProgressApiIT {
         registry.add("spring.datasource.password", postgres::getPassword);
     }
 
-    @TestConfiguration
-    static class TestIdentities {
-        @Bean
-        TrustedLearnerResolver fixtureIdentityResolver() {
-            return request -> {
-                var token = request.getHeader("X-Integration-Test-Identity");
-                return token == null ? Optional.empty() : Optional.ofNullable(IDENTITIES.get(token));
-            };
-        }
-    }
+    @Autowired
+    private TestSecuritySessions sessions;
 
     @LocalServerPort private int port;
     @Autowired private JsonMapper json;
@@ -84,13 +71,13 @@ class ProgressApiIT {
 
     @BeforeEach
     void establishFixtures() {
-        IDENTITIES.clear();
+        sessions.clear();
         ownerToken = UUID.randomUUID().toString();
         otherToken = UUID.randomUUID().toString();
         owner = jdbc.queryForObject("INSERT INTO mellow.learner DEFAULT VALUES RETURNING id", UUID.class);
         var other = jdbc.queryForObject("INSERT INTO mellow.learner DEFAULT VALUES RETURNING id", UUID.class);
-        IDENTITIES.put(ownerToken, owner);
-        IDENTITIES.put(otherToken, other);
+        sessions.register(ownerToken, owner);
+        sessions.register(otherToken, other);
     }
 
     @Test
@@ -100,7 +87,7 @@ class ProgressApiIT {
         failure(anonymous, 401);
         failure(send("PUT", STORY + "/attempts/new", null, null, json.createObjectNode()), 401);
         var fictitious = UUID.randomUUID().toString();
-        IDENTITIES.put(fictitious, UUID.randomUUID());
+        sessions.register(fictitious, UUID.randomUUID());
         failure(send("GET", LESSON, fictitious, null, null), 403);
         assertThat(anonymous.headers().firstValue("Cache-Control")).contains("no-store");
     }
@@ -338,10 +325,11 @@ class ProgressApiIT {
     }
 
     private HttpRequest rawPut(String path, HttpRequest.BodyPublisher body) {
-        return HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + port + path))
-                .timeout(Duration.ofSeconds(15))
-                .header("X-Integration-Test-Identity", ownerToken)
-                .header("If-None-Match", "*").header("Content-Type", "application/json").PUT(body).build();
+        var request = HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + port + path))
+                .timeout(Duration.ofSeconds(15)).header("If-None-Match", "*")
+                .header("Content-Type", "application/json");
+        sessions.authorize(request, port, ownerToken);
+        return request.PUT(body).build();
     }
 
     private ObjectNode lessonStart(long duration) {
@@ -436,7 +424,7 @@ class ProgressApiIT {
     private HttpRequest request(String method, String path, String token, String precondition, JsonNode body) {
         var builder = HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + port + path))
                 .timeout(Duration.ofSeconds(15)).header("X-Learner-Id", owner.toString());
-        if (token != null) builder.header("X-Integration-Test-Identity", token);
+        sessions.authorize(builder, port, token);
         if (precondition != null) builder.header(precondition.equals("*") ? "If-None-Match" : "If-Match", precondition);
         if (body != null) builder.header("Content-Type", "application/json");
         return builder.method(method, body == null ? HttpRequest.BodyPublishers.noBody()

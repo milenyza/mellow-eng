@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.context.ApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.junit.jupiter.Container;
@@ -62,7 +63,7 @@ class BackendFoundationIT {
         assertThat(jdbc.queryForList(
                 "SELECT version FROM public.flyway_schema_history WHERE success AND version IS NOT NULL ORDER BY installed_rank",
                 String.class))
-                .containsExactly("1", "2", "3", "4", "5");
+                .containsExactly("1", "2", "3", "4", "5", "6", "7");
         assertThat(jdbc.queryForList(
                 "SELECT table_name FROM information_schema.tables WHERE table_schema = 'mellow'", String.class))
                 .containsExactlyInAnyOrder("learner", "learner_preferences", "lesson_run", "lesson_activity",
@@ -70,7 +71,7 @@ class BackendFoundationIT {
                         "exercise_submission", "game_session", "game_vocabulary", "game_sentence_challenge",
                         "simulation_session", "simulation_attempt", "vocabulary_favorite", "vocabulary_annotation",
                         "flashcard_session", "flashcard_recall", "legacy_import_receipt", "game_study_day", "simulation_study_day",
-                        "flashcard_study_day", "combined_study_day");
+                        "flashcard_study_day", "combined_study_day", "account", "email_verification", "password_reset_token");
         assertThat(context.getEnvironment().getProperty("spring.jpa.hibernate.ddl-auto")).isEqualTo("validate");
     }
 
@@ -87,15 +88,16 @@ class BackendFoundationIT {
 
     @Test
     void hidesManagementEndpointsAndInternalErrorDetails() throws Exception {
-        assertThat(get("/actuator").statusCode()).isEqualTo(404);
+        assertThat(get("/actuator").statusCode()).isEqualTo(401);
         var response = get("/actuator/env?trace=true&message=true");
-        assertThat(response.statusCode()).isEqualTo(404);
+        assertThat(response.statusCode()).isEqualTo(401);
         assertThat(json(response)).doesNotContainKeys("trace", "exception", "errors", "message");
     }
 
     @Test
-    void progressEndpointsFailClosedWithoutAResolver() throws Exception {
-        assertThat(context.getBeansOfType(TrustedLearnerResolver.class)).isEmpty();
+    void progressEndpointsFailClosedWithoutAuthentication() throws Exception {
+        assertThat(context.getBeansOfType(TrustedLearnerResolver.class)).hasSize(1);
+        assertThat(context.getBeansOfType(UserDetailsService.class)).isEmpty();
         var basePaths = List.of("lesson-progress", "reading-progress", "game-sessions", "simulation-sessions",
                 "flashcard-sessions", "favorites", "vocabulary-annotations", "preferences");
         try (var client = HttpClient.newHttpClient()) {
@@ -115,6 +117,38 @@ class BackendFoundationIT {
             assertUnauthorized(client, "PUT", "data-import/fixture");
             assertUnauthorized(client, "GET", "data-import/fixture");
         }
+    }
+
+    @Test
+    void emailDeliveryIsUnavailableWithoutAnExplicitAdapter() throws Exception {
+        var bootstrap = get("/api/v1/security/csrf");
+        var cookie = bootstrap.headers().firstValue("Set-Cookie").orElseThrow().split(";", 2)[0];
+        var token = json(bootstrap).get("token").toString();
+        var before = jdbc.queryForObject("SELECT count(*) FROM mellow.learner", Long.class);
+        var request = HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + port + "/api/v1/auth/register"))
+                .timeout(Duration.ofSeconds(10)).header("Cookie", cookie).header("X-CSRF-TOKEN", token)
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString("""
+                        {"displayName":"Synthetic learner","email":"unavailable@example.test",
+                         "password":"A synthetic password"}
+                        """)).build();
+        try (var client = HttpClient.newHttpClient()) {
+            var result = client.send(request, HttpResponse.BodyHandlers.ofString());
+            assertThat(result.statusCode()).isEqualTo(503);
+            assertThat(json(result)).containsEntry("type", "urn:mellow:problem:verification-mail-unavailable");
+            assertThat(result.headers().firstValue("Cache-Control")).contains("no-store");
+        }
+        assertThat(jdbc.queryForObject("SELECT count(*) FROM mellow.learner", Long.class)).isEqualTo(before);
+        var recovery = HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + port + "/api/v1/auth/password-reset/request"))
+                .timeout(Duration.ofSeconds(10)).header("Cookie", cookie).header("X-CSRF-TOKEN", token)
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString("{\"email\":\"unavailable@example.test\"}")).build();
+        try (var client = HttpClient.newHttpClient()) {
+            var result = client.send(recovery, HttpResponse.BodyHandlers.ofString());
+            assertThat(result.statusCode()).isEqualTo(503);
+            assertThat(json(result)).containsEntry("type", "urn:mellow:problem:verification-mail-unavailable");
+        }
+        assertThat(jdbc.queryForObject("SELECT count(*) FROM mellow.account", Long.class)).isZero();
     }
 
     private void assertUnauthorized(HttpClient client, String method, String route) throws Exception {
